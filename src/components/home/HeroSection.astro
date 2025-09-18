@@ -1,0 +1,92 @@
+---
+// Hero.astro
+---
+<section class="hero">
+  <div class="hero-content">
+    <h1>Defending Human Rights Worldwide</h1>
+    <p>
+      We stand for justice, equality, and dignity for every individual, no matter where they are. Join us in making the world a fairer place.
+    </p>
+    <a href="/campaigns" class="cta-button">See Our Campaigns</a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: url('/hero-bg.jpg') center/cover no-repeat; /* rugged background image */
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #f2f2f2;
+    position: relative;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(45, 45, 45, 0.7); /* dark overlay for readability */
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 1rem;
+  }
+
+  .hero h1 {
+    font-family: "Georgia", serif;
+    font-size: 3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+  }
+
+  .hero p {
+    font-family: "Georgia", serif;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background-color: #b88b4a;
+    color: #2d2d2d;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+
+  .cta-button:hover {
+    background-color: #d7c190;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+
+    .hero p {
+      font-size: 1rem;
+    }
+
+    .cta-button {
+      padding: 0.6rem 1.5rem;
+      font-size: 0.9rem;
+    }
+  }
+</style>

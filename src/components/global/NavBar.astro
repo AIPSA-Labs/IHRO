@@ -1,0 +1,65 @@
+---
+// Navbar.astro
+---
+
+<nav class="navbar">
+    <div class="wrap">
+  <div class="brand">International Human Rights Organization</div>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/campaigns">Campaigns</a>
+    <a href="/reports">Reports</a>
+    <a href="/contact">Contact</a>
+  </div>
+  </div>
+</nav>
+
+<style>
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    right: 0;
+    height: 40px;
+    background-color: #2d2d2d;
+    border-bottom: 4px solid #b88b4a;
+    z-index: 1000;
+  }
+
+  .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 100%;
+  }
+  
+  .brand {
+    font-family: "Georgia", serif;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #f2f2f2;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .nav-links a {
+    color: #f2f2f2;
+    text-decoration: none;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.2s ease;
+  }
+
+  .nav-links a:hover {
+    color: #d7c190;
+  }
+</style>

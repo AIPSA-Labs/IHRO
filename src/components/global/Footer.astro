@@ -1,0 +1,105 @@
+---
+// Footer.astro
+---
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      International Human Rights
+    </div>
+
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/campaigns">Campaigns</a>
+      <a href="/reports">Reports</a>
+      <a href="/contact">Contact</a>
+    </div>
+
+    <div class="footer-contact">
+      <p>Email: info@humanrights.org</p>
+      <p>Phone: +91-12345-67890</p>
+      <p>Address: 123 Human Rights Ave, Global City</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    &copy; {new Date().getFullYear()} International Human Rights. All rights reserved.
+  </div>
+</footer>
+
+<style>
+  :root {
+    --footer-bg: #2c2c2c;
+    --footer-accent: #b88b4a;
+    --footer-text: #f2f2f2;
+    --footer-link-hover: #d7c190;
+  }
+
+  .footer {
+    background-color: var(--footer-bg);
+    color: var(--footer-text);
+    padding: 2rem 1rem 1rem 1rem;
+    border-top: 4px solid var(--footer-accent);
+    font-family: "Georgia", serif;
+  }
+
+  .footer-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .footer-brand {
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    color: var(--footer-text);
+    text-decoration: none;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.2s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--footer-link-hover);
+  }
+
+  .footer-contact p {
+    margin: 0.2rem 0;
+    font-size: 0.9rem;
+  }
+
+  .footer-bottom {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--footer-text);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .footer-links {
+      justify-content: center;
+    }
+  }
+</style>

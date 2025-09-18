@@ -1,0 +1,16 @@
+---
+import HeroSection from "../../components/home/HeroSection.astro";
+import Layout from "../../layouts/Layout.astro";
+import { supportedLocales } from "../../locals/languages";
+
+const { local } = Astro.params
+const codes = supportedLocales.map(l => l.code);
+
+if (!codes.includes(local || '')) {
+  return Astro.redirect('/404');
+}
+---
+
+<Layout>
+    <HeroSection/>
+</Layout>

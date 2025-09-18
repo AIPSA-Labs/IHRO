@@ -1,13 +1,17 @@
 ---
-// Hero.astro
+import { translations } from "../../locals/home/hero";
+
+type Locale = 'en' | 'hi' | 'fr';
+const { local = 'en' } = Astro.params ?? {};
+const t = translations[local as Locale] || translations['en'];
 ---
 <section class="hero">
   <div class="hero-content">
-    <h1>Defending Human Rights Worldwide</h1>
+    <h1>{t.title}</h1>
     <p>
-      We stand for justice, equality, and dignity for every individual, no matter where they are. Join us in making the world a fairer place.
+        {t.subtitle}
     </p>
-    <a href="/campaigns" class="cta-button">See Our Campaigns</a>
+    <a href="/campaigns" class="cta-button">{t.cta}</a>
   </div>
 </section>
 

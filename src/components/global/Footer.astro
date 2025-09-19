@@ -1,105 +1,46 @@
 ---
-// Footer.astro
+import { footerTranslations } from "../../locals/global/footer";
+
+const year = new Date().getFullYear();
+
+type Locale = 'en' | 'hi' | 'fr';
+const { local = 'en' } = Astro.params ?? {};
+const t = footerTranslations[local as Locale] || footerTranslations['en'];
 ---
-<footer class="footer">
-  <div class="footer-container">
-    <div class="footer-brand">
-      International Human Rights
+
+<footer class="w-full bg-background text-foreground border-t border-foreground/10">
+  <div class="max-w-6xl mx-auto px-4 py-10 grid gap-8 md:grid-cols-3">
+    
+    <div>
+      <h2 class="text-xl font-bold mb-4">
+     International Human Rights Organization
+      </h2>
+      <p class="text-sm text-foreground/70 leading-relaxed">
+       {t.brandDesc}
+      </p>
     </div>
 
-    <div class="footer-links">
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/campaigns">Campaigns</a>
-      <a href="/reports">Reports</a>
-      <a href="/contact">Contact</a>
-    </div>
+    <!-- Navigation -->
+    <nav class="flex flex-col gap-2">
+      <h3 class="text-lg font-semibold mb-2">{t.linksTitle}</h3>
+      <a href="/" class="hover:underline hover:text-primary transition">{t.links.home}</a>
+      <a href="/about" class="hover:underline hover:text-primary transition">{t.links.about}</a>
+      <a href="/campaigns" class="hover:underline hover:text-primary transition">{t.links.campaigns}</a>
+      <a href="/reports" class="hover:underline hover:text-primary transition">{t.links.reports}</a>
+      <a href="/contact" class="hover:underline hover:text-primary transition">{t.links.contact}</a>
+    </nav>
 
-    <div class="footer-contact">
-      <p>Email: info@humanrights.org</p>
-      <p>Phone: +91-12345-67890</p>
-      <p>Address: 123 Human Rights Ave, Global City</p>
+    <!-- Contact -->
+    <div class="space-y-2">
+      <h3 class="text-lg font-semibold mb-2">{t.contactTitle}</h3>
+      <p class="text-sm"><strong>Email:</strong> info@humanrights.org</p>
+      <p class="text-sm"><strong>Phone:</strong> +91-12345-67890</p>
+      <p class="text-sm"><strong>Address:</strong> 123 Human Rights Ave, Global City</p>
     </div>
   </div>
 
-  <div class="footer-bottom">
-    &copy; {new Date().getFullYear()} International Human Rights. All rights reserved.
+  <!-- Bottom -->
+  <div class="border-t border-foreground/10 text-center text-sm text-foreground/60 py-4">
+    &copy; {year} International Human Rights Organization. All rights reserved.
   </div>
 </footer>
-
-<style>
-  :root {
-    --footer-bg: #2c2c2c;
-    --footer-accent: #b88b4a;
-    --footer-text: #f2f2f2;
-    --footer-link-hover: #d7c190;
-  }
-
-  .footer {
-    background-color: var(--footer-bg);
-    color: var(--footer-text);
-    padding: 2rem 1rem 1rem 1rem;
-    border-top: 4px solid var(--footer-accent);
-    font-family: "Georgia", serif;
-  }
-
-  .footer-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 2rem;
-  }
-
-  .footer-brand {
-    font-size: 1.3rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .footer-links a {
-    color: var(--footer-text);
-    text-decoration: none;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transition: color 0.2s ease;
-  }
-
-  .footer-links a:hover {
-    color: var(--footer-link-hover);
-  }
-
-  .footer-contact p {
-    margin: 0.2rem 0;
-    font-size: 0.9rem;
-  }
-
-  .footer-bottom {
-    text-align: center;
-    margin-top: 1.5rem;
-    font-size: 0.85rem;
-    color: var(--footer-text);
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 0.5rem;
-  }
-
-  @media (max-width: 768px) {
-    .footer-container {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-    .footer-links {
-      justify-content: center;
-    }
-  }
-</style>

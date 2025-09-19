@@ -1,140 +1,87 @@
 ---
-let menuOpen = false;
+import { supportedLocales } from "../../locals/languages";
+import { ChartNoAxesGantt, Languages, Moon, Sun, CircleX } from "@lucide/astro";
+
+const theme = Astro.cookies.get("theme") || { value: "light" };
 ---
 
-<nav class="navbar">
-  <div class="wrap">
-    <div class="brand">
-    <img src="/favicon.svg" alt="logo" class="logo" />
-    <div class="brand">IHRO</div>
+<nav
+  class="top-0 w-full border-gray-300 backdrop-blur-md fixed z-50 left-0 right-0"
+>
+  <div class="flex justify-between items-center px-2">
+    <div class="flex items-center gap-2">
+      <img src="/favicon.svg" alt="logo" class="h-8 w-8" />
+      <span class="font-semibold text-foreground">IHRO</span>
     </div>
 
-    <div class="nav-links">
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/campaigns">Campaigns</a>
-      <a href="/reports">Reports</a>
-      <a href="/contact">Contact</a>
-    </div>
+    <div class="relative flex gap-2">
+      <button id="themebtn" class="cursor-pointer">
+        <Moon class={theme ? "hidden" : "block"} id="moon" />
+        <Sun class={theme ? "block" : "hidden"} id="sun" />
+      </button>
+      <button
+        type="button"
+        class="px-3 flex gap-3 py-1.5 text-sm cursor-pointer"
+        onclick="document.getElementById('langMenu').classList.toggle('hidden')"
+      >
+        <Languages />
+        <p class="hidden md:block">
+          {
+            supportedLocales.map((locale) =>
+              locale.code == Astro.params.local ? locale.label : ""
+            )
+          }
+        </p>
+      </button>
 
-    <button class="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+      <button id="activitybtn" class="cursor-pointer">
+        <ChartNoAxesGantt />
+      </button>
+
+      <div
+        id="langMenu"
+        class="hidden absolute right-0 top-8 mt-2 w-40 rounded-md backdrop-blur-3xl shadow-md z-10"
+      >
+        <div class="flex backdrop-blur-3xl text-foreground border border-border bg-background flex-col">
+          {
+            supportedLocales.map((locale) => (
+              <a
+                href={`/${locale.code}`}
+                class="px-4 py-2 hover:bg-foreground hover:text-background text-sm"
+              >
+                {locale.label}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
   </div>
 </nav>
+<script>
+  const activitybtn = document.getElementById("activitybtn");
+  const themebtn = document.getElementById("themebtn");
+  const sun = document.getElementById("sun");
+  const moon = document.getElementById("moon");
+  let active = false;
 
-<style>
-  :global(body) {
-    margin: 0;
-    padding-top: 60px; 
-    font-family: "Georgia", serif;
-    background: #f8f7f4;
-    color: #222;
-  }
+  activitybtn?.addEventListener("click", () => {
+    active = !active;
+    const event = new CustomEvent(active ? "sidebar:open" : "sidebar:close", {
+      detail: { from: "button", time: Date.now() },
+      bubbles: true,
+      composed: true,
+    });
+    document.dispatchEvent(event);
+  });
 
-  .brand{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background-color: #2d2d2d;
-    border-bottom: 4px solid #b88b4a;
-    z-index: 1000;
-  }
+themebtn?.addEventListener("click", () => {
+  const currentTheme = document.documentElement.dataset.theme || "light";
+  const newTheme = currentTheme === "light" ? "dark" : "light";
+  document.cookie = `theme=${newTheme}; path=/; max-age=31536000`;
+  document.documentElement.dataset.theme = newTheme;
+  sun?.classList.toggle("hidden");
+  moon?.classList.toggle("hidden");
+});
 
-  .wrap {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    height: 100%;
-  }
-
-  .logo {
-    height: 40px;
-    width: 40px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-  }
-
-  .brand {
-    font-family: "Georgia", serif;
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #f2f2f2;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 1.5rem;
-  }
-
-  .nav-links a {
-    color: #f2f2f2;
-    text-decoration: none;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transition: color 0.2s ease;
-  }
-
-  .nav-links a:hover {
-    color: #d7c190;
-  }
-
-  /* Hamburger menu */
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 25px;
-    height: 20px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-  }
-
-  .hamburger span {
-    display: block;
-    width: 100%;
-    height: 3px;
-    background-color: #f2f2f2;
-    border-radius: 2px;
-  }
-
-  /* Responsive styles */
-  @media (max-width: 768px) {
-    .nav-links {
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 100%;
-      background-color: #2d2d2d;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem 0;
-      display: none;
-    }
-
-    .nav-links.open {
-      display: flex;
-    }
-
-    .hamburger {
-      display: flex;
-    }
-  }
-</style>
+</script>

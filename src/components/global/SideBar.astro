@@ -1,0 +1,30 @@
+<div id="activitybar" class="w-full p-2 h-screen hidden container fixed top-0 left-0 bg-background">
+        <h1>Activity Bar</h1>
+</div>
+
+<style>
+  .container {
+    transform: translateX(100%);
+    animation: slideRight 0.5s ease-in-out forwards;
+  }
+
+  @keyframes slideRight {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+</style>
+
+<script>
+    const activityBar = document.getElementById('activitybar');
+document.addEventListener('sidebar:open',(e) => {
+    activityBar?.classList.remove('hidden');
+})
+
+document.addEventListener('sidebar:close',(e) => {
+    activityBar?.classList.add('hidden');
+})
+</script>

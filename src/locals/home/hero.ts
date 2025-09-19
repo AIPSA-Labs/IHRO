@@ -1,17 +1,18 @@
 export const translations = {
   en: {
-      title: "Defending Human Rights Worldwide",
-      subtitle: "Together we stand for justice, equality, and dignity.",
-      cta: "Join the Movement"
+    title: "Welcome to International Human Rights Organization (IHRO)",
+    subtitle: "Promoting and protecting human rights worldwide.",
+    cta: "Join Us"
   },
   hi: {
-      title: "विश्व भर में मानवाधिकारों की रक्षा",
-      subtitle: "हम सब मिलकर न्याय, समानता और गरिमा के लिए खड़े हैं।",
-      cta: "आंदोलन से जुड़ें"
+    title: "Welcome to International Human Rights Organization (IHRO)",
+    subtitle: "दुनिया भर में मानवाधिकारों को बढ़ावा देने और उनकी रक्षा करने के लिए प्रतिबद्ध।",
+    cta: "हमसे जुड़ें"
   },
   fr: {
-      title: "Défendre les droits humains dans le monde",
-      subtitle: "Ensemble pour la justice, l’égalité et la dignité.",
-      cta: "Rejoindre le mouvement"
+    title: "Welcome to International Human Rights Organization (IHRO)",
+    subtitle: "Promouvoir et protéger les droits humains dans le monde.",
+    cta: "Rejoignez-nous"
   }
-}
+};
+

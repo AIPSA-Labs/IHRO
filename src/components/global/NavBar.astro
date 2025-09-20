@@ -47,7 +47,7 @@ const theme = Astro.cookies.get("theme") || { value: "light" };
           {
             supportedLocales.map((locale) => (
               <a
-                href={`/${locale.code}}`}
+                href={`/${locale.code}`}
                 class="px-4 py-2 hover:bg-foreground hover:text-background text-sm"
               >
                 {locale.label}

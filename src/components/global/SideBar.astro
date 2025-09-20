@@ -1,4 +1,4 @@
-<div id="activitybar" class="w-full p-2 h-screen hidden container fixed top-0 left-0 bg-background">
+<div id="activitybar" class="w-full p-2 h-screen hidden container fixed top-10 left-0 bg-background">
         <h1>Activity Bar</h1>
 </div>
 
@@ -6,6 +6,7 @@
   .container {
     transform: translateX(100%);
     animation: slideRight 0.5s ease-in-out forwards;
+    z-index: 99999999;
   }
 
   @keyframes slideRight {

@@ -1,5 +1,6 @@
 ---
 import HeroSection from "../../components/home/HeroSection.astro";
+import MissionSection from "../../components/home/MissionSection.astro";
 import Layout from "../../layouts/Layout.astro";
 import { supportedLocales } from "../../locals/languages";
 
@@ -13,4 +14,5 @@ if (!codes.includes(local || '')) {
 
 <Layout>
     <HeroSection/>
+    <MissionSection/>
 </Layout>

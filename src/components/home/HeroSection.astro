@@ -5,8 +5,8 @@ type Locale = 'en' | 'hi' | 'fr';
 const { local = 'en' } = Astro.params ?? {};
 const t = translations[local as Locale] || translations['en'];
 ---
-<section class="bg-background text-foreground min-h-screen flex items-center">
-  <div class="max-w-5xl mx-auto px-4 py-20 text-center md:text-left">
+<section class="bg-background overflow-x-hidden text-foreground min-h-screen flex items-center relative">
+  <div class="max-w-5xl z-10 mx-auto px-4 py-20 text-center md:text-left">
     <h1 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
       {t.title}
     </h1>
@@ -20,6 +20,32 @@ const t = translations[local as Locale] || translations['en'];
       {t.cta}
     </a>
   </div>
+  
+<div class="absolute bottom-0 right-0 md:-right-10 w-full md:w-[60vw] h-[60vw] max-w-[600px] max-h-[400px] overflow-hidden pointer-events-none">
+  <img 
+    src="https://raw.githubusercontent.com/gist/prrashi/8e7e9ead9b56db007f99880afd1aeaf0/raw/74fb246acc82edfe31c1a4ef81165e9f640ae212/globe.svg"
+    alt="globe"
+    class="absolute bottom-0 right-0 w-[200%] h-auto rotate-slow opacity-40 translate-y-[50%]"
+  />
+</div>
 </section>
+<style>
 
+.rotate-slow {
+  animation: rotate 120s linear infinite;
+}
 
+.rotate-slower {
+  animation: rotate 240s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+</style>

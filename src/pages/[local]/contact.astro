@@ -1,0 +1,59 @@
+---
+import { translations } from "../../locals/contact/page";
+import Layout from "../../layouts/Layout.astro";
+
+type Locale = 'en' | 'hi' | 'fr';
+const { local = 'en' } = Astro.params ?? {};
+const t = translations[local as Locale] || translations['en'];
+---
+<Layout>
+<section class="bg-background text-foreground py-20 px-4 md:px-10">
+  <div class="max-w-4xl mx-auto text-center mb-12">
+    <h1 class="text-4xl md:text-5xl font-extrabold mb-4">{t.title}</h1>
+    <p class="text-lg md:text-xl text-foreground/70">{t.subtitle}</p>
+  </div>
+
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+    
+    <!-- Contact Form -->
+    <form class="bg-foreground/5 p-8 rounded-lg shadow-md flex flex-col gap-4">
+      <label class="flex flex-col text-left">
+        <span class="mb-1 font-semibold">{t.form.name}</span>
+        <input type="text" placeholder={t.form.namePlaceholder} class="border border-foreground/30 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary" />
+      </label>
+
+      <label class="flex flex-col text-left">
+        <span class="mb-1 font-semibold">{t.form.email}</span>
+        <input type="email" placeholder={t.form.emailPlaceholder} class="border border-foreground/30 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary" />
+      </label>
+
+      <label class="flex flex-col text-left">
+        <span class="mb-1 font-semibold">{t.form.message}</span>
+        <textarea placeholder={t.form.messagePlaceholder} rows="5" class="border border-foreground/30 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+      </label>
+
+      <button type="submit" class="bg-primary text-primary-foreground font-semibold px-6 py-3 rounded-lg hover:bg-primary/90 transition mt-2">{t.form.submit}</button>
+    </form>
+
+    <!-- Contact Details -->
+    <div class="flex flex-col gap-6 text-foreground/80">
+      <div>
+        <h2 class="text-2xl font-semibold mb-2">{t.contact.title}</h2>
+        <p>{t.contact.description}</p>
+      </div>
+
+      <div class="space-y-2">
+        <p><strong>{t.contact.emailLabel}:</strong> <a href="mailto:info@ihro.org" class="text-primary hover:underline">info@ihro.org</a></p>
+        <p><strong>{t.contact.phoneLabel}:</strong> <a href="tel:+911234567890" class="text-primary hover:underline">+91-12345-67890</a></p>
+        <p><strong>{t.contact.addressLabel}:</strong> {t.contact.address}</p>
+      </div>
+
+      <!-- Optional Map Placeholder -->
+      <div class="mt-6 h-60 bg-foreground/5 rounded-lg flex items-center justify-center text-foreground/50">
+        {t.mapPlaceholder}
+      </div>
+    </div>
+
+  </div>
+</section>
+</Layout>

@@ -35,7 +35,8 @@ const theme = Astro.cookies.get("theme") || { value: "light" };
       </button>
 
       <button id="activitybtn" class="cursor-pointer">
-        <ChartNoAxesGantt />
+        <ChartNoAxesGantt id="menu-open" class=""/>
+        <CircleX id="menu-close" class="hidden" />
       </button>
 
       <div
@@ -46,7 +47,7 @@ const theme = Astro.cookies.get("theme") || { value: "light" };
           {
             supportedLocales.map((locale) => (
               <a
-                href={`/${locale.code}`}
+                href={`/${locale.code}}`}
                 class="px-4 py-2 hover:bg-foreground hover:text-background text-sm"
               >
                 {locale.label}
@@ -63,6 +64,9 @@ const theme = Astro.cookies.get("theme") || { value: "light" };
   const themebtn = document.getElementById("themebtn");
   const sun = document.getElementById("sun");
   const moon = document.getElementById("moon");
+  const menuOpen = document.getElementById("menu-open");
+  const menuClose = document.getElementById("menu-close");
+
   let active = false;
 
   activitybtn?.addEventListener("click", () => {
@@ -73,6 +77,8 @@ const theme = Astro.cookies.get("theme") || { value: "light" };
       composed: true,
     });
     document.dispatchEvent(event);
+    menuOpen?.classList.toggle("hidden");
+    menuClose?.classList.toggle("hidden");
   });
 
 themebtn?.addEventListener("click", () => {

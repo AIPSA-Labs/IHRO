@@ -3,9 +3,7 @@ import Footer from "../components/global/Footer.astro";
 import NavBar from "../components/global/NavBar.astro";
 import SideBar from "../components/global/SideBar.astro";
 import '../styles/global.css'
-
 const theme = Astro.cookies.get('theme') || {value: 'light'}
-console.log(theme?.value)
 ---
 
 <!doctype html>

@@ -1,0 +1,24 @@
+---
+import { translations } from "../../locals/home/testimonials";
+
+type Locale = 'en' | 'hi' | 'fr';
+const { local = 'en' } = Astro.params ?? {};
+const t = translations[local as Locale] || translations['en'];
+---
+
+<section class="bg-background py-20 px-4 md:px-10">
+  <div class="max-w-6xl mx-auto text-center mb-12">
+    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">{t.title}</h2>
+    <p class="text-lg md:text-xl text-foreground/80">{t.subtitle}</p>
+  </div>
+
+  <div class="max-w-6xl mx-auto grid gap-8 md:grid-cols-3">
+    {t.testimonials.map((testimonial) => (
+      <div class="bg-surface rounded-xl shadow-md p-6 flex flex-col justify-between text-center hover:shadow-xl transition">
+        <p class="text-foreground/80 italic mb-4">"{testimonial.quote}"</p>
+        <h4 class="text-xl font-semibold">{testimonial.name}</h4>
+        <span class="text-sm text-foreground/60">{testimonial.role}</span>
+      </div>
+    ))}
+  </div>
+</section>

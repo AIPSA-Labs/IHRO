@@ -1,0 +1,47 @@
+---
+import { translations } from "../../locals/home/presence";
+
+type Locale = 'en' | 'hi' | 'fr';
+const { local = 'en' } = Astro.params ?? {};
+const t = translations[local as Locale] || translations['en'];
+---
+
+<section class="bg-background py-20 px-4 md:px-10">
+  <div class="max-w-6xl mx-auto text-center mb-12">
+    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">{t.title}</h2>
+    <p class="text-lg md:text-xl text-foreground/80">{t.subtitle}</p>
+  </div>
+
+  {/* International Offices */}
+  <div class="max-w-6xl mx-auto mb-12">
+    <h3 class="text-2xl font-semibold mb-4">{t.internationalTitle}</h3>
+    <div class="grid gap-6 md:grid-cols-3">
+      {t.internationalOffices.map((office) => (
+        <div class="bg-surface rounded-xl shadow-md p-6 flex flex-col items-center text-center hover:shadow-xl transition">
+          <h4 class="text-xl font-semibold mb-2">{office.country}</h4>
+          <p class="text-foreground/80">{office.address}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  {/* National Chapters */}
+  <div class="max-w-6xl mx-auto mb-12">
+    <h3 class="text-2xl font-semibold mb-4">{t.nationalTitle}</h3>
+    <ul class="list-disc list-inside text-foreground/80">
+      {t.nationalChapters.map((chapter) => (
+        <li>{chapter}</li>
+      ))}
+    </ul>
+  </div>
+
+  {/* State Chapters */}
+  <div class="max-w-6xl mx-auto">
+    <h3 class="text-2xl font-semibold mb-4">{t.stateTitle}</h3>
+    <ul class="list-disc list-inside text-foreground/80">
+      {t.stateChapters.map((chapter) => (
+        <li>{chapter}</li>
+      ))}
+    </ul>
+  </div>
+</section>

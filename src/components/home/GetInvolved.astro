@@ -1,0 +1,26 @@
+---
+import { translations } from "../../locals/home/getInvolved";
+
+type Locale = 'en' | 'hi' | 'fr';
+const { local = 'en' } = Astro.params ?? {};
+const t = translations[local as Locale] || translations['en'];
+---
+
+<section class="bg-primary text-primary-foreground py-20 px-4 md:px-10">
+  <div class="max-w-6xl mx-auto text-center mb-12">
+    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">{t.title}</h2>
+    <p class="text-lg md:text-xl opacity-90 mb-10">{t.subtitle}</p>
+  </div>
+
+  <div class="max-w-6xl mx-auto grid gap-8 md:grid-cols-3 text-center">
+    {t.actions.map((action) => (
+      <div class="bg-primary-foreground/10 rounded-xl p-8 flex flex-col items-center justify-between hover:scale-105 transition transform">
+        <h3 class="text-xl font-semibold mb-4">{action.title}</h3>
+        <p class="mb-6 text-foreground/80">{action.description}</p>
+        <a href={action.link} class="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition">
+          {action.cta}
+        </a>
+      </div>
+    ))}
+  </div>
+</section>

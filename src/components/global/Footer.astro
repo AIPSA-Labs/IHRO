@@ -4,34 +4,62 @@ import { Facebook, Twitter, Linkedin, Instagram } from "@lucide/astro";
 
 const year = new Date().getFullYear();
 
-type Locale = 'en' | 'hi' | 'fr';
-const { local = 'en' } = Astro.params ?? {};
-const t = footerTranslations[local as Locale] || footerTranslations['en'];
+type Locale = "en" | "hi" | "fr";
+const { local = "en" } = Astro.params ?? {};
+const t = footerTranslations[local as Locale] || footerTranslations["en"];
 ---
 
-<footer class="w-full bg-background text-foreground border-t border-foreground/10">
+<footer
+  class="w-full bg-background text-foreground border-t border-foreground/10"
+>
   <div class="max-w-6xl mx-auto px-4 py-12 grid gap-8 md:grid-cols-4">
-    
-    <!-- Brand -->
     <div>
-      <h2 class="text-xl font-bold mb-4">International Human Rights Organization</h2>
+      <h2 class="text-xl font-bold mb-4">
+        International Human Rights Organization
+      </h2>
       <p class="text-sm text-foreground/70 leading-relaxed">{t.brandDesc}</p>
       <div class="flex gap-3 mt-4">
-        <a href="#" class="hover:text-primary transition"><Facebook class="w-5 h-5" /></a>
-        <a href="#" class="hover:text-primary transition"><Twitter class="w-5 h-5" /></a>
-        <a href="#" class="hover:text-primary transition"><Linkedin class="w-5 h-5" /></a>
-        <a href="#" class="hover:text-primary transition"><Instagram class="w-5 h-5" /></a>
+        <a href="#" class="hover:text-primary transition"
+          ><Facebook class="w-5 h-5" /></a
+        >
+        <a href="#" class="hover:text-primary transition"
+          ><Twitter class="w-5 h-5" /></a
+        >
+        <a href="#" class="hover:text-primary transition"
+          ><Linkedin class="w-5 h-5" /></a
+        >
+        <a href="#" class="hover:text-primary transition"
+          ><Instagram class="w-5 h-5" /></a
+        >
       </div>
     </div>
 
     <!-- Navigation -->
     <div class="flex flex-col gap-2">
       <h3 class="text-lg font-semibold mb-2">{t.linksTitle}</h3>
-      <a href="/" class="hover:underline hover:text-primary transition">{t.links.home}</a>
-      <a href={`${local}/about`} class="hover:underline hover:text-primary transition">{t.links.about}</a>
-      <a href="/campaigns" class="hover:underline hover:text-primary transition">{t.links.campaigns}</a>
-      <a href="/reports" class="hover:underline hover:text-primary transition">{t.links.reports}</a>
-      <a href="/contact" class="hover:underline hover:text-primary transition">{t.links.contact}</a>
+      <a
+        href={`${local}/`}
+        class="hover:underline hover:text-primary transition">{t.links.home}</a
+      >
+      <a
+        href={`/${local}/about`}
+        class="hover:underline hover:text-primary transition">{t.links.about}</a
+      >
+      <a
+        href={`/${local}/privacy`}
+        class="hover:underline hover:text-primary transition"
+        >{t.links.privacy}</a
+      >
+      <a
+        href={`/${local}/terms`}
+        class="hover:underline hover:text-primary transition"
+        >{t.links.terms}</a
+      >
+      <a
+        href={`${local}/contact`}
+        class="hover:underline hover:text-primary transition"
+        >{t.links.contact}</a
+      >
     </div>
 
     <!-- Contact -->
@@ -39,13 +67,17 @@ const t = footerTranslations[local as Locale] || footerTranslations['en'];
       <h3 class="text-lg font-semibold mb-2">{t.contactTitle}</h3>
       <p class="text-sm"><strong>Email:</strong> info@humanrights.org</p>
       <p class="text-sm"><strong>Phone:</strong> +91-12345-67890</p>
-      <p class="text-sm"><strong>Address:</strong> 123 Human Rights Ave, Global City</p>
+      <p class="text-sm">
+        <strong>Address:</strong> 123 Human Rights Ave, Global City
+      </p>
     </div>
 
     <!-- Newsletter / CTA -->
     <div>
       <h3 class="text-lg font-semibold mb-2">Stay Updated</h3>
-      <p class="text-sm text-foreground/70 mb-4">Subscribe to our newsletter to get the latest updates.</p>
+      <p class="text-sm text-foreground/70 mb-4">
+        Subscribe to our newsletter to get the latest updates.
+      </p>
       <form class="flex flex-col sm:flex-row gap-2">
         <input
           type="email"
@@ -61,11 +93,12 @@ const t = footerTranslations[local as Locale] || footerTranslations['en'];
         </button>
       </form>
     </div>
-
   </div>
 
   <!-- Bottom -->
-  <div class="border-t border-foreground/10 text-center text-sm text-foreground/60 py-4">
+  <div
+    class="border-t border-foreground/10 text-center text-sm text-foreground/60 py-4"
+  >
     &copy; {year} International Human Rights Organization. All rights reserved.
   </div>
 </footer>

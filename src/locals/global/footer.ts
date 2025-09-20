@@ -6,8 +6,8 @@ export const footerTranslations = {
     links: {
       home: "Home",
       about: "About",
-      campaigns: "Campaigns",
-      reports: "Reports",
+      privacy: "Privacy",
+      terms: "Terms",
       contact: "Contact",
     },
     contactTitle: "Contact",
@@ -26,8 +26,8 @@ export const footerTranslations = {
     links: {
       home: "होम",
       about: "हमारे बारे में",
-      campaigns: "अभियान",
-      reports: "रिपोर्ट",
+      privacy: "गोपनीयता",
+      terms: "शर्तें",
       contact: "संपर्क करें",
     },
     contactTitle: "संपर्क",
@@ -46,8 +46,8 @@ export const footerTranslations = {
     links: {
       home: "Accueil",
       about: "À propos",
-      campaigns: "Campagnes",
-      reports: "Rapports",
+      privacy: "Confidentialité",
+      terms: "Conditions",
       contact: "Contact",
     },
     contactTitle: "Contact",

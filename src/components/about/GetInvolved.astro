@@ -1,0 +1,17 @@
+---
+import { translations } from "../../locals/about/getInvolved";
+
+type Locale = 'en' | 'hi' | 'fr';
+const { local = 'en' } = Astro.params ?? {};
+const t = translations[local as Locale] || translations['en'];
+---
+
+<section class="bg-primary text-primary-foreground py-20 px-4 md:px-10 text-center rounded-lg mx-4 md:mx-10">
+  <h2 class="text-3xl md:text-4xl font-extrabold mb-6">{t.title}</h2>
+  <p class="text-lg md:text-xl text-primary-foreground/80 mb-8">{t.subtitle}</p>
+  <div class="flex flex-col sm:flex-row justify-center gap-4">
+    <a href="/volunteer" class="bg-foreground text-background font-semibold px-8 py-3 rounded-lg hover:bg-foreground/90 transition">{t.cta.volunteer}</a>
+    <a href="/donate" class="bg-foreground text-background font-semibold px-8 py-3 rounded-lg hover:bg-foreground/90 transition">{t.cta.donate}</a>
+    <a href="/partner" class="bg-foreground text-background font-semibold px-8 py-3 rounded-lg hover:bg-foreground/90 transition">{t.cta.partner}</a>
+  </div>
+</section>

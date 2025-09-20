@@ -1,0 +1,25 @@
+---
+import { translations } from "../../locals/about/missionVision";
+
+type Locale = 'en' | 'hi' | 'fr';
+const { local = 'en' } = Astro.params ?? {};
+const t = translations[local as Locale] || translations['en'];
+---
+
+<section class="bg-background text-foreground py-20 px-4 md:px-10">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    
+    <!-- Mission -->
+    <div class="flex flex-col gap-4">
+      <h2 class="text-3xl md:text-4xl font-extrabold">{t.mission.title}</h2>
+      <p class="text-lg text-foreground/80">{t.mission.description}</p>
+    </div>
+
+    <!-- Vision -->
+    <div class="flex flex-col gap-4">
+      <h2 class="text-3xl md:text-4xl font-extrabold">{t.vision.title}</h2>
+      <p class="text-lg text-foreground/80">{t.vision.description}</p>
+    </div>
+
+  </div>
+</section>

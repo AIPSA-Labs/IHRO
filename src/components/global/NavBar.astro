@@ -5,50 +5,49 @@ import { ChartNoAxesGantt, Languages, Moon, Sun, CircleX } from "@lucide/astro";
 const theme = Astro.cookies.get("theme") || { value: "light" };
 ---
 
-<nav
-  class="top-0 w-full border-gray-300 backdrop-blur-md fixed z-50 left-0 right-0"
->
-  <div class="flex justify-between items-center px-2">
-    <div class="flex items-center gap-2">
-      <img src="/favicon.svg" alt="logo" class="h-8 w-8" />
-      <span class="font-semibold text-foreground">IHRO</span>
-    </div>
+<nav class="fixed top-0 left-0 shadow-2xl right-0 z-50 backdrop-blur-md bg-background/40">
+  <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
 
-    <div class="relative flex gap-2">
-      <button id="themebtn" class="cursor-pointer">
+    <a href="/" class="flex items-center gap-3">
+      <img src="/favicon.svg" alt="logo" class="h-8 w-8" />
+      <span class="font-semibold tracking-wide flex text-lg text-foreground">
+        IHRO<p class="hidden md:block"> — International Human Rights Organization</p>
+      </span>
+    </a>
+
+    <div class="flex items-center gap-3 md:gap-4 relative">
+
+      <button id="themebtn" class="p-2 rounded-md hover:bg-muted transition">
         <Moon class={theme ? "hidden" : "block"} id="moon" />
         <Sun class={theme ? "block" : "hidden"} id="sun" />
       </button>
-      <button
-        type="button"
-        class="px-3 flex gap-3 py-1.5 text-sm cursor-pointer"
-        onclick="document.getElementById('langMenu').classList.toggle('hidden')"
-      >
-        <Languages />
-        <p class="hidden md:block">
-          {
-            supportedLocales.map((locale) =>
-              locale.code == Astro.params.local ? locale.label : ""
-            )
-          }
-        </p>
-      </button>
 
-      <button id="activitybtn" class="cursor-pointer">
-        <ChartNoAxesGantt id="menu-open" class=""/>
-        <CircleX id="menu-close" class="hidden" />
-      </button>
+      <!-- Language Dropdown -->
+      <div class="relative">
+        <button
+          class="px-2 py-1.5 flex gap-2 items-center rounded-md hover:bg-muted transition"
+          onclick="document.getElementById('langMenu').classList.toggle('hidden')"
+        >
+          <Languages class="h-5 w-5" />
+          <span class="hidden md:block text-sm">
+            {
+              supportedLocales.map((locale) =>
+                locale.code == Astro.params.local ? locale.label : ""
+              )
+            }
+          </span>
+        </button>
 
-      <div
-        id="langMenu"
-        class="hidden absolute right-0 top-8 mt-2 w-40 rounded-md backdrop-blur-3xl shadow-md z-10"
-      >
-        <div class="flex backdrop-blur-3xl text-foreground border border-border bg-background flex-col">
+        <!-- Dropdown -->
+        <div
+          id="langMenu"
+          class="hidden absolute right-0 mt-2 w-40 rounded-md shadow-md overflow-hidden bg-background border border-border"
+        >
           {
             supportedLocales.map((locale) => (
               <a
                 href={`/${locale.code}`}
-                class="px-4 py-2 hover:bg-foreground hover:text-background text-sm"
+                class="block px-4 py-2 hover:bg-foreground hover:text-background text-sm transition"
               >
                 {locale.label}
               </a>
@@ -56,9 +55,20 @@ const theme = Astro.cookies.get("theme") || { value: "light" };
           }
         </div>
       </div>
+
+      <!-- Mobile Menu / Activity -->
+      <button
+        id="activitybtn"
+        class="p-2 rounded-md hover:bg-muted transition md:hidden"
+      >
+        <ChartNoAxesGantt id="menu-open" class="h-5 w-5" />
+        <CircleX id="menu-close" class="hidden h-5 w-5" />
+      </button>
+
     </div>
   </div>
 </nav>
+
 <script>
   const activitybtn = document.getElementById("activitybtn");
   const themebtn = document.getElementById("themebtn");
@@ -81,13 +91,12 @@ const theme = Astro.cookies.get("theme") || { value: "light" };
     menuClose?.classList.toggle("hidden");
   });
 
-themebtn?.addEventListener("click", () => {
-  const currentTheme = document.documentElement.dataset.theme || "light";
-  const newTheme = currentTheme === "light" ? "dark" : "light";
-  document.cookie = `theme=${newTheme}; path=/; max-age=31536000`;
-  document.documentElement.dataset.theme = newTheme;
-  sun?.classList.toggle("hidden");
-  moon?.classList.toggle("hidden");
-});
-
+  themebtn?.addEventListener("click", () => {
+    const currentTheme = document.documentElement.dataset.theme || "light";
+    const newTheme = currentTheme === "light" ? "dark" : "light";
+    document.cookie = `theme=${newTheme}; path=/; max-age=31536000`;
+    document.documentElement.dataset.theme = newTheme;
+    sun?.classList.toggle("hidden");
+    moon?.classList.toggle("hidden");
+  });
 </script>

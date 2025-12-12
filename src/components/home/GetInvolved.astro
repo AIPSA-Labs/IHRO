@@ -1,26 +1,64 @@
 ---
 import { translations } from "../../locals/home/getInvolved";
+import { HeartHandshake, Users, HandHeart } from "@lucide/astro";
 
 type Locale = 'en' | 'hi' | 'fr';
 const { local = 'en' } = Astro.params ?? {};
 const t = translations[local as Locale] || translations['en'];
+
+// Icon assignment per action (if you need dynamic icons, tell me)
+const icons = [HeartHandshake, Users, HandHeart];
 ---
 
-<section class="bg-primary text-primary-foreground py-20 px-4 md:px-10">
-  <div class="max-w-6xl mx-auto text-center mb-12">
-    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">{t.title}</h2>
-    <p class="text-lg md:text-xl opacity-90 mb-10">{t.subtitle}</p>
+<section class="bg-primary/5 text-foreground py-24 px-4 md:px-10">
+
+  <!-- Heading -->
+  <div class="max-w-4xl mx-auto text-center mb-16">
+    <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-primary">
+      {t.title}
+    </h2>
+
+    <div class="w-20 h-[4px] bg-primary mx-auto rounded-full mb-6"></div>
+
+    <p class="text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto leading-relaxed">
+      {t.subtitle}
+    </p>
   </div>
 
-  <div class="max-w-6xl mx-auto grid gap-8 md:grid-cols-3 text-center">
-    {t.actions.map((action) => (
-      <div class="bg-primary-foreground/10 rounded-xl p-8 flex flex-col items-center justify-between hover:scale-105 transition transform">
-        <h3 class="text-xl font-semibold mb-4">{action.title}</h3>
-        <p class="mb-6 text-foreground/80">{action.description}</p>
-        <a href={action.link} class="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition">
-          {action.cta}
-        </a>
-      </div>
-    ))}
+  <!-- Cards -->
+  <div class="max-w-6xl mx-auto grid gap-10 md:grid-cols-3">
+
+    {t.actions.map((action, index) => {
+      const Icon = icons[index % icons.length];
+      return (
+        <div
+          class="bg-white/60 dark:bg-white/10 backdrop-blur-md border border-primary/20 rounded-2xl p-10 shadow-sm flex flex-col items-center text-center hover:shadow-lg transition-all"
+        >
+          <!-- Icon -->
+          <div class="p-4 bg-primary/15 rounded-2xl text-primary mb-6">
+            <Icon class="w-10 h-10" />
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-xl font-bold mb-4 text-primary">
+            {action.title}
+          </h3>
+
+          <!-- Description -->
+          <p class="text-foreground/80 leading-relaxed mb-8">
+            {action.description}
+          </p>
+
+          <!-- CTA -->
+          <a
+            href={action.link}
+            class="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition"
+          >
+            {action.cta}
+          </a>
+        </div>
+      );
+    })}
+
   </div>
 </section>

@@ -1,31 +1,158 @@
-<div id="activitybar" class="w-full p-2 h-screen hidden container fixed top-12 left-0 bg-background">
-        <h1>Activity Bar</h1>
+---
+import { Bell, Home, FileText, Users, Settings, Clock, AlertCircle } from "@lucide/astro";
+import type { AstroComponentFactory } from "astro/runtime/server/render/astro/index.js";
+
+interface MenuItem {
+  label: string;
+  icon: AstroComponentFactory;
+  href: string;
+}
+
+/** Notification item type */
+interface NotificationItem {
+  title: string;
+  description: string;
+  time: string;
+  icon: AstroComponentFactory;
+}
+
+/** MENU DATA */
+const menuItems: MenuItem[] = [
+  { label: "Home", icon: Home, href: "/" },
+  { label: "Reports", icon: FileText, href: "/reports" },
+  { label: "Members", icon: Users, href: "/members" },
+  { label: "Settings", icon: Settings, href: "/settings" },
+];
+
+/** NOTIFICATIONS DATA */
+const notifications: NotificationItem[] = [
+  {
+    title: "New Report Received",
+    description: "A human rights case report requires your attention.",
+    time: "10 minutes ago",
+    icon: AlertCircle,
+  },
+  {
+    title: "System Update",
+    description: "Platform security patch was applied successfully.",
+    time: "1 hour ago",
+    icon: Clock,
+  },
+];
+---
+
+<!-- BACKDROP -->
+<div
+  id="sidebar-backdrop"
+  class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden opacity-0 
+         transition-opacity duration-300 z-[99999998]"
+></div>
+
+<!-- SIDEBAR PANEL -->
+<div
+  id="sidebar"
+  class="fixed top-0 right-0 h-screen w-[85%] md:w-80 
+         bg-background border-l border-border shadow-2xl rounded-l-xl
+         translate-x-full transition-all duration-500 
+         ease-[cubic-bezier(0.25,0.1,0.25,1)]
+         z-[99999999] flex flex-col"
+>
+
+  <!-- HEADER -->
+  <div class="p-5 border-b border-border flex items-center justify-between">
+    <h1 class="text-lg font-bold text-foreground flex items-center gap-2">
+      <Home class="w-5 h-5 text-primary" />
+      Menu
+    </h1>
+
+    <!-- Notification Toggle Button -->
+    <button
+      id="toggleNotifications"
+      class="p-2 rounded-lg hover:bg-primary/10 transition"
+    >
+      <Bell class="w-5 h-5 text-primary" />
+    </button>
+  </div>
+
+  <!-- MENU LIST -->
+  <div id="menu-section" class="flex-1 overflow-y-auto p-5 space-y-4">
+
+    {menuItems.map(({ label, icon: Icon, href }) => (
+      <a
+        href={href}
+        class="flex items-center gap-4 p-4 rounded-xl 
+               hover:bg-primary/10 transition text-foreground 
+               border border-transparent hover:border-primary/20"
+      >
+        <Icon class="w-6 h-6 text-primary" />
+        <span class="font-medium">{label}</span>
+      </a>
+    ))}
+
+  </div>
+
+  <!-- NOTIFICATION SECTION -->
+  <div id="notification-section" class="flex-1 overflow-y-auto p-5 space-y-6 hidden">
+
+    {notifications.map(({ title, description, time, icon: Icon }) => (
+      <div class="flex items-start gap-4 bg-primary/5 border border-primary/20 rounded-xl p-4">
+        
+        <div class="p-2 bg-primary/15 rounded-lg text-primary">
+          <Icon class="w-5 h-5" />
+        </div>
+
+        <div class="flex-1">
+          <h4 class="font-semibold">{title}</h4>
+          <p class="text-foreground/70 text-sm">{description}</p>
+          <p class="text-primary text-xs mt-1">{time}</p>
+        </div>
+      </div>
+    ))}
+
+  </div>
 </div>
 
-<style>
-  .container {
-    transform: translateX(100%);
-    animation: slideRight 0.5s ease-in-out forwards;
-    z-index: 99999999;
-  }
-
-  @keyframes slideRight {
-    0% {
-      transform: translateX(100%);
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
-</style>
-
+<!-- SIDEBAR SCRIPT -->
 <script>
-    const activityBar = document.getElementById('activitybar');
-document.addEventListener('sidebar:open',(e) => {
-    activityBar?.classList.remove('hidden');
-})
+  const sidebar = document.getElementById("sidebar") as HTMLDivElement;
+  const backdrop = document.getElementById("sidebar-backdrop") as HTMLDivElement;
 
-document.addEventListener('sidebar:close',(e) => {
-    activityBar?.classList.add('hidden');
-})
+  const menuSection = document.getElementById("menu-section");
+  const notifSection = document.getElementById("notification-section") as HTMLDivElement;
+  const notifToggle = document.getElementById("toggleNotifications") as HTMLButtonElement;
+
+  // Toggle Notification Section
+  notifToggle.onclick = () => {
+    const showingNotifications = !notifSection.classList.contains("hidden");
+
+    if (showingNotifications) {
+      // Go back to Menu
+      notifSection.classList.add("hidden");
+      menuSection.classList.remove("hidden");
+    } else {
+      // Show Notifications
+      menuSection.classList.add("hidden");
+      notifSection.classList.remove("hidden");
+    }
+  };
+
+  // OPEN SIDEBAR
+  document.addEventListener("sidebar:open", () => {
+    backdrop.classList.remove("hidden");
+    setTimeout(() => backdrop.classList.add("opacity-100"), 10);
+    sidebar.classList.remove("translate-x-full");
+  });
+
+  // CLOSE SIDEBAR
+  document.addEventListener("sidebar:close", () => {
+    backdrop.classList.remove("opacity-100");
+    sidebar.classList.add("translate-x-full");
+    setTimeout(() => backdrop.classList.add("hidden"), 300);
+  });
+
+  // Close on clicking backdrop
+  backdrop.addEventListener("click", () => {
+    const event = new CustomEvent("sidebar:close");
+    document.dispatchEvent(event);
+  });
 </script>

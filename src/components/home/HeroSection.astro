@@ -7,9 +7,8 @@ const { local = "en" } = Astro.params ?? {};
 const t = translations[local as Locale] || translations["en"];
 ---
 
-<section class="relative w-full overflow-hidden">
+<section class="relative w-full">
 
-  <!-- Background Carousel -->
   <div id="carousel" class="absolute inset-0 w-full h-full">
     <img
       src="https://images.pexels.com/photos/8553543/pexels-photo-8553543.jpeg"

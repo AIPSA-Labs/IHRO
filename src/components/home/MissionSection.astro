@@ -1,12 +1,11 @@
 ---
 import { translations } from "../../locals/home/mission";
-import { ShieldCheck, Scale, Users } from "@lucide/astro"; // icons
+import { ShieldCheck, Scale, Users } from "@lucide/astro";
 
 type Locale = "en" | "hi" | "fr";
 const { local = "en" } = Astro.params ?? {};
 const t = translations[local as Locale] || translations["en"];
 
-// Mission points with icons
 const missionPoints = [
   {
     icon: ShieldCheck,
@@ -26,42 +25,31 @@ const missionPoints = [
 ];
 ---
 
-<section id="mission" class="bg-background text-foreground py-28 md:py-36 relative">
-
-  <!-- Fade from hero -->
-  <div class="absolute inset-x-0 top-0 h-24  pointer-events-none"></div>
-
-  <!-- Heading -->
+<section id="mission" class="bg-background text-foreground w-full py-28 md:py-36 relative overflow-x-hidden">
   <div class="text-center mb-16">
     <h2 class="text-3xl md:text-4xl font-extrabold mb-3">{t.title}</h2>
     <div class="w-20 h-[4px] bg-primary mx-auto rounded-full"></div>
   </div>
 
-  <!-- Cards -->
   <div class="max-w-6xl mx-auto px-4">
-    <div class="grid md:grid-cols-3 gap-10">
-
-      {missionPoints.map(({ icon: Icon, title, text }, i) => (
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      {missionPoints.map(({ icon: Icon, title, text }) => (
         <div
-          class="mission-card opacity-0 translate-x-10 bg-primary/10 border border-primary/30
-                 rounded-2xl shadow-lg p-8 backdrop-blur-md transition-all duration-[900ms]"
+          class="mission-card opacity-0 translate-y-6 md:translate-y-0 md:translate-x-10
+                 bg-primary/10 border border-primary/30 rounded-2xl shadow-lg
+                 p-8 backdrop-blur-md transition-all duration-[900ms]"
         >
-          <!-- Icon + Title -->
           <div class="flex items-center gap-4 mb-5">
             <div class="p-3 rounded-xl bg-primary/20 text-primary">
               <Icon class="w-8 h-8" />
             </div>
             <h3 class="text-xl font-bold text-primary">{title}</h3>
           </div>
-
-          <!-- Description -->
           <p class="text-foreground/90 leading-relaxed">{text}</p>
         </div>
       ))}
-
     </div>
   </div>
-
 </section>
 
 <script>
@@ -71,15 +59,12 @@ const missionPoints = [
     (entries) => {
       entries.forEach((entry) => {
         const card = entry.target;
-
         if (entry.isIntersecting) {
-          // ENTER viewport → slide LEFT
-          card.classList.remove("opacity-0", "translate-x-10");
-          card.classList.add("opacity-100", "translate-x-0");
+          card.classList.remove("opacity-0");
+          card.classList.add("opacity-100");
         } else {
-          // EXIT viewport → slide RIGHT
-          card.classList.add("opacity-0", "translate-x-10");
-          card.classList.remove("opacity-100", "translate-x-0");
+          card.classList.add("opacity-0");
+          card.classList.remove("opacity-100");
         }
       });
     },

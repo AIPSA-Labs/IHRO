@@ -15,7 +15,7 @@ const theme = Astro.cookies.get('theme') || {value: 'light'}
 		<meta name="generator" content={Astro.generator} />
 		<title>IHRO</title>
 	</head>
-	<body class="overflow-x-hidden">
+	<body>
 		<NavBar/>
 		<SideBar/>
 		<slot />

@@ -3,23 +3,40 @@ import Footer from "../components/global/Footer.astro";
 import NavBar from "../components/global/NavBar.astro";
 import SideBar from "../components/global/SideBar.astro";
 import '../styles/global.css'
-const theme = Astro.cookies.get('theme') || {value: 'light'}
 ---
 
 <!doctype html>
-<html lang="en" data-theme={theme.value}>
+<html lang="en" class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>IHRO</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+		<title>IHRO - International Human Rights Organization</title>
 	</head>
-	<body>
+	<body class="bg-surface text-on-surface overflow-x-hidden">
 		<NavBar/>
 		<SideBar/>
-		<slot />
+		<main class="mt-16">
+			<slot />
+		</main>
 		<Footer/>
+
+		<script>
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('in-view');
+					}
+				});
+			}, { threshold: 0.1 });
+
+			document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+		</script>
 	</body>
 </html>
-

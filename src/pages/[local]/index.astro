@@ -1,8 +1,8 @@
 ---
+import AboutSection from "../../components/home/AboutSection.astro";
 import GetInvolved from "../../components/home/GetInvolved.astro";
 import HeroSection from "../../components/home/HeroSection.astro";
 import MissionSection from "../../components/home/MissionSection.astro";
-import NewsLetterSub from "../../components/home/NewsLetterSub.astro";
 import Presence from "../../components/home/Presence.astro";
 import ProgramSection from "../../components/home/ProgramSection.astro";
 import Testimonial from "../../components/home/Testimonial.astro";
@@ -19,10 +19,10 @@ if (!codes.includes(local || '')) {
 
 <Layout>
     <HeroSection/>
+    <AboutSection/>
     <MissionSection/>
     <ProgramSection/>
     <Presence/>
     <GetInvolved/>
-    <NewsLetterSub/>
     <Testimonial/>
 </Layout>

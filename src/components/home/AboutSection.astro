@@ -1,0 +1,45 @@
+---
+import { translations } from "../../locals/home/about";
+
+type Locale = 'en' | 'hi' | 'fr';
+const { local = 'en' } = Astro.params ?? {};
+const t = translations[local as Locale] || translations['en'];
+---
+
+<section class="py-20 md:py-28 px-4 md:px-6" id="about">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+
+      <!-- Left: Image -->
+      <div class="animate-on-scroll scroll-left">
+        <div class="relative rounded-2xl overflow-hidden shadow-xl">
+          <img
+            src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg"
+            alt="IHRO Team"
+            class="w-full h-[400px] object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+        </div>
+      </div>
+
+      <!-- Right: Content -->
+      <div class="animate-on-scroll scroll-right delay-1">
+        <span class="text-action-blue font-['Inter'] text-sm font-semibold uppercase tracking-widest mb-4 block">{t.label}</span>
+        <h2 class="font-['Hanken_Grotesk'] text-[32px] md:text-[40px] leading-[48px] tracking-[-0.01em] font-semibold text-justice-navy mb-6">
+          {t.title}
+        </h2>
+        <p class="text-on-surface-variant leading-relaxed mb-8 text-lg">
+          {t.description}
+        </p>
+        <a
+          href={`/${local}/about`}
+          class="inline-flex items-center gap-2 bg-justice-navy text-white px-8 py-4 rounded-full font-['Inter'] text-sm font-semibold hover:bg-justice-navy/90 transition-all active:scale-95 group"
+        >
+          {t.cta}
+          <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -6,19 +6,40 @@ const { local = 'en' } = Astro.params ?? {};
 const t = translations[local as Locale] || translations['en'];
 ---
 
-<section class="bg-background py-20 px-4 md:px-10">
-  <div class="max-w-6xl mx-auto text-center mb-12">
-    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">{t.title}</h2>
-    <p class="text-lg md:text-xl text-foreground/80">{t.subtitle}</p>
+<section class="py-24 bg-surface-container-low overflow-hidden" id="global-voices">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 mb-16 text-center">
+    <h2 class="animate-on-scroll font-['Hanken_Grotesk'] text-[32px] md:text-[40px] leading-[48px] tracking-[-0.01em] font-semibold text-justice-navy mb-4">
+      {t.title}
+    </h2>
+    <p class="animate-on-scroll delay-1 text-on-surface-variant max-w-xl mx-auto font-['Inter']">{t.subtitle}</p>
   </div>
 
-  <div class="max-w-6xl mx-auto grid gap-8 md:grid-cols-3">
-    {t.testimonials.map((testimonial) => (
-      <div class="bg-surface rounded-xl shadow-md p-6 flex flex-col justify-between text-center hover:shadow-xl transition">
-        <p class="text-foreground/80 italic mb-4">"{testimonial.quote}"</p>
-        <h4 class="text-xl font-semibold">{testimonial.name}</h4>
-        <span class="text-sm text-foreground/60">{testimonial.role}</span>
+  <div class="relative w-full">
+    <div class="animate-scroll gap-6 px-4">
+      <!-- Testimonial Set 1 -->
+      <div class="flex gap-6">
+        {t.testimonials.map((testimonial) => (
+          <div class="w-[300px] md:w-[450px] bg-white p-8 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between shrink-0">
+            <p class="italic text-on-surface font-['Inter'] mb-8 leading-relaxed">"{testimonial.quote}"</p>
+            <div>
+              <h4 class="font-['Inter'] text-sm font-semibold text-primary">{testimonial.name}</h4>
+              <p class="text-xs text-outline">{testimonial.role}</p>
+            </div>
+          </div>
+        ))}
       </div>
-    ))}
+      <!-- Duplicate Set for Seamless Loop -->
+      <div aria-hidden="true" class="flex gap-6">
+        {t.testimonials.map((testimonial) => (
+          <div class="w-[300px] md:w-[450px] bg-white p-8 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between shrink-0">
+            <p class="italic text-on-surface font-['Inter'] mb-8 leading-relaxed">"{testimonial.quote}"</p>
+            <div>
+              <h4 class="font-['Inter'] text-sm font-semibold text-primary">{testimonial.name}</h4>
+              <p class="text-xs text-outline">{testimonial.role}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   </div>
 </section>

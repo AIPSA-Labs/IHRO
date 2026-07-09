@@ -1,79 +1,67 @@
 ---
 import { translations } from "../../locals/home/presence";
-import { Globe, MapPin, Building } from "@lucide/astro";
+import digitalMap from "../../assets/digital-map.png";
 
 type Locale = 'en' | 'hi' | 'fr';
 const { local = 'en' } = Astro.params ?? {};
 const t = translations[local as Locale] || translations['en'];
 ---
 
-<section class="bg-background py-28 px-4 md:px-10">
+<section class="py-20 px-4 md:px-6 max-w-7xl mx-auto overflow-hidden" id="presence">
+  <div class="flex flex-col md:flex-row gap-16 items-center">
 
-  <!-- Section Title -->
-  <div class="max-w-6xl mx-auto text-center mb-16">
-    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">{t.title}</h2>
-    <div class="w-24 h-[4px] bg-primary mx-auto rounded-full mb-6"></div>
-    <p class="text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto">
-      {t.subtitle}
-    </p>
-  </div>
+    <!-- Left Content -->
+    <div class="w-full md:w-1/2">
+      <h2 class="animate-on-scroll scroll-left font-['Hanken_Grotesk'] text-[32px] md:text-[40px] leading-[48px] tracking-[-0.01em] font-semibold text-justice-navy mb-8">
+        {t.title}
+      </h2>
 
-  <!-- International Offices -->
-  <div class="max-w-6xl mx-auto mb-20">
-    <div class="flex items-center gap-3 mb-6">
-      <Globe class="w-8 h-8 text-primary" />
-      <h3 class="text-2xl font-bold">{t.internationalTitle}</h3>
-    </div>
-
-    <div class="grid gap-8 md:grid-cols-3">
-      {t.internationalOffices.map((office) => (
-        <div class="bg-primary/5 border border-primary/20 rounded-xl shadow-sm p-6 hover:shadow-lg transition">
-          <div class="flex items-center gap-3 mb-4">
-            <MapPin class="w-6 h-6 text-primary" />
-            <h4 class="text-xl font-semibold">{office.country}</h4>
+      <div class="space-y-8">
+        <!-- International Offices -->
+        <div class="animate-on-scroll scroll-left delay-1">
+          <h4 class="font-['Inter'] text-sm font-semibold text-action-blue uppercase tracking-widest mb-4">
+            {t.internationalTitle}
+          </h4>
+          <div class="flex flex-wrap gap-3">
+            {t.internationalOffices.map((office) => (
+              <span class="bg-surface-container px-4 py-2 rounded-full font-['Inter'] text-sm text-on-surface">{office.country}</span>
+            ))}
           </div>
-          <p class="text-foreground/80 leading-relaxed">{office.address}</p>
         </div>
-      ))}
+
+        <!-- National Chapters -->
+        <div class="animate-on-scroll scroll-left delay-2">
+          <h4 class="font-['Inter'] text-sm font-semibold text-action-blue uppercase tracking-widest mb-4">
+            {t.nationalTitle}
+          </h4>
+          <div class="flex flex-wrap gap-3">
+            {t.nationalChapters.map((chapter) => (
+              <span class="bg-surface-container px-4 py-2 rounded-full font-['Inter'] text-sm text-on-surface">{chapter}</span>
+            ))}
+          </div>
+        </div>
+
+        <!-- State Chapters -->
+        <div class="animate-on-scroll scroll-left delay-3">
+          <h4 class="font-['Inter'] text-sm font-semibold text-action-blue uppercase tracking-widest mb-4">
+            {t.stateTitle}
+          </h4>
+          <div class="flex flex-wrap gap-3">
+            {t.stateChapters.map((chapter) => (
+              <span class="bg-surface-container-low border border-slate-200 px-4 py-2 rounded-full font-['Inter'] text-xs text-on-surface">{chapter}</span>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Right Map -->
+    <div class="animate-on-scroll scroll-right w-full md:w-1/2 relative">
+      <div class="aspect-square bg-slate-100 rounded-2xl flex items-center justify-center p-8 relative">
+        <div class="absolute inset-0 bg-blue-100/30 rounded-2xl animate-pulse"></div>
+        <img src={digitalMap.src} alt="Global Network Map" class="w-full h-full object-contain relative z-10" />
+      </div>
+    </div>
+
   </div>
-
-  <!-- National Chapters -->
-  <div class="max-w-6xl mx-auto mb-20">
-    <div class="flex items-center gap-3 mb-6">
-      <Building class="w-8 h-8 text-primary" />
-      <h3 class="text-2xl font-bold">{t.nationalTitle}</h3>
-    </div>
-
-    <div class="bg-surface border border-border rounded-xl p-6">
-      <ul class="grid md:grid-cols-2 gap-4 text-foreground/80">
-        {t.nationalChapters.map((chapter) => (
-          <li class="flex items-start gap-3">
-            <span class="w-2 h-2 rounded-full bg-primary mt-2"></span>
-            {chapter}
-          </li>
-        ))}
-      </ul>
-    </div>
-  </div>
-
-  <!-- State Chapters -->
-  <div class="max-w-6xl mx-auto">
-    <div class="flex items-center gap-3 mb-6">
-      <Building class="w-8 h-8 text-primary" />
-      <h3 class="text-2xl font-bold">{t.stateTitle}</h3>
-    </div>
-
-    <div class="bg-surface border border-border rounded-xl p-6">
-      <ul class="grid md:grid-cols-2 gap-4 text-foreground/80">
-        {t.stateChapters.map((chapter) => (
-          <li class="flex items-start gap-3">
-            <span class="w-2 h-2 rounded-full bg-primary mt-2"></span>
-            {chapter}
-          </li>
-        ))}
-      </ul>
-    </div>
-  </div>
-
 </section>

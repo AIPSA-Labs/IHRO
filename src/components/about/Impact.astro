@@ -1,23 +1,32 @@
 ---
 import { translations } from "../../locals/about/impact";
+import { TrendingUp, Award, Users, Globe } from "@lucide/astro";
 
 type Locale = 'en' | 'hi' | 'fr';
 const { local = 'en' } = Astro.params ?? {};
 const t = translations[local as Locale] || translations['en'];
+
+const statIcons = [TrendingUp, Award, Users, Globe];
 ---
 
-<section class="bg-primary/5 text-foreground py-20 px-4 md:px-10">
-  <div class="max-w-6xl mx-auto text-center mb-12">
-    <h2 class="text-3xl md:text-4xl font-extrabold">{t.title}</h2>
-    <p class="text-lg text-foreground/70 mt-4">{t.subtitle}</p>
+<section class="relative py-24 px-4 sm:px-6 md:px-10 overflow-hidden bg-honor-gold/10">
+  <div class="max-w-7xl mx-auto text-center mb-16 relative z-10">
+    <h2 class="animate-on-scroll text-3xl md:text-5xl font-extrabold text-justice-navy mb-4">{t.title}</h2>
+    <p class="animate-on-scroll delay-1 text-lg md:text-xl text-on-surface-variant mt-4 max-w-2xl mx-auto">{t.subtitle}</p>
   </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto text-center">
-    {t.stats.map((stat) => (
-      <div>
-        <h3 class="text-4xl font-extrabold text-primary">{stat.number}</h3>
-        <p class="text-lg text-foreground/80 mt-2">{stat.label}</p>
-      </div>
-    ))}
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-7xl mx-auto text-center relative z-10">
+    {t.stats.map((stat, index) => {
+      const Icon = statIcons[index % statIcons.length];
+      return (
+        <div class={`animate-on-scroll scroll-scale delay-${index + 1} group bg-white rounded-3xl p-8 hover:shadow-xl transition-all duration-300 border border-honor-gold/20`}>
+          <div class="inline-flex p-3 rounded-2xl bg-honor-gold/10 mb-4 group-hover:scale-110 transition-transform duration-300">
+            <Icon class="w-6 h-6 text-honor-gold" />
+          </div>
+          <h3 class="text-4xl font-extrabold text-justice-navy">{stat.number}</h3>
+          <p class="text-lg text-on-surface-variant mt-2">{stat.label}</p>
+        </div>
+      );
+    })}
   </div>
 </section>

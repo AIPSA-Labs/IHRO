@@ -1,75 +1,45 @@
 
 ---
 import { translations } from "../../locals/home/hero";
+import heroImg from "../../assets/hero.png";
 
 type Locale = "en" | "hi" | "fr";
 const { local = "en" } = Astro.params ?? {};
 const t = translations[local as Locale] || translations["en"];
 ---
 
-<section class="relative w-full">
+<section class="relative min-h-[85vh] flex items-center overflow-hidden pt-20">
 
-  <div id="carousel" class="absolute inset-0 w-full h-full">
-    <img
-      src="https://images.pexels.com/photos/8553543/pexels-photo-8553543.jpeg"
-      class="carousel-img absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-[2000ms]"
-    />
-    <img
-      src="https://images.pexels.com/photos/8203110/pexels-photo-8203110.jpeg"
-      class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-[2000ms]"
-    />
-    <img
-      src="https://images.pexels.com/photos/10617692/pexels-photo-10617692.jpeg"
-      class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-[2000ms]"
-    />
+  <!-- Background Image -->
+  <div class="absolute inset-0 z-0">
+    <img src={heroImg.src} alt="IHRO Hero" class="w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-r from-justice-navy/90 via-justice-navy/40 to-transparent"></div>
   </div>
 
-  <!-- Black Overlay -->
-  <div class="absolute inset-0 bg-black/60 pointer-events-none"></div>
-
-  <!-- Content (FULL SCREEN HEIGHT) -->
-  <div class="relative lg:w-1/2 z-10 flex flex-col justify-center text-white px-6 h-screen">
-    <h1 class="text-2xl md:text-4xl font-extrabold mb-4 drop-shadow-xl">
-      {t.title}
-    </h1>
-
-    <p class="text-lg md:text-2xl max-w-2xl mb-8 opacity-90 drop-shadow">
-      {t.subtitle}
-    </p>
-
-    <a
-      href="/campaigns"
-      class="bg-primary w-1/2 text-center text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition shadow-lg"
-    >
-      {t.cta}
-    </a>
+  <!-- Content -->
+  <div class="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-6 py-20">
+    <div class="max-w-xl">
+      <h1 class="font-['Hanken_Grotesk'] text-[36px] md:text-[52px] leading-[60px] tracking-[-0.02em] font-bold text-white mb-6">
+        {t.title}
+      </h1>
+      <p class="font-['Inter'] text-[18px] leading-[28px] text-white/80 mb-10">
+        {t.subtitle}
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a
+          href="/campaigns"
+          class="bg-action-blue text-on-primary font-['Inter'] text-sm font-semibold px-8 py-4 rounded-lg hover:bg-secondary transition-all shadow-lg active:scale-95"
+        >
+          {t.cta}
+        </a>
+        <a
+          href="#mission"
+          class="bg-white/10 backdrop-blur-md border border-white/20 text-white font-['Inter'] text-sm font-semibold px-8 py-4 rounded-lg hover:bg-white/20 transition-all active:scale-95"
+        >
+          Our Mission
+        </a>
+      </div>
+    </div>
   </div>
-
-  <!-- Fade-out bottom transition -->
-<div class="relative w-full h-40 md:h-60">
-  <div
-    class="absolute inset-x-0 bottom-0 h-full 
-           bg-gradient-to-b from-transparent via-background/50 to-background"
-  ></div>
-</div>
 
 </section>
-
-<style>
-  .carousel-img {
-    @apply transition-opacity duration-[2000ms];
-  }
-</style>
-
-<script>
-  const slides = document.querySelectorAll(".carousel-img");
-  let current = 0;
-
-  setInterval(() => {
-    // @ts-ignore
-    slides[current].style.opacity = 0;
-    current = (current + 1) % slides.length;
-    // @ts-ignore
-    slides[current].style.opacity = 1;
-  }, 6000);
-</script>

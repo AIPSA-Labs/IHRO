@@ -1,75 +1,28 @@
 ---
 import { translations } from "../../locals/home/mission";
-import { ShieldCheck, Scale, Users } from "@lucide/astro";
 
 type Locale = "en" | "hi" | "fr";
 const { local = "en" } = Astro.params ?? {};
 const t = translations[local as Locale] || translations["en"];
-
-const missionPoints = [
-  {
-    icon: ShieldCheck,
-    title: "Protection",
-    text: "Protect and uphold the fundamental rights of every individual.",
-  },
-  {
-    icon: Scale,
-    title: "Justice",
-    text: "Ensure access to fair justice systems for vulnerable communities.",
-  },
-  {
-    icon: Users,
-    title: "Equality",
-    text: "Promote dignity, inclusion, and equal opportunities for all.",
-  },
-];
 ---
 
-<section id="mission" class="bg-background text-foreground w-full py-28 md:py-36 relative overflow-x-hidden">
+<section id="mission" class="py-20 md:py-32 px-4 md:px-6 max-w-7xl mx-auto">
   <div class="text-center mb-16">
-    <h2 class="text-3xl md:text-4xl font-extrabold mb-3">{t.title}</h2>
-    <div class="w-20 h-[4px] bg-primary mx-auto rounded-full"></div>
+    <span class="animate-on-scroll text-action-blue font-['Inter'] text-sm font-semibold uppercase tracking-widest mb-4 block">{t.coreValuesLabel}</span>
+    <h2 class="animate-on-scroll delay-1 font-['Hanken_Grotesk'] text-[32px] md:text-[40px] leading-[48px] tracking-[-0.01em] font-semibold text-justice-navy">
+      {t.title}
+    </h2>
   </div>
 
-  <div class="max-w-6xl mx-auto px-4">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-      {missionPoints.map(({ icon: Icon, title, text }) => (
-        <div
-          class="mission-card opacity-0 translate-y-6 md:translate-y-0 md:translate-x-10
-                 bg-primary/10 border border-primary/30 rounded-2xl shadow-lg
-                 p-8 backdrop-blur-md transition-all duration-[900ms]"
-        >
-          <div class="flex items-center gap-4 mb-5">
-            <div class="p-3 rounded-xl bg-primary/20 text-primary">
-              <Icon class="w-8 h-8" />
-            </div>
-            <h3 class="text-xl font-bold text-primary">{title}</h3>
-          </div>
-          <p class="text-foreground/90 leading-relaxed">{text}</p>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    {t.missionPoints.map((point, index) => (
+      <div class={`animate-on-scroll delay-${index + 1} p-8 rounded-xl border border-slate-200 bg-white hover:shadow-xl transition-shadow group`}>
+        <div class="w-16 h-16 bg-surface-container rounded-lg flex items-center justify-center mb-6 text-justice-navy group-hover:bg-justice-navy group-hover:text-white transition-colors">
+          <span class="material-symbols-outlined text-[40px]">{point.icon}</span>
         </div>
-      ))}
-    </div>
+        <h3 class="font-['Hanken_Grotesk'] text-[28px] leading-[36px] font-semibold mb-4">{point.title}</h3>
+        <p class="text-on-surface-variant leading-relaxed">{point.text}</p>
+      </div>
+    ))}
   </div>
 </section>
-
-<script>
-  const cards = document.querySelectorAll(".mission-card");
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        const card = entry.target;
-        if (entry.isIntersecting) {
-          card.classList.remove("opacity-0");
-          card.classList.add("opacity-100");
-        } else {
-          card.classList.add("opacity-0");
-          card.classList.remove("opacity-100");
-        }
-      });
-    },
-    { threshold: 0.3 }
-  );
-
-  cards.forEach((card) => observer.observe(card));
-</script>

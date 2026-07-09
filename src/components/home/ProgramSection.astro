@@ -1,40 +1,67 @@
 ---
 import { translations } from "../../locals/home/program";
 
-// Lucide Icons
-import { Users, BookOpen, Globe, Shield, Heart } from "@lucide/astro";
-
 type Locale = 'en' | 'hi' | 'fr';
 const { local = 'en' } = Astro.params ?? {};
 const t = translations[local as Locale] || translations['en'];
-
-// Map icon names to Lucide components
-const iconMap = {
-  Advocacy: Users,
-  "Legal Aid": Shield,
-  "Education & Research": BookOpen,
-  "Environmental Protection": Globe,
-  "Community Engagement": Heart,
-  "Human Rights Support": Shield,
-};
 ---
 
-<section class="bg-background py-20 px-4 md:px-10">
-  <div class="max-w-6xl mx-auto text-center mb-12">
-    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">{t.title}</h2>
-    <p class="text-lg md:text-xl text-foreground/80">{t.subtitle}</p>
-  </div>
+<section class="py-20 bg-surface-container-low px-4 md:px-6" id="programs">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-16">
+      <h2 class="animate-on-scroll font-['Hanken_Grotesk'] text-[32px] md:text-[40px] leading-[48px] tracking-[-0.01em] font-semibold text-justice-navy">
+        {t.title}
+      </h2>
+      <p class="animate-on-scroll delay-1 text-on-surface-variant max-w-xl mt-4">
+        {t.subtitle}
+      </p>
+    </div>
 
-  <div class="grid gap-8 md:grid-cols-3 max-w-6xl mx-auto">
-    {t.programs.map((program) => {
-      const Icon = iconMap[program.title as keyof typeof iconMap] || Users;
-      return (
-        <div class="bg-surface rounded-xl shadow-md p-6 flex flex-col items-center text-center hover:shadow-xl transition">
-          <Icon class="w-12 h-12 mb-4 text-primary" />
-          <h3 class="text-xl font-semibold mb-2">{program.title}</h3>
-          <p class="text-foreground/80">{program.description}</p>
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[280px]">
+      <!-- Program 0 (Advocacy - Large) -->
+      <div class="animate-on-scroll scroll-left md:col-span-8 liquid-glass rounded-xl p-8 flex flex-col justify-end relative overflow-hidden group">
+        <div class="absolute top-0 right-0 p-8 text-on-surface-variant/20 group-hover:text-action-blue transition-colors">
+          <span class="material-symbols-outlined text-[80px]">{t.programs[0].icon}</span>
         </div>
-      );
-    })}
+        <h3 class="font-['Hanken_Grotesk'] text-[28px] leading-[36px] font-semibold relative z-10">{t.programs[0].title}</h3>
+        <p class="text-on-surface-variant mt-2 relative z-10 max-w-md">{t.programs[0].description}</p>
+      </div>
+
+      <!-- Program 1 (Legal Aid) -->
+      <div class="animate-on-scroll scroll-right delay-1 md:col-span-4 bg-white border border-slate-200 rounded-xl p-8 flex flex-col justify-between">
+        <span class="material-symbols-outlined text-action-blue text-[40px]">{t.programs[1].icon}</span>
+        <div>
+          <h3 class="font-['Hanken_Grotesk'] text-[24px] font-semibold mb-2">{t.programs[1].title}</h3>
+          <p class="text-on-surface-variant text-sm">{t.programs[1].description}</p>
+        </div>
+      </div>
+
+      <!-- Program 2 (Education & Research - Navy) -->
+      <div class="animate-on-scroll scroll-left delay-2 md:col-span-4 bg-justice-navy text-white rounded-xl p-8 flex flex-col justify-between">
+        <span class="material-symbols-outlined text-honor-gold text-[40px]">{t.programs[2].icon}</span>
+        <div>
+          <h3 class="font-['Hanken_Grotesk'] text-[24px] font-semibold mb-2">{t.programs[2].title}</h3>
+          <p class="text-surface-variant text-sm">{t.programs[2].description}</p>
+        </div>
+      </div>
+
+      <!-- Program 3 (Environmental - Glass) -->
+      <div class="animate-on-scroll delay-3 md:col-span-4 liquid-glass rounded-xl p-8 flex flex-col justify-between">
+        <span class="material-symbols-outlined text-green-600 text-[40px]">{t.programs[3].icon}</span>
+        <div>
+          <h3 class="font-['Hanken_Grotesk'] text-[24px] font-semibold mb-2">{t.programs[3].title}</h3>
+          <p class="text-on-surface-variant text-sm">{t.programs[3].description}</p>
+        </div>
+      </div>
+
+      <!-- Program 4 (Community Engagement) -->
+      <div class="animate-on-scroll scroll-right delay-4 md:col-span-4 bg-white border border-slate-200 rounded-xl p-8 flex flex-col justify-between">
+        <span class="material-symbols-outlined text-primary text-[40px]">{t.programs[4].icon}</span>
+        <div>
+          <h3 class="font-['Hanken_Grotesk'] text-[24px] font-semibold mb-2">{t.programs[4].title}</h3>
+          <p class="text-on-surface-variant text-sm">{t.programs[4].description}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

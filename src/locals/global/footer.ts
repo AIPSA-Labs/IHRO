@@ -6,17 +6,29 @@ export const footerTranslations = {
     links: {
       home: "Home",
       about: "About",
+      annualReport: "Annual Report",
       privacy: "Privacy",
       terms: "Terms",
+      ethicsCharter: "Ethics Charter",
       contact: "Contact",
     },
-    contactTitle: "Contact",
-    contact: {
-      email: "Email",
-      phone: "Phone",
-      address: "Address",
+    supportTitle: "Support",
+    supportLinks: {
+      donate: "Donate",
+      volunteer: "Volunteer",
+      newsletter: "Newsletter",
     },
-    rights: "All rights reserved."
+    legalTitle: "Legal",
+    contactTitle: "Contact",
+    copyright: "All rights reserved.",
+    termsOfService: "Terms of Service",
+    cookiePolicy: "Cookie Policy",
+    newsletter: {
+      title: "Subscribe to Our Newsletter",
+      subtitle: "Stay updated on IHRO initiatives, programs, and events.",
+      placeholder: "Enter your email",
+      cta: "Subscribe",
+    },
   },
 
   hi: {
@@ -26,17 +38,29 @@ export const footerTranslations = {
     links: {
       home: "होम",
       about: "हमारे बारे में",
+      annualReport: "वार्षिक रिपोर्ट",
       privacy: "गोपनीयता",
       terms: "शर्तें",
-      contact: "संपर्क करें",
+      ethicsCharter: "नैतिकता चार्टर",
+      contact: "संपर्क",
     },
+    supportTitle: "सहायता",
+    supportLinks: {
+      donate: "दान करें",
+      volunteer: "स्वयंसेवक",
+      newsletter: "न्यूज़लेटर",
+    },
+    legalTitle: "कानूनी",
     contactTitle: "संपर्क",
-    contact: {
-      email: "ईमेल",
-      phone: "फ़ोन",
-      address: "पता",
+    copyright: "सर्वाधिकार सुरक्षित।",
+    termsOfService: "सेवा की शर्तें",
+    cookiePolicy: "कुकी नीति",
+    newsletter: {
+      title: "हमारे न्यूज़लेटर की सदस्यता लें",
+      subtitle: "IHRO की पहलों, कार्यक्रमों और घटनाओं की जानकारी पाएं।",
+      placeholder: "अपना ईमेल दर्ज करें",
+      cta: "सदस्यता लें",
     },
-    rights: "सर्वाधिकार सुरक्षित।"
   },
 
   fr: {
@@ -46,16 +70,28 @@ export const footerTranslations = {
     links: {
       home: "Accueil",
       about: "À propos",
+      annualReport: "Rapport annuel",
       privacy: "Confidentialité",
       terms: "Conditions",
+      ethicsCharter: "Charte éthique",
       contact: "Contact",
     },
-    contactTitle: "Contact",
-    contact: {
-      email: "E-mail",
-      phone: "Téléphone",
-      address: "Adresse",
+    supportTitle: "Soutien",
+    supportLinks: {
+      donate: "Faire un don",
+      volunteer: "Bénévole",
+      newsletter: "Newsletter",
     },
-    rights: "Tous droits réservés."
+    legalTitle: "Juridique",
+    contactTitle: "Contact",
+    copyright: "Tous droits réservés.",
+    termsOfService: "Conditions d'utilisation",
+    cookiePolicy: "Politique de cookies",
+    newsletter: {
+      title: "Abonnez-vous à notre newsletter",
+      subtitle: "Restez informé des initiatives, programmes et événements de l'IHRO.",
+      placeholder: "Entrez votre e-mail",
+      cta: "S'abonner",
+    },
   }
 };

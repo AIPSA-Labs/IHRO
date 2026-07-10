@@ -134,5 +134,8 @@ const { local = "en" } = Astro.params ?? {};
     const arrow = document.getElementById('langArrow');
     options?.classList.toggle('hidden');
     arrow?.classList.toggle('rotate-180');
+    if (options && !options.classList.contains('hidden')) {
+      options.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   };
 </script>

@@ -1,120 +1,128 @@
 ---
-import { footerTranslations } from "../../locals/global/footer";
+//- Global footer matching the exact reference video layout with multi-column links, social handles, and copyright
 
-const year = new Date().getFullYear();
+import { getStrings } from "../../constants/strings";
+import { CONFIG } from "../../constants/config";
 
-type Locale = "en" | "hi" | "fr";
-const { local = "en" } = Astro.params ?? {};
-const t = footerTranslations[local as Locale] || footerTranslations["en"];
+const { local = "en" } = Astro.params;
+const s = getStrings(local);
 ---
 
-<footer class="bg-black text-white pt-20 pb-10">
-  <div class="max-w-7xl mx-auto px-4 md:px-6">
+<footer class="bg-charcoal text-white pt-16 pb-12 w-full">
+  <div class="w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
+    
+    {/*- Main Footer Columns */}
     <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
-
-      <!-- Brand -->
-      <div class="md:col-span-4">
-        <div class="flex items-center gap-3 mb-6">
-          <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center p-1">
-            <img src="/favicon.svg" alt="IHRO Logo" class="w-full h-full object-contain" />
-          </div>
-          <span class="font-['Hanken_Grotesk'] text-[28px] font-bold tracking-tight">IHRO</span>
+      
+      {/*- Brand Summary & Direct Contact */}
+      <div class="md:col-span-6 lg:col-span-5">
+        <div class="flex flex-col mb-4">
+          <span class="font-['Hanken_Grotesk'] text-base md:text-lg font-bold text-white leading-tight">
+            {s.brand.name}
+          </span>
+          <span class="font-['Inter'] text-xs text-white/70 font-normal mt-1">
+            {s.brand.fullName}
+          </span>
         </div>
-        <p class="text-white/80 font-['Inter'] leading-relaxed mb-8">
-          {t.brandDesc}
+        <p class="font-['Inter'] text-xs sm:text-sm text-white/70 leading-relaxed max-w-sm mb-6">
+          {s.footer.brandDesc}
         </p>
-        <div class="flex gap-4">
-          <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-honor-gold transition-colors">
-            <span class="material-symbols-outlined text-[20px]">public</span>
-          </a>
-          <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-honor-gold transition-colors">
-            <span class="material-symbols-outlined text-[20px]">share</span>
-          </a>
-          <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-honor-gold transition-colors">
-            <span class="material-symbols-outlined text-[20px]">rss_feed</span>
-          </a>
+        <div class="space-y-1.5 text-xs text-white/60 font-['Inter']">
+          <p>
+            <a href={`mailto:${CONFIG.CONTACT_INFO.EMAIL}`} class="hover:text-white transition-colors underline-offset-2 hover:underline">
+              {CONFIG.CONTACT_INFO.EMAIL}
+            </a>
+          </p>
+          <p>
+            <a href={`tel:${CONFIG.CONTACT_INFO.PHONE}`} class="hover:text-white transition-colors underline-offset-2 hover:underline">
+              {CONFIG.CONTACT_INFO.PHONE_FORMATTED}
+            </a>
+          </p>
+          <p>{CONFIG.CONTACT_INFO.ADDRESS}</p>
         </div>
       </div>
 
-      <!-- Organization -->
-      <div class="md:col-span-2">
-        <h4 class="font-['Inter'] text-sm font-semibold text-white/70 mb-6 uppercase tracking-widest">{t.linksTitle}</h4>
-        <ul class="space-y-4">
-          <li><a class="text-white/80 hover:text-white transition-colors font-['Inter']" href={`/${local}/`}>{t.links.home}</a></li>
-          <li><a class="text-white/80 hover:text-white transition-colors font-['Inter']" href={`/${local}/about`}>{t.links.about}</a></li>
-          <li><a class="text-white/80 hover:text-white transition-colors font-['Inter']" href="#">{t.links.annualReport}</a></li>
+      {/*- Spacer */}
+      <div class="hidden lg:block lg:col-span-1"></div>
+
+      {/*- Quick Links */}
+      <div class="md:col-span-3 lg:col-span-3">
+        <h4 class="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-wider text-white/40 mb-4">
+          {s.footer.quickLinksTitle}
+        </h4>
+        <ul class="space-y-2.5 font-['Inter'] text-xs sm:text-sm">
+          <li><a href={`/${local}/`} class="text-white/80 hover:text-white transition-colors">{s.footer.links.home}</a></li>
+          <li><a href={`/${local}/about`} class="text-white/80 hover:text-white transition-colors">{s.footer.links.about}</a></li>
+          <li><a href={`/${local}/#mission`} class="text-white/80 hover:text-white transition-colors">{s.footer.links.mission}</a></li>
+          <li><a href={`/${local}/about#policies`} class="text-white/80 hover:text-white transition-colors">{s.footer.links.programs}</a></li>
+          <li><a href={`/${local}/contact`} class="text-white/80 hover:text-white transition-colors">{s.footer.links.contact}</a></li>
         </ul>
       </div>
 
-      <!-- Support -->
-      <div class="md:col-span-2">
-        <h4 class="font-['Inter'] text-sm font-semibold text-white/70 mb-6 uppercase tracking-widest">{t.supportTitle}</h4>
-        <ul class="space-y-4">
-          <li><a class="text-white/80 hover:text-white transition-colors font-['Inter']" href="#">{t.supportLinks.donate}</a></li>
-          <li><a class="text-white/80 hover:text-white transition-colors font-['Inter']" href="#">{t.supportLinks.volunteer}</a></li>
-          <li><a class="text-white/80 hover:text-white transition-colors font-['Inter']" href="#">{t.supportLinks.newsletter}</a></li>
+      {/*- Connect Links (Real external links with new tab attributes) */}
+      <div class="md:col-span-3 lg:col-span-3">
+        <h4 class="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-wider text-white/40 mb-4">
+          {s.footer.connectTitle}
+        </h4>
+        <ul class="space-y-2.5 font-['Inter'] text-xs sm:text-sm">
+          <li>
+            <a
+              href={CONFIG.SOCIAL_URLS.LINKEDIN}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-white/80 hover:text-white transition-colors inline-flex items-center gap-1.5"
+            >
+              <span>{s.footer.links.linkedin}</span>
+              <span class="material-symbols-outlined text-xs">arrow_outward</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href={CONFIG.SOCIAL_URLS.INSTAGRAM}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-white/80 hover:text-white transition-colors inline-flex items-center gap-1.5"
+            >
+              <span>{s.footer.links.instagram}</span>
+              <span class="material-symbols-outlined text-xs">arrow_outward</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href={CONFIG.SOCIAL_URLS.YOUTUBE}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-white/80 hover:text-white transition-colors inline-flex items-center gap-1.5"
+            >
+              <span>{s.footer.links.youtube}</span>
+              <span class="material-symbols-outlined text-xs">arrow_outward</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href={CONFIG.SOCIAL_URLS.TWITTER}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-white/80 hover:text-white transition-colors inline-flex items-center gap-1.5"
+            >
+              <span>{s.footer.links.twitter}</span>
+              <span class="material-symbols-outlined text-xs">arrow_outward</span>
+            </a>
+          </li>
         </ul>
-      </div>
-
-      <!-- Legal -->
-      <div class="md:col-span-2">
-        <h4 class="font-['Inter'] text-sm font-semibold text-white/70 mb-6 uppercase tracking-widest">{t.legalTitle}</h4>
-        <ul class="space-y-4">
-          <li><a class="text-white/80 hover:text-white transition-colors font-['Inter']" href={`/${local}/privacy`}>{t.links.privacy}</a></li>
-          <li><a class="text-white/80 hover:text-white transition-colors font-['Inter']" href={`/${local}/terms`}>{t.links.terms}</a></li>
-          <li><a class="text-white/80 hover:text-white transition-colors font-['Inter']" href="#">{t.links.ethicsCharter}</a></li>
-        </ul>
-      </div>
-
-      <!-- Contact -->
-      <div class="md:col-span-2">
-        <h4 class="font-['Inter'] text-sm font-semibold text-white/70 mb-6 uppercase tracking-widest">{t.contactTitle}</h4>
-        <div class="space-y-4 text-white/80 text-sm">
-          <p class="flex items-start gap-3">
-            <span class="material-symbols-outlined text-honor-gold">mail</span>
-            info@ihro.world
-          </p>
-          <p class="flex items-start gap-3">
-            <span class="material-symbols-outlined text-honor-gold">call</span>
-            +4917645983857
-          </p>
-          <p class="flex items-start gap-3">
-            <span class="material-symbols-outlined text-honor-gold">location_on</span>
-            Mallinckrodstraße 167, Dortmund, Germany
-          </p>
-        </div>
       </div>
 
     </div>
 
-    <!-- Newsletter -->
-    <div class="border-t border-white/10 pt-12 pb-8">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-8 w-full">
-        <div class="text-left max-w-md">
-          <h3 class="font-['Hanken_Grotesk'] text-[28px] leading-[36px] font-semibold text-white mb-2">{t.newsletter.title}</h3>
-          <p class="text-white/60 font-['Inter']">{t.newsletter.subtitle}</p>
-        </div>
-        <div class="w-full md:w-auto flex flex-col sm:flex-row gap-3">
-          <input
-            type="email"
-            placeholder={t.newsletter.placeholder}
-            required
-            class="flex-grow md:w-[450px] p-4 rounded-lg border-none focus:ring-2 focus:ring-action-blue outline-none bg-white/10 text-white placeholder:text-white/60 font-['Inter']"
-          />
-          <button class="bg-action-blue text-on-primary px-8 py-4 rounded-lg font-['Inter'] text-sm font-semibold hover:bg-secondary transition-all active:scale-95 shadow-lg cursor-pointer">
-            {t.newsletter.cta}
-          </button>
-        </div>
+    {/*- Bottom Bar */}
+    <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-['Inter'] text-white/50">
+      <p>{s.footer.copyright}</p>
+      <div class="flex items-center gap-4">
+        <a href={`/${local}/privacy`} class="hover:text-white transition-colors">{s.footer.privacyPolicy}</a>
+        <span>•</span>
+        <a href={`/${local}/terms`} class="hover:text-white transition-colors">{s.footer.termsCondition}</a>
       </div>
     </div>
 
-    <!-- Bottom Bar -->
-    <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p class="text-white/80 font-['Inter'] text-sm font-semibold">&copy; {year} International Human Rights Organization. {t.copyright}</p>
-      <div class="flex gap-8">
-        <a class="text-white/80 hover:text-white text-xs uppercase tracking-widest transition-colors" href="#">{t.termsOfService}</a>
-        <a class="text-white/80 hover:text-white text-xs uppercase tracking-widest transition-colors" href="#">{t.cookiePolicy}</a>
-      </div>
-    </div>
   </div>
 </footer>

@@ -37,7 +37,7 @@ export const translations = {
       },
       {
         heading: "9. Contact Us",
-        content: "For any questions regarding this privacy policy, please contact us at info@ihro.org."
+        content: "For any questions regarding this privacy policy, please contact us at info@ihro.world."
       },
     ]
   },
@@ -79,7 +79,7 @@ export const translations = {
       },
       {
         heading: "9. संपर्क करें",
-        content: "इस गोपनीयता नीति के संबंध में किसी भी प्रश्न के लिए कृपया हमसे info@ihro.org पर संपर्क करें।"
+        content: "इस गोपनीयता नीति के संबंध में किसी भी प्रश्न के लिए कृपया हमसे info@ihro.world पर संपर्क करें।"
       },
     ]
   },
@@ -121,7 +121,7 @@ export const translations = {
       },
       {
         heading: "9. Contactez-nous",
-        content: "Pour toute question concernant cette politique de confidentialité, veuillez nous contacter à info@ihro.org."
+        content: "Pour toute question concernant cette politique de confidentialité, veuillez nous contacter à info@ihro.world."
       },
     ]
   }

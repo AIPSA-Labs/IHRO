@@ -1,4 +1,5 @@
 ---
+//- Newsletter subscription component wired to real server API /api/newsletter and AIPSA Database
 import { translations } from "../../locals/home/newsletter";
 
 type Locale = 'en' | 'hi' | 'fr';
@@ -6,24 +7,93 @@ const { local = 'en' } = Astro.params ?? {};
 const t = translations[local as Locale] || translations['en'];
 ---
 
-<section class="py-20 bg-surface-container-low border-t border-outline-variant">
-  <div class="max-w-7xl mx-auto px-4 md:px-6">
-    <div class="animate-on-scroll scroll-scale bg-justice-navy rounded-xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
+<section class="py-20 bg-canvas border-t border-border/80">
+  <div class="w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
+    <div class="bg-charcoal rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
       <div class="text-left max-w-md">
-        <h2 class="font-['Hanken_Grotesk'] text-[28px] leading-[36px] font-semibold text-white mb-2">{t.title}</h2>
-        <p class="text-primary-fixed-dim font-['Inter']">{t.subtitle}</p>
+        <h2 class="font-['Hanken_Grotesk'] text-2xl sm:text-3xl font-bold text-white mb-2">{t.title}</h2>
+        <p class="text-white/70 font-['Inter'] text-sm sm:text-base font-light">{t.subtitle}</p>
       </div>
-      <div class="w-full md:w-auto flex flex-col sm:flex-row gap-3">
-        <input
-          type="email"
-          placeholder={t.placeholder}
-          required
-          class="flex-grow md:w-80 p-4 rounded-lg border-none focus:ring-2 focus:ring-action-blue outline-none bg-white/10 text-white placeholder:text-white/60"
-        />
-        <button class="bg-action-blue text-on-primary px-8 py-4 rounded-lg font-['Inter'] text-sm font-semibold hover:bg-secondary transition-all active:scale-95 shadow-lg">
-          {t.cta}
-        </button>
-      </div>
+      <form id="newsletterForm" class="w-full md:w-auto flex flex-col gap-2">
+        <div class="flex flex-col sm:flex-row gap-3">
+          <input
+            id="newsletterEmail"
+            type="email"
+            placeholder={t.placeholder}
+            required
+            class="flex-grow md:w-80 px-5 py-3.5 rounded-full border border-white/20 focus:ring-2 focus:ring-royal-blue outline-none bg-white/10 text-white placeholder:text-white/50 text-sm font-['Inter']"
+          />
+          <button
+            id="newsletterSubmitBtn"
+            type="submit"
+            class="bg-emerald-accent hover:bg-emerald-accent-hover text-white px-8 py-3.5 rounded-full font-['Inter'] text-sm font-semibold transition-colors shadow-md cursor-pointer"
+          >
+            <span id="newsletterSubmitText">{t.cta}</span>
+          </button>
+        </div>
+        <p id="newsletterMsg" class="hidden text-xs font-['Inter'] mt-1 text-emerald-accent"></p>
+      </form>
     </div>
   </div>
 </section>
+
+<script define:vars={{ currentLocale: local, defaultCta: t.cta }}>
+  //- Newsletter subscription handler wired to /api/newsletter
+  const form = document.getElementById('newsletterForm');
+  const emailInput = document.getElementById('newsletterEmail') as HTMLInputElement | null;
+  const submitBtn = document.getElementById('newsletterSubmitBtn') as HTMLButtonElement | null;
+  const submitText = document.getElementById('newsletterSubmitText');
+  const msg = document.getElementById('newsletterMsg');
+
+  if (form && emailInput) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      if (!email) {
+        return;
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+      }
+      if (submitText) {
+        submitText.textContent = "...";
+      }
+      if (msg) {
+        msg.classList.add('hidden');
+      }
+
+      try {
+        const response = await fetch('/api/newsletter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, locale: currentLocale }),
+        });
+        const result = await response.json();
+        if (msg) {
+          msg.textContent = result.message || (result.success ? "Subscribed successfully!" : "Could not subscribe.");
+          msg.classList.remove('hidden');
+          if (result.success) {
+            msg.className = "text-xs font-['Inter'] mt-1 text-emerald-accent";
+            emailInput.value = '';
+          } else {
+            msg.className = "text-xs font-['Inter'] mt-1 text-red-400";
+          }
+        }
+      } catch (err) {
+        if (msg) {
+          msg.textContent = "Connection issue. Please check your internet connection and try again.";
+          msg.className = "text-xs font-['Inter'] mt-1 text-red-400";
+          msg.classList.remove('hidden');
+        }
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+        }
+        if (submitText) {
+          submitText.textContent = defaultCta;
+        }
+      }
+    });
+  }
+</script>

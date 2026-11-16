@@ -1,45 +1,106 @@
 ---
-import { translations } from "../../locals/home/about";
+//- Humanitarian impact storytelling section matching the exact reference video layout with two alternating story rows and frosted quote cards
+import { getStrings } from "../../constants/strings";
+import { CONFIG } from "../../constants/config";
 
-type Locale = 'en' | 'hi' | 'fr';
-const { local = 'en' } = Astro.params ?? {};
-const t = translations[local as Locale] || translations['en'];
+const { local = "en" } = Astro.params;
+const s = getStrings(local);
 ---
 
-<section class="py-20 md:py-28 px-4 md:px-6" id="about">
-  <div class="max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<section class="relative pt-20 pb-28 md:pt-28 md:pb-36 bg-royal-blue text-white overflow-hidden w-full" id="about">
+  
+  {/*- Floating Frosted-Glass Parallax Shapes */}
+  <div class="absolute top-24 right-16 pointer-events-none parallax-layer" data-parallax={CONFIG.PARALLAX.ABOUT_SHAPE_1_SPEED}>
+    <div class="w-48 h-48 bg-white/15 backdrop-blur-xl rounded-3xl rotate-12 border border-white/20"></div>
+  </div>
+  <div class="absolute top-1/2 left-8 pointer-events-none parallax-layer" data-parallax={CONFIG.PARALLAX.ABOUT_SHAPE_2_SPEED}>
+    <div class="w-44 h-44 bg-white/15 backdrop-blur-xl rounded-3xl -rotate-12 border border-white/20"></div>
+  </div>
+  <div class="absolute bottom-20 right-1/4 pointer-events-none parallax-layer" data-parallax={CONFIG.PARALLAX.ABOUT_SHAPE_3_SPEED}>
+    <div class="w-52 h-52 bg-white/15 backdrop-blur-xl rounded-3xl rotate-45 border border-white/20"></div>
+  </div>
 
-      <!-- Left: Image -->
-      <div class="animate-on-scroll scroll-left">
-        <div class="relative rounded-2xl overflow-hidden shadow-xl">
+  <div class="relative w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20 space-y-28 md:space-y-36">
+
+    {/*- Story Row 1: Left Card, Right Text */}
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      
+      {/*- Left Image Card with Overlaid Quote Bubble */}
+      <div class="lg:col-span-6 relative flex justify-center lg:justify-start parallax-layer" data-parallax={CONFIG.PARALLAX.STORY_IMAGE_SPEED}>
+        <div class="relative max-w-lg w-full rounded-3xl overflow-hidden shadow-2xl group">
           <img
             src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg"
-            alt="IHRO Team"
-            class="w-full h-[400px] object-cover"
+            alt={s.impact.story1Title}
+            class="w-full h-80 sm:h-96 md:h-96 object-cover rounded-3xl"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+
+          {/*- Overlaid Quote Speech-Bubble Pill with subtle foreground parallax */}
+          <div class="absolute bottom-5 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6 bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-lg border border-white/40 parallax-layer" data-parallax={CONFIG.PARALLAX.STORY_QUOTE_SPEED}>
+            <p class="font-['Hanken_Grotesk'] text-xs sm:text-sm font-semibold text-justice-navy leading-snug mb-1">
+              "{s.impact.quote1}"
+            </p>
+            <span class="font-['Inter'] text-[11px] text-on-surface-variant font-medium">
+              — {s.impact.quote1Author}
+            </span>
+          </div>
         </div>
       </div>
 
-      <!-- Right: Content -->
-      <div class="animate-on-scroll scroll-right delay-1">
-        <span class="text-action-blue font-['Inter'] text-sm font-semibold uppercase tracking-widest mb-4 block">{t.label}</span>
-        <h2 class="font-['Hanken_Grotesk'] text-[32px] md:text-[40px] leading-[48px] tracking-[-0.01em] font-semibold text-justice-navy mb-6">
-          {t.title}
+      {/*- Right Content */}
+      <div class="lg:col-span-6 flex flex-col justify-center animate-on-scroll">
+        <h2 class="font-['Hanken_Grotesk'] text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight mb-6">
+          {s.impact.story1Title}
         </h2>
-        <p class="text-on-surface-variant leading-relaxed mb-8 text-lg">
-          {t.description}
+        <p class="font-['Inter'] text-sm sm:text-base text-white/90 leading-relaxed mb-6 font-light">
+          {s.impact.story1Para1}
         </p>
-        <a
-          href={`/${local}/about`}
-          class="inline-flex items-center gap-2 bg-justice-navy text-white px-8 py-4 rounded-full font-['Inter'] text-sm font-semibold hover:bg-justice-navy/90 transition-all active:scale-95 group"
-        >
-          {t.cta}
-          <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
-        </a>
+        <p class="font-['Inter'] text-sm sm:text-base text-white/85 leading-relaxed font-light">
+          {s.impact.story1Para2}
+        </p>
       </div>
 
     </div>
+
+    {/*- Story Row 2: Left Text, Right Card */}
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      
+      {/*- Left Content */}
+      <div class="lg:col-span-6 order-2 lg:order-1 flex flex-col justify-center animate-on-scroll">
+        <h2 class="font-['Hanken_Grotesk'] text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight mb-6">
+          {s.impact.story2Title}
+        </h2>
+        <p class="font-['Inter'] text-sm sm:text-base text-white/90 leading-relaxed mb-6 font-light">
+          {s.impact.story2Para1}
+        </p>
+        <p class="font-['Inter'] text-sm sm:text-base text-white/85 leading-relaxed font-light">
+          {s.impact.story2Para2}
+        </p>
+      </div>
+
+      {/*- Right Image Card with Overlaid Quote Bubble */}
+      <div class="lg:col-span-6 order-1 lg:order-2 relative flex justify-center lg:justify-end parallax-layer" data-parallax={CONFIG.PARALLAX.STORY_IMAGE_SPEED}>
+        <div class="relative max-w-lg w-full rounded-3xl overflow-hidden shadow-2xl group">
+          <img
+            src="https://images.pexels.com/photos/8112199/pexels-photo-8112199.jpeg"
+            alt={s.impact.story2Title}
+            class="w-full h-80 sm:h-96 md:h-96 object-cover rounded-3xl"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+
+          {/*- Overlaid Quote Speech-Bubble Pill with subtle foreground parallax */}
+          <div class="absolute bottom-5 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6 bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-lg border border-white/40 parallax-layer" data-parallax={CONFIG.PARALLAX.STORY_QUOTE_SPEED}>
+            <p class="font-['Hanken_Grotesk'] text-xs sm:text-sm font-semibold text-justice-navy leading-snug mb-1">
+              "{s.impact.quote2}"
+            </p>
+            <span class="font-['Inter'] text-[11px] text-on-surface-variant font-medium">
+              — {s.impact.quote2Author}
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </section>

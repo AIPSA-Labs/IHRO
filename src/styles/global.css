@@ -1,39 +1,51 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #fffef5;
-  --color-foreground: #1a1a1a;
+  --color-canvas: #fcf3de;
+  --color-canvas-muted: #f5edd7;
+  --color-charcoal: #11161a;
+  --color-charcoal-hover: #1f252a;
 
-  --color-primary: #FFC107;
-  --color-primary-foreground: #1a1a1a;
+  --color-royal-blue: #5d83ff;
+  --color-royal-blue-dark: #4d73ef;
+  --color-royal-blue-subtle: #799aff;
 
-  --color-secondary: #FFA000;
-  --color-secondary-foreground: #1a1a1a;
+  --color-emerald-accent: #3abf78;
+  --color-emerald-accent-hover: #32a868;
 
-  --color-muted: #fef9e7;
-  --color-muted-foreground: #5d5d5d;
+  --color-background: #fcf3de;
+  --color-foreground: #11161a;
 
-  --color-border: #e6d88a;
+  --color-primary: #5d83ff;
+  --color-primary-foreground: #ffffff;
 
-  --color-surface: #fffef5;
-  --color-accent: #FF8F00;
-  --color-accent-foreground: #1a1a1a;
+  --color-secondary: #3abf78;
+  --color-secondary-foreground: #ffffff;
 
-  --color-success: #2e7d32;
-  --color-error: #ba1a1a;
+  --color-muted: #f5edd7;
+  --color-muted-foreground: #5a5f64;
 
-  --color-outline: #b8a640;
-  --color-on-surface: #1a1a1a;
-  --color-on-surface-variant: #5d5d5d;
-  --color-surface-container: #fef6d0;
-  --color-surface-container-low: #fef9e7;
-  --color-surface-container-high: #fdf0b8;
-  --color-surface-container-highest: #fceaa0;
-  --color-surface-dim: #f5e88a;
+  --color-border: #e9dfc6;
 
-  --color-justice-navy: #1a1a1a;
-  --color-action-blue: #FFA000;
-  --color-honor-gold: #FFC107;
+  --color-surface: #fcf3de;
+  --color-accent: #3abf78;
+  --color-accent-foreground: #ffffff;
+
+  --color-success: #3abf78;
+  --color-error: #ef4444;
+
+  --color-outline: #71717a;
+  --color-on-surface: #11161a;
+  --color-on-surface-variant: #5a5f64;
+  --color-surface-container: #ffffff;
+  --color-surface-container-low: #f5edd7;
+  --color-surface-container-high: #eae1ca;
+  --color-surface-container-highest: #ded4bc;
+  --color-surface-dim: #d3c8af;
+
+  --color-justice-navy: #11161a;
+  --color-action-blue: #5d83ff;
+  --color-honor-gold: #5d83ff;
 }
 
 html {
@@ -51,6 +63,10 @@ body {
 
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.hidden {
+  display: none !important;
 }
 
 .liquid-glass {
@@ -145,14 +161,12 @@ body {
   }
 }
 
-@keyframes scaleIn {
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale(0.95);
   }
   to {
     opacity: 1;
-    transform: scale(1);
   }
 }
 
@@ -173,7 +187,7 @@ body {
 }
 
 .animate-on-scroll.in-view.scroll-scale {
-  animation-name: scaleIn;
+  animation-name: fadeIn;
 }
 
 /* Stagger delays */
@@ -183,3 +197,21 @@ body {
 .delay-4 { animation-delay: 0.25s !important; }
 .delay-5 { animation-delay: 0.3s !important; }
 .delay-6 { animation-delay: 0.35s !important; }
+
+.parallax-layer {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-on-scroll {
+    opacity: 1;
+  }
+
+  .animate-on-scroll.in-view {
+    animation: none;
+  }
+
+  .parallax-layer {
+    transform: none !important;
+  }
+}

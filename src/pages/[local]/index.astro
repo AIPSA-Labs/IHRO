@@ -1,16 +1,19 @@
 ---
-import AboutSection from "../../components/home/AboutSection.astro";
-import GetInvolved from "../../components/home/GetInvolved.astro";
+//- Home page layout rendering the complete landing experience
+
 import HeroSection from "../../components/home/HeroSection.astro";
+import AboutSection from "../../components/home/AboutSection.astro";
 import MissionSection from "../../components/home/MissionSection.astro";
-import Presence from "../../components/home/Presence.astro";
 import ProgramSection from "../../components/home/ProgramSection.astro";
+import Presence from "../../components/home/Presence.astro";
 import Testimonial from "../../components/home/Testimonial.astro";
+import NewsLetterSub from "../../components/home/NewsLetterSub.astro";
+import GetInvolved from "../../components/home/GetInvolved.astro";
 import Layout from "../../layouts/Layout.astro";
 import { supportedLocales } from "../../locals/languages";
 
-const { local } = Astro.params
-const codes = supportedLocales.map(l => l.code);
+const { local } = Astro.params;
+const codes = supportedLocales.map((l) => l.code);
 
 if (!codes.includes(local || '')) {
   return Astro.redirect('/404');
@@ -18,11 +21,12 @@ if (!codes.includes(local || '')) {
 ---
 
 <Layout>
-    <HeroSection/>
-    <AboutSection/>
-    <MissionSection/>
-    <ProgramSection/>
-    <Presence/>
-    <GetInvolved/>
-    <Testimonial/>
+  <HeroSection/>
+  <AboutSection/>
+  <MissionSection/>
+  <ProgramSection/>
+  <Presence/>
+  <Testimonial/>
+  <NewsLetterSub/>
+  <GetInvolved/>
 </Layout>

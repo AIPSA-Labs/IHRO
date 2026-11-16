@@ -1,45 +1,131 @@
-
 ---
-import { translations } from "../../locals/home/hero";
+//- Hero section matching the exact reference design palette with centered editorial typography, dual pills, IHRO showcase visual, and live impact strip
+
+import { getStrings } from "../../constants/strings";
+import { CONFIG } from "../../constants/config";
 import heroImg from "../../assets/hero.png";
 
-type Locale = "en" | "hi" | "fr";
-const { local = "en" } = Astro.params ?? {};
-const t = translations[local as Locale] || translations["en"];
+const { local = "en" } = Astro.params;
+const s = getStrings(local);
 ---
 
-<section class="relative min-h-[85vh] flex items-center overflow-hidden pt-20">
-
-  <!-- Background Image -->
-  <div class="absolute inset-0 z-0">
-    <img src={heroImg.src} alt="IHRO Hero" class="w-full h-full object-cover" />
-    <div class="absolute inset-0 bg-gradient-to-r from-justice-navy/90 via-justice-navy/40 to-transparent"></div>
-  </div>
-
-  <!-- Content -->
-  <div class="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-6 py-20">
-    <div class="max-w-xl">
-      <h1 class="font-['Hanken_Grotesk'] text-[36px] md:text-[52px] leading-[60px] tracking-[-0.02em] font-bold text-white mb-6">
-        {t.title}
+<section class="relative pt-24 md:pt-28 pb-12 bg-canvas overflow-hidden w-full flex flex-col items-center">
+  <div class="w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20 text-center">
+    
+    {/*- Main Hero Copy & CTAs with subtle upward parallax drift */}
+    <div class="parallax-layer" data-parallax={CONFIG.PARALLAX.HERO_TEXT_SPEED}>
+      <h1 class="font-['Hanken_Grotesk'] text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-justice-navy leading-tight md:leading-tight mb-4 max-w-4xl mx-auto">
+        <span>{s.hero.titleLine1}</span><br class="hidden sm:inline" />
+        <span>{s.hero.titleLine2}</span>
       </h1>
-      <p class="font-['Inter'] text-[18px] leading-[28px] text-white/80 mb-10">
-        {t.subtitle}
+
+      <p class="font-['Inter'] text-sm sm:text-base md:text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed mb-6">
+        {s.hero.subtitle}
       </p>
-      <div class="flex flex-wrap gap-4">
+
+      <div class="flex flex-wrap items-center justify-center gap-3.5 mb-4 sm:mb-6 relative z-20">
         <a
-          href="/campaigns"
-          class="bg-action-blue text-on-primary font-['Inter'] text-sm font-semibold px-8 py-4 rounded-lg hover:bg-secondary transition-all shadow-lg active:scale-95"
+          href={`/${local}/contact`}
+          class="inline-flex items-center justify-center px-7 py-3 rounded-full bg-emerald-accent hover:bg-emerald-accent-hover text-white text-sm font-semibold shadow-xs transition-colors cursor-pointer"
         >
-          {t.cta}
+          {s.hero.ctaPrimary}
         </a>
         <a
           href="#mission"
-          class="bg-white/10 backdrop-blur-md border border-white/20 text-white font-['Inter'] text-sm font-semibold px-8 py-4 rounded-lg hover:bg-white/20 transition-all active:scale-95"
+          class="inline-flex items-center justify-center px-7 py-3 rounded-full bg-charcoal hover:bg-black text-white text-sm font-semibold shadow-xs transition-colors cursor-pointer"
         >
-          Our Mission
+          {s.hero.ctaSecondary}
         </a>
       </div>
     </div>
-  </div>
 
+    {/*- Seamless Blended IHRO Showcase Visual with Parallax Window */}
+    <div class="w-full max-w-6xl mx-auto relative z-10">
+      <div class="relative w-full h-64 sm:h-80 md:h-96 overflow-hidden">
+        <div class="absolute -inset-y-12 inset-x-0 parallax-layer" data-parallax={CONFIG.PARALLAX.HERO_IMAGE_SPEED}>
+          <img
+            src={heroImg.src}
+            alt={s.hero.altArtwork}
+            class="w-full h-full object-cover object-center"
+          />
+        </div>
+        {/*- Four-edge feathered canvas blend so no hard borders appear */}
+        <div class="absolute inset-x-0 top-0 h-20 sm:h-24 bg-gradient-to-b from-canvas via-canvas/55 to-transparent pointer-events-none"></div>
+        <div class="absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-t from-canvas via-canvas/65 to-transparent pointer-events-none"></div>
+        <div class="absolute inset-y-0 left-0 w-20 sm:w-40 md:w-56 bg-gradient-to-r from-canvas via-canvas/65 to-transparent pointer-events-none"></div>
+        <div class="absolute inset-y-0 right-0 w-20 sm:w-40 md:w-56 bg-gradient-to-l from-canvas via-canvas/65 to-transparent pointer-events-none"></div>
+      </div>
+
+      {/*- Unified Live Global Impact Strip */}
+      <div class="mt-2 pt-5 border-t border-border/80 grid grid-cols-2 md:grid-cols-4 gap-y-4 md:gap-y-0 md:divide-x divide-border/70 parallax-layer" data-parallax={CONFIG.PARALLAX.HERO_STATS_SPEED}>
+        <div class="py-2 px-4 text-center">
+          <span id="heroStatNations" class="font-['Hanken_Grotesk'] text-2xl sm:text-3xl font-bold text-royal-blue block">
+            {CONFIG.STATS.NATIONS_COUNT}+
+          </span>
+          <span class="font-['Inter'] text-xs sm:text-sm text-on-surface-variant font-medium">
+            {s.presence.stats.nations}
+          </span>
+        </div>
+        <div class="py-2 px-4 text-center">
+          <span id="heroStatChapters" class="font-['Hanken_Grotesk'] text-2xl sm:text-3xl font-bold text-emerald-accent block">
+            {CONFIG.STATS.CHAPTERS_COUNT}+
+          </span>
+          <span class="font-['Inter'] text-xs sm:text-sm text-on-surface-variant font-medium">
+            {s.presence.stats.chapters}
+          </span>
+        </div>
+        <div class="py-2 px-4 text-center">
+          <span id="heroStatCases" class="font-['Hanken_Grotesk'] text-2xl sm:text-3xl font-bold text-justice-navy block">
+            {CONFIG.STATS.CASES_SUPPORTED.toLocaleString()}+
+          </span>
+          <span class="font-['Inter'] text-xs sm:text-sm text-on-surface-variant font-medium">
+            {s.presence.stats.cases}
+          </span>
+        </div>
+        <div class="py-2 px-4 text-center">
+          <span id="heroStatVolunteers" class="font-['Hanken_Grotesk'] text-2xl sm:text-3xl font-bold text-royal-blue block">
+            {CONFIG.STATS.VOLUNTEERS_COUNT.toLocaleString()}+
+          </span>
+          <span class="font-['Inter'] text-xs sm:text-sm text-on-surface-variant font-medium">
+            {s.presence.stats.volunteers}
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </section>
+
+<script>
+  //- Sync hero metrics with live server endpoint /api/stats
+  fetch('/api/stats')
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return null;
+    })
+    .then((data) => {
+      if (data && data.success && data.stats) {
+        const nationsEl = document.getElementById('heroStatNations');
+        const chaptersEl = document.getElementById('heroStatChapters');
+        const casesEl = document.getElementById('heroStatCases');
+        const volunteersEl = document.getElementById('heroStatVolunteers');
+        if (nationsEl) {
+          nationsEl.textContent = `${data.stats.nations}+`;
+        }
+        if (chaptersEl) {
+          chaptersEl.textContent = `${data.stats.chapters}+`;
+        }
+        if (casesEl) {
+          casesEl.textContent = `${data.stats.casesSupported.toLocaleString()}+`;
+        }
+        if (volunteersEl) {
+          volunteersEl.textContent = `${data.stats.volunteers.toLocaleString()}+`;
+        }
+      }
+    })
+    .catch((err) => {
+      console.error("[IHRO Hero Stats Sync Error]", err);
+    });
+</script>

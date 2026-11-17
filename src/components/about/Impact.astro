@@ -1,4 +1,5 @@
 ---
+//- Global humanitarian impact metrics connected to live AIPSA Database
 import { translations } from "../../locals/about/impact";
 import { TrendingUp, Award, Users, Globe } from "@lucide/astro";
 import { fetchOrganizationMetrics } from "../../services/db";
@@ -18,22 +19,22 @@ const dynamicStats = [
 const statIcons = [TrendingUp, Award, Users, Globe];
 ---
 
-<section class="relative py-24 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden bg-honor-gold/10 w-full">
+<section class="relative py-24 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden bg-canvas text-justice-navy border-b border-border w-full">
   <div class="w-full max-w-screen-2xl mx-auto text-center mb-16 relative z-10">
-    <h2 class="animate-on-scroll text-3xl md:text-5xl font-extrabold text-justice-navy mb-4">{t.title}</h2>
-    <p class="animate-on-scroll delay-1 text-lg md:text-xl text-on-surface-variant mt-4 max-w-2xl mx-auto">{t.subtitle}</p>
+    <h2 class="font-['Newsreader'] text-3xl sm:text-4xl md:text-5xl font-medium text-justice-navy mb-4">{t.title}</h2>
+    <p class="font-['Inter'] text-base text-on-surface-variant max-w-2xl mx-auto leading-relaxed">{t.subtitle}</p>
   </div>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-screen-2xl mx-auto text-center relative z-10">
     {dynamicStats.map((stat, index) => {
       const Icon = statIcons[index % statIcons.length];
       return (
-        <div class={`animate-on-scroll delay-${index + 1} group bg-white rounded-3xl p-8 hover:shadow-xl transition-all duration-300 border border-honor-gold/20`}>
-          <div class="inline-flex p-3 rounded-2xl bg-honor-gold/10 mb-4">
-            <Icon class="w-6 h-6 text-honor-gold" />
+        <div class="bg-white border border-border p-8 shadow-2xs hover:border-royal-blue transition-colors flex flex-col items-center justify-between">
+          <div class="p-3 border border-border bg-canvas-muted text-royal-blue mb-4">
+            <Icon class="w-6 h-6" />
           </div>
-          <h3 class="text-4xl font-extrabold text-justice-navy">{stat.number}</h3>
-          <p class="text-lg text-on-surface-variant mt-2">{stat.label}</p>
+          <h3 class="font-['Newsreader'] text-4xl font-semibold text-royal-blue">{stat.number}</h3>
+          <p class="font-['Inter'] text-xs uppercase tracking-wider text-on-surface-variant font-medium mt-2">{stat.label}</p>
         </div>
       );
     })}

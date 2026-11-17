@@ -1,4 +1,5 @@
 ---
+//- Call to action for volunteers, legal observers, and diplomatic advocates
 import { translations } from "../../locals/about/getInvolved";
 import { HeartHandshake } from "@lucide/astro";
 
@@ -7,17 +8,15 @@ const { local = 'en' } = Astro.params ?? {};
 const t = translations[local as Locale] || translations['en'];
 ---
 
-<section class="relative py-24 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden bg-white w-full">
+<section class="relative py-24 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden bg-canvas-muted text-justice-navy border-t border-border w-full">
   <div class="w-full max-w-screen-2xl mx-auto text-center relative z-10">
-    <h2 class="animate-on-scroll text-3xl md:text-5xl font-extrabold mb-6 text-justice-navy">{t.title}</h2>
-    <p class="animate-on-scroll delay-1 text-lg md:text-xl text-on-surface-variant mb-10 max-w-2xl mx-auto">{t.subtitle}</p>
+    <h2 class="font-['Newsreader'] text-3xl sm:text-4xl md:text-5xl font-medium mb-4 text-justice-navy">{t.title}</h2>
+    <p class="font-['Inter'] text-base text-on-surface-variant mb-8 max-w-2xl mx-auto leading-relaxed">{t.subtitle}</p>
     
-    <div class="animate-on-scroll delay-2 flex justify-center">
-      <a href={`/${local}/contact?role=volunteer`} class="group relative overflow-hidden bg-honor-gold text-white font-semibold px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-colors">
-        <span class="relative z-10 flex items-center justify-center gap-2">
-          <HeartHandshake class="w-5 h-5" />
-          {t.cta.volunteer}
-        </span>
+    <div class="flex justify-center">
+      <a href={`/${local}/contact?role=volunteer`} class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xs bg-royal-blue hover:bg-royal-blue-dark text-white text-xs font-semibold tracking-wider uppercase transition-colors shadow-2xs border border-royal-blue cursor-pointer">
+        <HeartHandshake class="w-4 h-4" />
+        <span>{t.cta.volunteer}</span>
       </a>
     </div>
   </div>

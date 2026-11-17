@@ -17,15 +17,7 @@ const initialTopicParam = searchParams.get('topic') || searchParams.get('type') 
 <Layout>
 <section class="bg-canvas text-justice-navy py-28 sm:py-36 px-6 sm:px-10 lg:px-16 xl:px-20 w-full min-h-[80vh] border-b border-border">
   <div class="w-full max-w-screen-2xl mx-auto text-center mb-12">
-    <div class="inline-flex items-center gap-2.5 px-4 py-1 border border-border bg-white mb-4 shadow-2xs">
-      <span class="w-1.5 h-1.5 bg-honor-gold rounded-full"></span>
-      <span class="font-['Cinzel'] text-[10px] font-bold tracking-widest text-royal-blue uppercase">
-        Diplomatic & Field Inquiries
-      </span>
-      <span class="w-1.5 h-1.5 bg-honor-gold rounded-full"></span>
-    </div>
     <h1 class="font-['Newsreader'] text-4xl sm:text-5xl md:text-6xl font-medium mb-4 text-justice-navy">{t.title}</h1>
-    <div class="w-12 h-0.5 bg-honor-gold mx-auto mb-6"></div>
     <p class="font-['Inter'] text-base text-on-surface-variant max-w-2xl mx-auto leading-relaxed">{t.subtitle}</p>
   </div>
 
@@ -110,7 +102,6 @@ const initialTopicParam = searchParams.get('topic') || searchParams.get('type') 
     <div class="flex flex-col justify-between gap-6 bg-white p-8 sm:p-10 rounded-xs shadow-2xs border border-border text-justice-navy">
       <div>
         <h2 class="font-['Newsreader'] text-2xl font-semibold mb-3 text-justice-navy">{t.contact.title}</h2>
-        <div class="w-10 h-0.5 bg-honor-gold mb-4"></div>
         <p class="font-['Inter'] text-on-surface-variant text-sm leading-relaxed mb-6">{t.contact.description}</p>
         
         <div class="space-y-4 text-sm font-['Inter']">

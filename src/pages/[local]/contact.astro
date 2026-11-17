@@ -136,7 +136,7 @@ const initialTopicParam = searchParams.get('topic') || searchParams.get('type') 
   const form = document.getElementById('contactForm');
   const successMsg = document.getElementById('contactSuccessMsg');
   const errorMsg = document.getElementById('contactErrorMsg');
-  const submitBtn = document.getElementById('formSubmitBtn') as HTMLButtonElement | null;
+  const submitBtn = document.getElementById('formSubmitBtn');
   const submitText = document.getElementById('submitBtnText');
   const submitSpinner = document.getElementById('submitSpinner');
 
@@ -151,10 +151,10 @@ const initialTopicParam = searchParams.get('topic') || searchParams.get('type') 
         errorMsg.classList.add('hidden');
       }
 
-      const nameInput = document.getElementById('formName') as HTMLInputElement | null;
-      const emailInput = document.getElementById('formEmail') as HTMLInputElement | null;
-      const topicInput = document.getElementById('formTopic') as HTMLSelectElement | null;
-      const messageInput = document.getElementById('formMessage') as HTMLTextAreaElement | null;
+      const nameInput = document.getElementById('formName');
+      const emailInput = document.getElementById('formEmail');
+      const topicInput = document.getElementById('formTopic');
+      const messageInput = document.getElementById('formMessage');
 
       const payload = {
         name: nameInput ? nameInput.value : '',
@@ -192,7 +192,7 @@ const initialTopicParam = searchParams.get('topic') || searchParams.get('type') 
             successMsg.textContent = result.message || "Thank you for contacting IHRO. Your message has been received.";
             successMsg.classList.remove('hidden');
           }
-          (form as HTMLFormElement).reset();
+          form.reset();
         } else {
           if (errorMsg) {
             errorMsg.textContent = result.error || "We could not send your message. Please check your entries and try again.";

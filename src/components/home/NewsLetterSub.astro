@@ -40,8 +40,8 @@ const t = translations[local as Locale] || translations['en'];
 <script define:vars={{ currentLocale: local, defaultCta: t.cta }}>
   //- Newsletter subscription handler wired to /api/newsletter
   const form = document.getElementById('newsletterForm');
-  const emailInput = document.getElementById('newsletterEmail') as HTMLInputElement | null;
-  const submitBtn = document.getElementById('newsletterSubmitBtn') as HTMLButtonElement | null;
+  const emailInput = document.getElementById('newsletterEmail');
+  const submitBtn = document.getElementById('newsletterSubmitBtn');
   const submitText = document.getElementById('newsletterSubmitText');
   const msg = document.getElementById('newsletterMsg');
 

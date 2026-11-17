@@ -1,4 +1,5 @@
-//- AIPSA Database REST API service layer for IHRO application
+//- High-performance AIPSA Database service layer for IHRO application
+//- Features pure lowercase SQL queries, exact column projections, named parameters, and sub-millisecond in-memory caching
 
 import { CONFIG } from '../constants/config';
 
@@ -40,36 +41,79 @@ export interface ProgramRecord {
   icon: string;
 }
 
-//- Internal helper to execute fetch with timeout against AIPSA Database REST API
-async function aipsaFetch(path: string, options: RequestInit = {}): Promise<Response> {
+//- In-memory cache structures for sub-millisecond query responses
+interface CacheItem<T> {
+  data: T;
+  cachedAt: number;
+}
+
+let cachedMetrics: CacheItem<OrganizationMetricsData> | null = null;
+let cachedPrograms: CacheItem<ProgramRecord[]> | null = null;
+let isRefreshingMetrics = false;
+let isRefreshingPrograms = false;
+
+//- Reusable low-latency query executor against AIPSA PostgreSQL REST API
+export async function runSqlQuery<T = Record<string, unknown>>(
+  query: string,
+  params?: Record<string, unknown>
+): Promise<{ rows: T[]; rowCount: number; ok: boolean; status: number; error?: string }> {
   const baseUrl = CONFIG.AIPSA_DB.BASE_URL;
-  const url = `${baseUrl}${path}`;
+  const url = `${baseUrl}/query`;
   const controller = new AbortController();
   const timer = setTimeout(() => {
     controller.abort();
   }, CONFIG.AIPSA_DB.TIMEOUT_MS);
 
   try {
-    const headers = new Headers(options.headers || {});
-    if (!headers.has('Authorization')) {
-      headers.set('Authorization', `Bearer ${CONFIG.AIPSA_DB.SERVICE_KEY}`);
-    }
-    if (!headers.has('Content-Type') && options.body) {
-      headers.set('Content-Type', 'application/json');
+    const bodyPayload: Record<string, unknown> = {
+      query: query,
+    };
+    if (params) {
+      bodyPayload.params = params;
     }
 
     const response = await fetch(url, {
-      ...options,
-      headers: headers,
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${CONFIG.AIPSA_DB.SERVICE_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(bodyPayload),
       signal: controller.signal,
     });
-    return response;
+
+    if (!response.ok) {
+      const errorJson = await response.json().catch(() => ({}));
+      return {
+        rows: [],
+        rowCount: 0,
+        ok: false,
+        status: response.status,
+        error: errorJson.message || `Query failed with status ${response.status}`,
+      };
+    }
+
+    const result = await response.json();
+    return {
+      rows: (result.rows || []) as T[],
+      rowCount: result.row_count || 0,
+      ok: true,
+      status: response.status,
+    };
+  } catch (err) {
+    return {
+      rows: [],
+      rowCount: 0,
+      ok: false,
+      status: 500,
+      error: err instanceof Error ? err.message : "Database communication error",
+    };
   } finally {
     clearTimeout(timer);
   }
 }
 
-//- Save a validated contact inquiry directly to AIPSA Database
+//- Save contact inquiry with named parameters and exact column projection
 export async function saveContactInquiry(inquiry: {
   name: string;
   email: string;
@@ -77,30 +121,27 @@ export async function saveContactInquiry(inquiry: {
   message: string;
 }): Promise<{ success: boolean; id?: number; error?: string }> {
   try {
-    const response = await aipsaFetch('/tables/contact_inquiries', {
-      method: 'POST',
-      body: JSON.stringify({
-        name: inquiry.name,
-        email: inquiry.email,
-        topic: inquiry.topic,
-        message: inquiry.message,
-        status: 'pending',
-      }),
-    });
+    const qObj = {
+      name: inquiry.name,
+      email: inquiry.email,
+      topic: inquiry.topic,
+      message: inquiry.message,
+      status: 'pending',
+    };
 
-    const result = await response.json();
+    const query = 'insert into contact_inquiries (name, email, topic, message, status) values (:name, :email, :topic, :message, :status) returning id;';
+    const result = await runSqlQuery<{ id: number }>(query, qObj);
 
-    if (response.ok && result.id) {
+    if (result.ok && result.rows.length > 0) {
       return {
         success: true,
-        id: result.id,
+        id: result.rows[0].id,
       };
     }
 
-    const errorMessage = result.message || "Failed to record contact inquiry.";
     return {
       success: false,
-      error: errorMessage,
+      error: result.error || "Failed to record contact inquiry.",
     };
   } catch (err) {
     console.error("[AIPSA DB Error: saveContactInquiry]", err);
@@ -111,32 +152,27 @@ export async function saveContactInquiry(inquiry: {
   }
 }
 
-//- Save a newsletter subscription with unique constraint check
+//- Save newsletter subscriber with conflict resolution for instant zero-error insertion
 export async function saveNewsletterSubscriber(email: string): Promise<{
   success: boolean;
   alreadySubscribed?: boolean;
   error?: string;
 }> {
   try {
-    const response = await aipsaFetch('/tables/newsletter_subscribers', {
-      method: 'POST',
-      body: JSON.stringify({
-        email: email,
-        status: 'active',
-      }),
-    });
+    const qObj = {
+      email: email,
+      status: 'active',
+    };
 
-    const result = await response.json();
+    const query = 'insert into newsletter_subscribers (email, status) values (:email, :status) on conflict (email) do nothing returning id;';
+    const result = await runSqlQuery<{ id: number }>(query, qObj);
 
-    if (response.ok && result.id) {
-      return {
-        success: true,
-      };
-    }
-
-    //- Check if unique email constraint was triggered
-    const msg = result.message || '';
-    if (msg.includes('duplicate key') || msg.includes('23505')) {
+    if (result.ok) {
+      if (result.rows.length > 0) {
+        return {
+          success: true,
+        };
+      }
       return {
         success: true,
         alreadySubscribed: true,
@@ -145,7 +181,7 @@ export async function saveNewsletterSubscriber(email: string): Promise<{
 
     return {
       success: false,
-      error: result.message || "Failed to record newsletter subscriber.",
+      error: result.error || "Failed to record newsletter subscriber.",
     };
   } catch (err) {
     console.error("[AIPSA DB Error: saveNewsletterSubscriber]", err);
@@ -156,8 +192,8 @@ export async function saveNewsletterSubscriber(email: string): Promise<{
   }
 }
 
-//- Fetch organization metrics from AIPSA Database with fallback to local defaults
-export async function fetchOrganizationMetrics(): Promise<OrganizationMetricsData> {
+//- Internal helper to execute live metrics query from PostgreSQL
+async function queryLiveMetrics(): Promise<OrganizationMetricsData | null> {
   const fallback: OrganizationMetricsData = {
     nations: CONFIG.STATS.NATIONS_COUNT,
     chapters: CONFIG.STATS.CHAPTERS_COUNT,
@@ -172,19 +208,16 @@ export async function fetchOrganizationMetrics(): Promise<OrganizationMetricsDat
   };
 
   try {
-    const response = await aipsaFetch('/tables/organization_metrics');
-    if (!response.ok) {
-      return fallback;
-    }
+    const query = 'select metric_key, metric_value from organization_metrics;';
+    const result = await runSqlQuery<{ metric_key: string; metric_value: string }>(query);
 
-    const result = await response.json();
-    if (!result.data || !Array.isArray(result.data)) {
+    if (!result.ok || result.rows.length === 0) {
       return fallback;
     }
 
     const metricsMap = new Map<string, string>();
-    for (let i = 0; i < result.data.length; i += 1) {
-      const row = result.data[i];
+    for (let i = 0; i < result.rows.length; i += 1) {
+      const row = result.rows[i];
       if (row.metric_key && row.metric_value) {
         metricsMap.set(row.metric_key, row.metric_value);
       }
@@ -208,30 +241,118 @@ export async function fetchOrganizationMetrics(): Promise<OrganizationMetricsDat
       },
     };
   } catch (err) {
-    console.error("[AIPSA DB Error: fetchOrganizationMetrics]", err);
+    console.error("[AIPSA DB Error: queryLiveMetrics]", err);
     return fallback;
   }
 }
 
-//- Fetch registered programs from AIPSA Database
-export async function fetchPrograms(): Promise<ProgramRecord[]> {
-  try {
-    const response = await aipsaFetch('/tables/programs?sort=id:asc');
-    if (!response.ok) {
-      return [];
+//- Fetch organization metrics with sub-millisecond memory cache and background revalidation
+export async function fetchOrganizationMetrics(): Promise<OrganizationMetricsData> {
+  const now = Date.now();
+
+  //- Return cached result in sub-millisecond time if fresh
+  if (cachedMetrics && (now - cachedMetrics.cachedAt < CONFIG.AIPSA_DB.CACHE_TTL_MS)) {
+    return cachedMetrics.data;
+  }
+
+  //- Stale-while-revalidate: if stale but within window, return immediate stale data and refresh asynchronously
+  if (cachedMetrics && (now - cachedMetrics.cachedAt < CONFIG.AIPSA_DB.STALE_TTL_MS)) {
+    if (!isRefreshingMetrics) {
+      isRefreshingMetrics = true;
+      queryLiveMetrics().then((freshData) => {
+        if (freshData) {
+          cachedMetrics = {
+            data: freshData,
+            cachedAt: Date.now(),
+          };
+        }
+      }).finally(() => {
+        isRefreshingMetrics = false;
+      });
     }
-    const result = await response.json();
-    if (result.data && Array.isArray(result.data)) {
-      return result.data as ProgramRecord[];
+    return cachedMetrics.data;
+  }
+
+  //- Otherwise perform synchronous fetch and populate cache
+  const data = await queryLiveMetrics();
+  if (data) {
+    cachedMetrics = {
+      data: data,
+      cachedAt: now,
+    };
+    return data;
+  }
+
+  return {
+    nations: CONFIG.STATS.NATIONS_COUNT,
+    chapters: CONFIG.STATS.CHAPTERS_COUNT,
+    casesSupported: CONFIG.STATS.CASES_SUPPORTED,
+    volunteers: CONFIG.STATS.VOLUNTEERS_COUNT,
+    contact: {
+      email: CONFIG.CONTACT_INFO.EMAIL,
+      phone: CONFIG.CONTACT_INFO.PHONE,
+      phoneFormatted: CONFIG.CONTACT_INFO.PHONE_FORMATTED,
+      headquarters: CONFIG.CONTACT_INFO.ADDRESS,
+    },
+  };
+}
+
+//- Internal helper to execute live programs query from PostgreSQL
+async function queryLivePrograms(): Promise<ProgramRecord[]> {
+  try {
+    const query = 'select id, slug, title, description, icon from programs order by id asc;';
+    const result = await runSqlQuery<ProgramRecord>(query);
+    if (result.ok && result.rows.length > 0) {
+      return result.rows;
     }
     return [];
   } catch (err) {
-    console.error("[AIPSA DB Error: fetchPrograms]", err);
+    console.error("[AIPSA DB Error: queryLivePrograms]", err);
     return [];
   }
 }
 
-//- Health check verifying real-time database connection
+//- Fetch registered programs with sub-millisecond memory cache and background revalidation
+export async function fetchPrograms(): Promise<ProgramRecord[]> {
+  const now = Date.now();
+
+  //- Return cached result in sub-millisecond time if fresh
+  if (cachedPrograms && (now - cachedPrograms.cachedAt < CONFIG.AIPSA_DB.CACHE_TTL_MS)) {
+    return cachedPrograms.data;
+  }
+
+  //- Stale-while-revalidate: return immediate stale data and refresh asynchronously
+  if (cachedPrograms && (now - cachedPrograms.cachedAt < CONFIG.AIPSA_DB.STALE_TTL_MS)) {
+    if (!isRefreshingPrograms) {
+      isRefreshingPrograms = true;
+      queryLivePrograms().then((freshData) => {
+        if (freshData.length > 0) {
+          cachedPrograms = {
+            data: freshData,
+            cachedAt: Date.now(),
+          };
+        }
+      }).finally(() => {
+        isRefreshingPrograms = false;
+      });
+    }
+    return cachedPrograms.data;
+  }
+
+  //- Synchronous fetch and cache
+  const data = await queryLivePrograms();
+  if (data.length > 0) {
+    cachedPrograms = {
+      data: data,
+      cachedAt: now,
+    };
+    return data;
+  }
+
+  return [];
+}
+
+//- Health check verifying real-time database connection and query response latency
 export async function checkDatabaseHealth(): Promise<{
   connected: boolean;
   latencyMs: number;
@@ -240,30 +361,22 @@ export async function checkDatabaseHealth(): Promise<{
 }> {
   const startTime = Date.now();
   try {
-    const response = await aipsaFetch('/query', {
-      method: 'POST',
-      body: JSON.stringify({
-        query: 'select current_timestamp as now;',
-      }),
-    });
-
+    const query = 'select current_timestamp as now;';
+    const result = await runSqlQuery<{ now: string }>(query);
     const latencyMs = Date.now() - startTime;
 
-    if (!response.ok) {
+    if (!result.ok || result.rows.length === 0) {
       return {
         connected: false,
         latencyMs: latencyMs,
-        error: `Database HTTP ${response.status}`,
+        error: result.error || "Health query failed",
       };
     }
-
-    const result = await response.json();
-    const serverNow = result.rows && result.rows[0] ? result.rows[0].now : undefined;
 
     return {
       connected: true,
       latencyMs: latencyMs,
-      timestamp: serverNow,
+      timestamp: result.rows[0].now,
     };
   } catch (err) {
     const latencyMs = Date.now() - startTime;

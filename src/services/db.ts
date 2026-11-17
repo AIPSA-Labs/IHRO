@@ -388,3 +388,18 @@ export async function checkDatabaseHealth(): Promise<{
   }
 }
 
+//- Fetch recent contact inquiries from AIPSA Database for admin review
+export async function fetchContactInquiries(limitCount: number = 50): Promise<ContactInquiryRecord[]> {
+  try {
+    const query = 'select id, name, email, topic, message, status, created_at from contact_inquiries order by created_at desc limit :limit;';
+    const result = await runSqlQuery<ContactInquiryRecord>(query, { limit: limitCount });
+    if (result.ok && result.rows.length > 0) {
+      return result.rows;
+    }
+    return [];
+  } catch (err) {
+    console.error("[AIPSA DB Error: fetchContactInquiries]", err);
+    return [];
+  }
+}
+

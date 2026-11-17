@@ -7,12 +7,15 @@ const { local = 'en' } = Astro.params ?? {};
 const t = translations[local as Locale] || translations['en'];
 ---
 
-<section class="py-20 bg-canvas border-t border-border/80">
+<section class="py-20 bg-canvas border-b border-border">
   <div class="w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
-    <div class="bg-charcoal rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
+    <div class="bg-justice-navy border border-border/30 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
       <div class="text-left max-w-md">
-        <h2 class="font-['Hanken_Grotesk'] text-2xl sm:text-3xl font-bold text-white mb-2">{t.title}</h2>
-        <p class="text-white/70 font-['Inter'] text-sm sm:text-base font-light">{t.subtitle}</p>
+        <span class="font-['Cinzel'] text-[10px] font-bold tracking-widest text-honor-gold uppercase mb-2 block">
+          Official Gazette & Field Reports
+        </span>
+        <h2 class="font-['Newsreader'] text-2xl sm:text-3xl font-medium text-white mb-2">{t.title}</h2>
+        <p class="text-canvas-muted/80 font-['Inter'] text-sm sm:text-base font-normal">{t.subtitle}</p>
       </div>
       <form id="newsletterForm" class="w-full md:w-auto flex flex-col gap-2">
         <div class="flex flex-col sm:flex-row gap-3">
@@ -21,17 +24,17 @@ const t = translations[local as Locale] || translations['en'];
             type="email"
             placeholder={t.placeholder}
             required
-            class="flex-grow md:w-80 px-5 py-3.5 rounded-full border border-white/20 focus:ring-2 focus:ring-royal-blue outline-none bg-white/10 text-white placeholder:text-white/50 text-sm font-['Inter']"
+            class="flex-grow md:w-80 px-4 py-3 rounded-xs border border-white/20 focus:border-white outline-none bg-white/5 text-white placeholder:text-white/40 text-sm font-['Inter']"
           />
           <button
             id="newsletterSubmitBtn"
             type="submit"
-            class="bg-emerald-accent hover:bg-emerald-accent-hover text-white px-8 py-3.5 rounded-full font-['Inter'] text-sm font-semibold transition-colors shadow-md cursor-pointer"
+            class="bg-royal-blue hover:bg-royal-blue-subtle text-white px-7 py-3 rounded-xs font-['Inter'] text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer border border-royal-blue"
           >
             <span id="newsletterSubmitText">{t.cta}</span>
           </button>
         </div>
-        <p id="newsletterMsg" class="hidden text-xs font-['Inter'] mt-1 text-emerald-accent"></p>
+        <p id="newsletterMsg" class="hidden text-xs font-['Inter'] mt-1 text-honor-gold"></p>
       </form>
     </div>
   </div>

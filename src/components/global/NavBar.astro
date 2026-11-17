@@ -1,5 +1,5 @@
 ---
-//- Transparent navigation bar matching the reference design layout with IHRO brand, centered links, language circle, and donate pill
+//- Transparent navigation bar matching the official diplomatic institution style with IHRO brand, centered links, language circle, and action button
 
 import { getStrings } from "../../constants/strings";
 import { supportedLocales } from "../../locals/languages";
@@ -12,32 +12,43 @@ const pathname = Astro.url.pathname;
 const cleanPath = pathname.replace(/^\/(en|hi|fr)/, '') || '';
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-canvas/90 backdrop-blur-xs transition-colors w-full">
+<header class="fixed top-0 left-0 right-0 z-50 bg-canvas/95 backdrop-blur-xs transition-colors w-full border-b border-border">
+  {/*- Official Diplomatic Top Strip */}
+  <div class="hidden sm:block bg-justice-navy text-canvas-muted text-[10px] font-['Cinzel'] tracking-widest py-1.5 px-6 sm:px-10 lg:px-16 xl:px-20 border-b border-white/10 uppercase">
+    <div class="w-full flex items-center justify-between">
+      <span>International Human Rights Organization</span>
+      <span class="text-honor-gold">Chartered for Human Dignity, Equality & Justice</span>
+      <span>Permanent Global Network</span>
+    </div>
+  </div>
+
   <div class="w-full px-6 sm:px-10 lg:px-16 xl:px-20">
     <div class="flex items-center justify-between h-20">
 
       {/*- IHRO Brand Identity */}
-      <a href={`/${local}/`} class="flex items-center gap-3 cursor-pointer group">
-        <img src="/favicon.svg" alt={s.brand.name} class="h-10 w-10 object-contain" />
+      <a href={`/${local}/`} class="flex items-center gap-3.5 cursor-pointer group">
+        <div class="p-1 border border-border/80 bg-white shadow-2xs">
+          <img src="/favicon.svg" alt={s.brand.name} class="h-9 w-9 object-contain" />
+        </div>
         <div class="flex flex-col">
-          <span class="font-['Hanken_Grotesk'] text-xl font-bold text-justice-navy leading-none tracking-tight">
+          <span class="font-['Cinzel'] text-xl font-bold text-justice-navy leading-none tracking-wider">
             {s.brand.name}
           </span>
-          <span class="hidden sm:inline font-['Inter'] text-xs text-on-surface-variant font-medium mt-1">
+          <span class="hidden sm:inline font-['Inter'] text-[11px] text-on-surface-variant uppercase tracking-wider font-medium mt-1">
             {s.brand.fullName}
           </span>
         </div>
       </a>
 
       {/*- Centered Desktop Navigation */}
-      <nav class="hidden lg:flex items-center gap-6 xl:gap-8">
-        <a href={`/${local}/`} class="text-sm font-medium text-justice-navy hover:text-black transition-colors">
+      <nav class="hidden lg:flex items-center gap-7 xl:gap-9">
+        <a href={`/${local}/`} class="text-xs font-semibold uppercase tracking-wider text-justice-navy hover:text-royal-blue transition-colors">
           {s.nav.home}
         </a>
-        <a href={`/${local}/about`} class="text-sm font-medium text-justice-navy hover:text-black transition-colors">
+        <a href={`/${local}/about`} class="text-xs font-semibold uppercase tracking-wider text-justice-navy hover:text-royal-blue transition-colors">
           {s.nav.about}
         </a>
-        <a href={`/${local}/#mission`} class="text-sm font-medium text-justice-navy hover:text-black transition-colors">
+        <a href={`/${local}/#mission`} class="text-xs font-semibold uppercase tracking-wider text-justice-navy hover:text-royal-blue transition-colors">
           {s.nav.mission}
         </a>
 
@@ -45,62 +56,62 @@ const cleanPath = pathname.replace(/^\/(en|hi|fr)/, '') || '';
         <div class="relative group">
           <a
             href={`/${local}/about#policies`}
-            class="flex items-center gap-1 text-sm font-medium text-justice-navy hover:text-black transition-colors cursor-pointer py-2"
+            class="flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-justice-navy hover:text-royal-blue transition-colors cursor-pointer py-2"
           >
             <span>{s.nav.programs}</span>
-            <span class="material-symbols-outlined text-base transition-transform group-hover:rotate-180">expand_more</span>
+            <span class="material-symbols-outlined text-sm transition-transform group-hover:rotate-180">expand_more</span>
           </a>
 
           {/*- Dropdown Menu */}
-          <div class="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 absolute left-0 mt-1 w-64 bg-white border border-border rounded-2xl shadow-xl py-3 z-50">
+          <div class="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 absolute left-0 mt-1 w-64 bg-white border border-border shadow-md py-2 z-50">
             <a
               href={`/${local}/about#policies`}
-              class="block px-4 py-2 text-xs font-semibold text-justice-navy hover:bg-canvas-muted hover:text-royal-blue transition-colors"
+              class="block px-4 py-2.5 text-xs font-medium text-justice-navy hover:bg-canvas-muted hover:text-royal-blue transition-colors border-b border-border/40"
             >
-              Advocacy & Defense
+              Advocacy & Legal Defense
             </a>
             <a
               href={`/${local}/contact?topic=legal-aid`}
-              class="block px-4 py-2 text-xs font-semibold text-justice-navy hover:bg-canvas-muted hover:text-royal-blue transition-colors"
+              class="block px-4 py-2.5 text-xs font-medium text-justice-navy hover:bg-canvas-muted hover:text-royal-blue transition-colors border-b border-border/40"
             >
               Legal Aid & Representation
             </a>
             <a
               href={`/${local}/about#policies`}
-              class="block px-4 py-2 text-xs font-semibold text-justice-navy hover:bg-canvas-muted hover:text-royal-blue transition-colors"
+              class="block px-4 py-2.5 text-xs font-medium text-justice-navy hover:bg-canvas-muted hover:text-royal-blue transition-colors border-b border-border/40"
             >
-              Education & Human Rights Training
+              Human Rights Education & Field Training
             </a>
             <a
               href={`/${local}/about#policies`}
-              class="block px-4 py-2 text-xs font-semibold text-justice-navy hover:bg-canvas-muted hover:text-royal-blue transition-colors"
+              class="block px-4 py-2.5 text-xs font-medium text-justice-navy hover:bg-canvas-muted hover:text-royal-blue transition-colors border-b border-border/40"
             >
-              Environmental Justice
+              Environmental Justice & Community Rights
             </a>
             <a
               href={`/${local}/contact?topic=community`}
-              class="block px-4 py-2 text-xs font-semibold text-justice-navy hover:bg-canvas-muted hover:text-royal-blue transition-colors"
+              class="block px-4 py-2.5 text-xs font-medium text-justice-navy hover:bg-canvas-muted hover:text-royal-blue transition-colors"
             >
-              Community Defense & Aid
+              Crisis Intervention & Grassroots Aid
             </a>
           </div>
         </div>
 
-        <a href={`/${local}/about#leadership`} class="text-sm font-medium text-justice-navy hover:text-black transition-colors">
+        <a href={`/${local}/about#leadership`} class="text-xs font-semibold uppercase tracking-wider text-justice-navy hover:text-royal-blue transition-colors">
           {s.nav.presence}
         </a>
-        <a href={`/${local}/contact`} class="text-sm font-medium text-justice-navy hover:text-black transition-colors">
+        <a href={`/${local}/contact`} class="text-xs font-semibold uppercase tracking-wider text-justice-navy hover:text-royal-blue transition-colors">
           {s.nav.contact}
         </a>
       </nav>
 
-      {/*- Right Actions: Language Circle and Dark Pill CTA */}
+      {/*- Right Actions: Language Selector and Diplomatic Action CTA */}
       <div class="flex items-center gap-3">
         {/*- Circular Language Selector Button */}
         <div class="relative">
           <button
             id="navLangButton"
-            class="w-9 h-9 rounded-full bg-charcoal text-white flex items-center justify-center hover:bg-black transition-colors cursor-pointer shadow-xs"
+            class="w-9 h-9 rounded-xs border border-border bg-white text-justice-navy flex items-center justify-center hover:bg-canvas-muted transition-colors cursor-pointer shadow-2xs"
             aria-label={s.nav.language}
           >
             <span class="material-symbols-outlined text-base">translate</span>
@@ -108,7 +119,7 @@ const cleanPath = pathname.replace(/^\/(en|hi|fr)/, '') || '';
           
           <div
             id="navLangMenu"
-            class="hidden absolute right-0 mt-2 w-36 bg-white border border-border rounded-2xl shadow-xl py-2 z-50 animate-in"
+            class="hidden absolute right-0 mt-2 w-36 bg-white border border-border shadow-md py-1 z-50 animate-in"
           >
             {supportedLocales.map((loc) => (
               <a
@@ -123,17 +134,17 @@ const cleanPath = pathname.replace(/^\/(en|hi|fr)/, '') || '';
           </div>
         </div>
 
-        {/*- Dark Pill CTA Button */}
+        {/*- Structured Diplomatic CTA Button */}
         <a
           href={`/${local}/contact?type=donate`}
-          class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-charcoal hover:bg-black text-white text-sm font-semibold shadow-xs transition-colors cursor-pointer"
+          class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-xs bg-royal-blue hover:bg-royal-blue-dark text-white text-xs font-semibold uppercase tracking-wider shadow-2xs transition-colors cursor-pointer border border-royal-blue"
         >
           {s.nav.donateNow}
         </a>
 
         {/*- Mobile Drawer Toggle Button */}
         <button
-          class="lg:hidden p-2 rounded-full text-justice-navy hover:bg-black/5 transition-colors cursor-pointer"
+          class="lg:hidden p-2 rounded-xs border border-border text-justice-navy hover:bg-canvas-muted transition-colors cursor-pointer"
           onclick="toggleDrawer()"
           aria-label={s.nav.home}
         >

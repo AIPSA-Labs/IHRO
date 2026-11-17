@@ -1,5 +1,5 @@
 ---
-//- Hero section matching the exact reference design palette with centered editorial typography, dual pills, IHRO showcase visual, and live impact strip
+//- Hero section featuring official diplomatic UN aesthetic with authoritative serif typography, structured charter badge, archival framed showcase, and live impact registry
 
 import { getStrings } from "../../constants/strings";
 import { CONFIG } from "../../constants/config";
@@ -9,87 +9,90 @@ const { local = "en" } = Astro.params;
 const s = getStrings(local);
 ---
 
-<section class="relative pt-24 md:pt-28 pb-12 bg-canvas overflow-hidden w-full flex flex-col items-center">
+<section class="relative pt-28 md:pt-36 pb-16 bg-canvas overflow-hidden w-full flex flex-col items-center border-b border-border">
   <div class="w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20 text-center">
     
-    {/*- Main Hero Copy & CTAs with subtle upward parallax drift */}
-    <div class="parallax-layer" data-parallax={CONFIG.PARALLAX.HERO_TEXT_SPEED}>
-      <h1 class="font-['Hanken_Grotesk'] text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-justice-navy leading-tight md:leading-tight mb-4 max-w-4xl mx-auto">
-        <span>{s.hero.titleLine1}</span><br class="hidden sm:inline" />
-        <span>{s.hero.titleLine2}</span>
+    {/*- Official Institutional Charter Badge */}
+    <div class="inline-flex items-center gap-2.5 px-5 py-1.5 border border-border bg-white mb-6 shadow-2xs">
+      <span class="w-1.5 h-1.5 bg-honor-gold rounded-full"></span>
+      <span class="font-['Cinzel'] text-[11px] font-bold tracking-widest text-justice-navy uppercase">
+        Charter for Universal Human Rights & Dignity
+      </span>
+      <span class="w-1.5 h-1.5 bg-honor-gold rounded-full"></span>
+    </div>
+
+    {/*- Main Hero Copy & CTAs */}
+    <div class="max-w-4xl mx-auto mb-10">
+      <h1 class="font-['Newsreader'] text-4xl sm:text-6xl md:text-7xl font-medium tracking-tight text-justice-navy leading-[1.08] mb-5">
+        <span class="block">{s.hero.titleLine1}</span>
+        <span class="block italic font-normal text-royal-blue">{s.hero.titleLine2}</span>
       </h1>
 
-      <p class="font-['Inter'] text-sm sm:text-base md:text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed mb-6">
+      <p class="font-['Inter'] text-sm sm:text-base md:text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed mb-8">
         {s.hero.subtitle}
       </p>
 
-      <div class="flex flex-wrap items-center justify-center gap-3.5 mb-4 sm:mb-6 relative z-20">
+      <div class="flex flex-wrap items-center justify-center gap-4 relative z-20">
         <a
           href={`/${local}/contact`}
-          class="inline-flex items-center justify-center px-7 py-3 rounded-full bg-emerald-accent hover:bg-emerald-accent-hover text-white text-sm font-semibold shadow-xs transition-colors cursor-pointer"
+          class="inline-flex items-center justify-center px-8 py-3.5 rounded-xs bg-royal-blue hover:bg-royal-blue-dark text-white text-xs font-semibold tracking-wider uppercase shadow-2xs transition-colors cursor-pointer border border-royal-blue"
         >
           {s.hero.ctaPrimary}
         </a>
         <a
           href="#mission"
-          class="inline-flex items-center justify-center px-7 py-3 rounded-full bg-charcoal hover:bg-black text-white text-sm font-semibold shadow-xs transition-colors cursor-pointer"
+          class="inline-flex items-center justify-center px-8 py-3.5 rounded-xs bg-white hover:bg-canvas-muted text-justice-navy text-xs font-semibold tracking-wider uppercase transition-colors cursor-pointer border border-border shadow-2xs"
         >
           {s.hero.ctaSecondary}
         </a>
       </div>
     </div>
 
-    {/*- Seamless Blended IHRO Showcase Visual with Parallax Window */}
-    <div class="w-full max-w-6xl mx-auto relative z-10">
-      <div class="relative w-full h-64 sm:h-80 md:h-96 overflow-hidden">
-        <div class="absolute -inset-y-12 inset-x-0 parallax-layer" data-parallax={CONFIG.PARALLAX.HERO_IMAGE_SPEED}>
-          <img
-            src={heroImg.src}
-            alt={s.hero.altArtwork}
-            class="w-full h-full object-cover object-center"
-          />
-        </div>
-        {/*- Four-edge feathered canvas blend so no hard borders appear */}
-        <div class="absolute inset-x-0 top-0 h-20 sm:h-24 bg-gradient-to-b from-canvas via-canvas/55 to-transparent pointer-events-none"></div>
-        <div class="absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-t from-canvas via-canvas/65 to-transparent pointer-events-none"></div>
-        <div class="absolute inset-y-0 left-0 w-20 sm:w-40 md:w-56 bg-gradient-to-r from-canvas via-canvas/65 to-transparent pointer-events-none"></div>
-        <div class="absolute inset-y-0 right-0 w-20 sm:w-40 md:w-56 bg-gradient-to-l from-canvas via-canvas/65 to-transparent pointer-events-none"></div>
+    {/*- Archival Framed Diplomatic Visual Showcase */}
+    <div class="w-full max-w-5xl mx-auto relative z-10 p-2 sm:p-3 bg-white border border-border shadow-sm">
+      <div class="relative w-full h-72 sm:h-96 md:h-[28rem] overflow-hidden border border-border/60">
+        <img
+          src={heroImg.src}
+          alt={s.hero.altArtwork}
+          class="w-full h-full object-cover object-center"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
       </div>
+    </div>
 
-      {/*- Unified Live Global Impact Strip */}
-      <div class="mt-2 pt-5 border-t border-border/80 grid grid-cols-2 md:grid-cols-4 gap-y-4 md:gap-y-0 md:divide-x divide-border/70 parallax-layer" data-parallax={CONFIG.PARALLAX.HERO_STATS_SPEED}>
-        <div class="py-2 px-4 text-center">
-          <span id="heroStatNations" class="font-['Hanken_Grotesk'] text-2xl sm:text-3xl font-bold text-royal-blue block">
-            {CONFIG.STATS.NATIONS_COUNT}+
-          </span>
-          <span class="font-['Inter'] text-xs sm:text-sm text-on-surface-variant font-medium">
-            {s.presence.stats.nations}
-          </span>
-        </div>
-        <div class="py-2 px-4 text-center">
-          <span id="heroStatChapters" class="font-['Hanken_Grotesk'] text-2xl sm:text-3xl font-bold text-emerald-accent block">
-            {CONFIG.STATS.CHAPTERS_COUNT}+
-          </span>
-          <span class="font-['Inter'] text-xs sm:text-sm text-on-surface-variant font-medium">
-            {s.presence.stats.chapters}
-          </span>
-        </div>
-        <div class="py-2 px-4 text-center">
-          <span id="heroStatCases" class="font-['Hanken_Grotesk'] text-2xl sm:text-3xl font-bold text-justice-navy block">
-            {CONFIG.STATS.CASES_SUPPORTED.toLocaleString()}+
-          </span>
-          <span class="font-['Inter'] text-xs sm:text-sm text-on-surface-variant font-medium">
-            {s.presence.stats.cases}
-          </span>
-        </div>
-        <div class="py-2 px-4 text-center">
-          <span id="heroStatVolunteers" class="font-['Hanken_Grotesk'] text-2xl sm:text-3xl font-bold text-royal-blue block">
-            {CONFIG.STATS.VOLUNTEERS_COUNT.toLocaleString()}+
-          </span>
-          <span class="font-['Inter'] text-xs sm:text-sm text-on-surface-variant font-medium">
-            {s.presence.stats.volunteers}
-          </span>
-        </div>
+    {/*- Unified Live Global Impact Registry Strip */}
+    <div class="w-full max-w-5xl mx-auto mt-10 pt-8 border-t border-border grid grid-cols-2 md:grid-cols-4 gap-y-6 md:gap-y-0 md:divide-x divide-border">
+      <div class="py-2 px-4 text-center">
+        <span id="heroStatNations" class="font-['Newsreader'] text-3xl sm:text-4xl font-semibold text-royal-blue block">
+          {CONFIG.STATS.NATIONS_COUNT}+
+        </span>
+        <span class="font-['Inter'] text-[11px] uppercase tracking-wider text-on-surface-variant font-medium mt-1 block">
+          {s.presence.stats.nations}
+        </span>
+      </div>
+      <div class="py-2 px-4 text-center">
+        <span id="heroStatChapters" class="font-['Newsreader'] text-3xl sm:text-4xl font-semibold text-emerald-accent block">
+          {CONFIG.STATS.CHAPTERS_COUNT}+
+        </span>
+        <span class="font-['Inter'] text-[11px] uppercase tracking-wider text-on-surface-variant font-medium mt-1 block">
+          {s.presence.stats.chapters}
+        </span>
+      </div>
+      <div class="py-2 px-4 text-center">
+        <span id="heroStatCases" class="font-['Newsreader'] text-3xl sm:text-4xl font-semibold text-justice-navy block">
+          {CONFIG.STATS.CASES_SUPPORTED.toLocaleString()}+
+        </span>
+        <span class="font-['Inter'] text-[11px] uppercase tracking-wider text-on-surface-variant font-medium mt-1 block">
+          {s.presence.stats.cases}
+        </span>
+      </div>
+      <div class="py-2 px-4 text-center">
+        <span id="heroStatVolunteers" class="font-['Newsreader'] text-3xl sm:text-4xl font-semibold text-royal-blue block">
+          {CONFIG.STATS.VOLUNTEERS_COUNT.toLocaleString()}+
+        </span>
+        <span class="font-['Inter'] text-[11px] uppercase tracking-wider text-on-surface-variant font-medium mt-1 block">
+          {s.presence.stats.volunteers}
+        </span>
       </div>
     </div>
 

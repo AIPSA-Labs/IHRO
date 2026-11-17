@@ -6,16 +6,18 @@ const { local = 'en' } = Astro.params ?? {};
 const t = translations[local as Locale] || translations['en'];
 ---
 
-<section class="relative bg-background text-foreground py-28 sm:py-36 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden w-full">
-  {/*- Background Decoration */}
-  <div class="absolute inset-0 opacity-5">
-    <div class="absolute top-0 left-0 w-96 h-96 bg-primary rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-    <div class="absolute bottom-0 right-0 w-96 h-96 bg-accent rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
-  </div>
-
+<section class="relative bg-canvas text-justice-navy pt-32 pb-20 sm:pt-40 sm:pb-24 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden w-full border-b border-border">
   <div class="w-full max-w-screen-2xl mx-auto text-center relative z-10">
-    <h1 class="animate-on-scroll delay-1 text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 leading-tight">{t.title}</h1>
-    <p class="animate-on-scroll delay-2 text-lg sm:text-xl md:text-2xl text-muted-foreground mb-6 leading-relaxed">{t.subtitle}</p>
-    <p class="animate-on-scroll delay-3 text-base md:text-lg text-muted-foreground/80 max-w-3xl mx-auto">{t.description}</p>
+    <div class="inline-flex items-center gap-2.5 px-4 py-1 border border-border bg-white mb-6 shadow-2xs">
+      <span class="w-1.5 h-1.5 bg-honor-gold rounded-full"></span>
+      <span class="font-['Cinzel'] text-[10px] font-bold tracking-widest text-royal-blue uppercase">
+        Institutional Mandate & Mission
+      </span>
+      <span class="w-1.5 h-1.5 bg-honor-gold rounded-full"></span>
+    </div>
+    <h1 class="font-['Newsreader'] text-4xl sm:text-5xl md:text-6xl font-medium mb-6 leading-tight text-justice-navy">{t.title}</h1>
+    <div class="w-12 h-0.5 bg-honor-gold mx-auto mb-6"></div>
+    <p class="font-['Newsreader'] italic text-lg sm:text-xl md:text-2xl text-royal-blue mb-6 leading-relaxed max-w-3xl mx-auto">{t.subtitle}</p>
+    <p class="font-['Inter'] text-sm sm:text-base text-on-surface-variant max-w-3xl mx-auto leading-relaxed">{t.description}</p>
   </div>
 </section>

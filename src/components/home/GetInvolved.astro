@@ -1,39 +1,42 @@
 ---
-//- High-impact call-to-action banner inviting members, advocates, and volunteers to take action
+//- Institutional call-to-action banner inviting delegations, advocates, and civil society to participate in IHRO missions
 
 import { getStrings } from "../../constants/strings";
-import { CONFIG } from "../../constants/config";
 
 const { local = "en" } = Astro.params;
 const s = getStrings(local);
 ---
 
-<section class="py-20 md:py-28 bg-charcoal text-white relative overflow-hidden w-full">
-  
-  {/*- Soft Ambient Lighting Accents with parallax depth */}
-  <div class="absolute -top-24 -left-24 w-96 h-96 bg-royal-blue/20 rounded-full blur-3xl pointer-events-none parallax-layer" data-parallax={CONFIG.PARALLAX.ABOUT_SHAPE_1_SPEED}></div>
-  <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-emerald-accent/20 rounded-full blur-3xl pointer-events-none parallax-layer" data-parallax={CONFIG.PARALLAX.ABOUT_SHAPE_2_SPEED}></div>
-
-  <div class="relative w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20 text-center animate-on-scroll">
+<section class="py-24 md:py-32 bg-canvas-muted text-justice-navy relative overflow-hidden w-full border-t border-border">
+  <div class="relative w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20 text-center">
     
-    <h2 class="font-['Hanken_Grotesk'] text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-6 leading-tight">
+    <div class="inline-flex items-center gap-2.5 px-4 py-1 border border-border bg-white mb-4 shadow-2xs">
+      <span class="w-1.5 h-1.5 bg-honor-gold rounded-full"></span>
+      <span class="font-['Cinzel'] text-[10px] font-bold tracking-widest text-royal-blue uppercase">
+        Universal Call for Human Rights Participation
+      </span>
+      <span class="w-1.5 h-1.5 bg-honor-gold rounded-full"></span>
+    </div>
+
+    <h2 class="font-['Newsreader'] text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-justice-navy mb-5 leading-tight">
       {s.getInvolved.title}
     </h2>
+    <div class="w-12 h-0.5 bg-honor-gold mx-auto mb-6"></div>
 
-    <p class="font-['Inter'] text-base sm:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed mb-10 font-light">
+    <p class="font-['Inter'] text-base text-on-surface-variant max-w-2xl mx-auto leading-relaxed mb-10">
       {s.getInvolved.subtitle}
     </p>
 
     <div class="flex flex-wrap items-center justify-center gap-4">
       <a
         href={`/${local}/contact`}
-        class="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-emerald-accent hover:bg-emerald-accent-hover text-white text-sm font-semibold shadow-lg transition-colors cursor-pointer"
+        class="inline-flex items-center justify-center px-8 py-3.5 rounded-xs bg-royal-blue hover:bg-royal-blue-dark text-white text-xs font-semibold tracking-wider uppercase shadow-2xs transition-colors cursor-pointer border border-royal-blue"
       >
         {s.getInvolved.ctaPrimary}
       </a>
       <a
         href={`/${local}/about`}
-        class="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 text-sm font-semibold backdrop-blur-md transition-colors cursor-pointer"
+        class="inline-flex items-center justify-center px-8 py-3.5 rounded-xs bg-white hover:bg-canvas text-justice-navy border border-border text-xs font-semibold tracking-wider uppercase transition-colors cursor-pointer shadow-2xs"
       >
         {s.getInvolved.ctaSecondary}
       </a>

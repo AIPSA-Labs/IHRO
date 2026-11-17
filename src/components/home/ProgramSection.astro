@@ -1,5 +1,5 @@
 ---
-//- Core programs section with clean minimalist cards, modern icons, and structured layout
+//- Core programs section structured as official institutional dossiers with balanced multi-column layout and authoritative serif typography
 
 import { translations } from "../../locals/home/program";
 import { getStrings } from "../../constants/strings";
@@ -20,56 +20,59 @@ const displayPrograms = (local === 'en' && dbPrograms.length > 0)
   : t.programs;
 ---
 
-<section class="py-24 md:py-32 bg-canvas px-6 sm:px-10 lg:px-16 xl:px-20 border-t border-border/80 w-full" id="programs">
+<section class="py-24 md:py-32 bg-canvas px-6 sm:px-10 lg:px-16 xl:px-20 border-b border-border w-full" id="programs">
   <div class="w-full max-w-screen-2xl mx-auto">
     
     {/*- Section Header */}
-    <div class="text-center max-w-3xl mx-auto mb-16 md:mb-20 animate-on-scroll">
-      <h2 class="font-['Hanken_Grotesk'] text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-justice-navy mb-4">
+    <div class="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+      <div class="inline-flex items-center gap-2.5 px-4 py-1 border border-border bg-white mb-4 shadow-2xs">
+        <span class="w-1.5 h-1.5 bg-honor-gold rounded-full"></span>
+        <span class="font-['Cinzel'] text-[10px] font-bold tracking-widest text-royal-blue uppercase">
+          Council Programmatic Registry
+        </span>
+        <span class="w-1.5 h-1.5 bg-honor-gold rounded-full"></span>
+      </div>
+
+      <h2 class="font-['Newsreader'] text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-justice-navy mb-5">
         {t.title}
       </h2>
-      <p class="font-['Inter'] text-base sm:text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+      <div class="w-12 h-0.5 bg-honor-gold mx-auto mb-6"></div>
+      <p class="font-['Inter'] text-base text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
         {t.subtitle}
       </p>
     </div>
 
-    {/*- Programs Grid */}
+    {/*- Structured Equal-Column Institutional Dossiers */}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {displayPrograms.map((prog, index) => (
-        <div class={`rounded-3xl p-8 transition-all duration-300 flex flex-col justify-between group border animate-on-scroll delay-${index + 1} ${
-          index === 0
-            ? 'bg-charcoal text-white border-charcoal lg:col-span-2'
-            : 'bg-white text-justice-navy border-border/80 hover:shadow-xl'
-        }`}>
+        <div class="bg-white border border-border p-8 transition-colors flex flex-col justify-between group shadow-2xs hover:border-royal-blue">
           <div>
-            <div class={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-colors ${
-              index === 0
-                ? 'bg-white/10 text-emerald-accent'
-                : 'bg-canvas-muted text-royal-blue group-hover:bg-royal-blue group-hover:text-white'
-            }`}>
-              <span class="material-symbols-outlined text-3xl">{prog.icon}</span>
+            {/*- Header with Dossier ID & Official Icon */}
+            <div class="flex items-center justify-between mb-6 pb-4 border-b border-border/60">
+              <span class="font-['Cinzel'] text-[11px] font-bold tracking-widest text-honor-gold uppercase">
+                Initiative #{String(index + 1).padStart(2, '0')}
+              </span>
+              <div class="w-10 h-10 border border-border bg-canvas-muted text-royal-blue flex items-center justify-center group-hover:bg-royal-blue group-hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-xl">{prog.icon}</span>
+              </div>
             </div>
             
-            <h3 class="font-['Hanken_Grotesk'] text-2xl font-bold mb-3 tracking-tight">
+            <h3 class="font-['Newsreader'] text-2xl font-semibold mb-3 tracking-tight text-justice-navy group-hover:text-royal-blue transition-colors">
               {prog.title}
             </h3>
             
-            <p class={`font-['Inter'] text-sm sm:text-base leading-relaxed ${
-              index === 0 ? 'text-white/80 max-w-xl' : 'text-on-surface-variant'
-            }`}>
+            <p class="font-['Inter'] text-sm text-on-surface-variant leading-relaxed">
               {prog.description}
             </p>
           </div>
 
-          <div class="mt-8 pt-6 border-t border-white/10">
+          <div class="mt-8 pt-5 border-t border-border flex items-center justify-between">
             <a
               href={`/${local}/contact?topic=${encodeURIComponent(prog.title.toLowerCase())}`}
-              class={`inline-flex items-center gap-2 text-sm font-semibold transition-colors ${
-                index === 0 ? 'text-emerald-accent hover:text-white' : 'text-royal-blue hover:text-justice-navy'
-              }`}
+              class="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase text-royal-blue hover:text-justice-navy transition-colors"
             >
               <span>{s.pillars.ctaLabel}</span>
-              <span class="material-symbols-outlined text-base">arrow_forward</span>
+              <span class="material-symbols-outlined text-sm">arrow_forward</span>
             </a>
           </div>
         </div>

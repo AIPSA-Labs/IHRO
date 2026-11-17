@@ -1,9 +1,8 @@
 ---
-//- Global network and presence section featuring interactive statistics, clean category pills, and world map graphic
+//- Global network and diplomatic presence directory featuring structured official delegations and cartographic map showcase
 
 import { translations } from "../../locals/home/presence";
 import { getStrings } from "../../constants/strings";
-import { CONFIG } from "../../constants/config";
 import digitalMap from "../../assets/digital-map.png";
 
 type Locale = 'en' | 'hi' | 'fr';
@@ -12,75 +11,77 @@ const t = translations[local as Locale] || translations['en'];
 const s = getStrings(local);
 ---
 
-<section class="py-24 md:py-32 bg-white px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden border-t border-border/80 w-full" id="presence">
+<section class="py-24 md:py-32 bg-canvas px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden border-b border-border w-full" id="presence">
   <div class="w-full max-w-screen-2xl mx-auto">
     
     {/*- Section Header */}
-    <div class="text-center max-w-3xl mx-auto mb-16 md:mb-20 animate-on-scroll">
-      <h2 class="font-['Hanken_Grotesk'] text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-justice-navy mb-4">
+    <div class="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+      <div class="inline-flex items-center gap-2.5 px-4 py-1 border border-border bg-white mb-4 shadow-2xs">
+        <span class="w-1.5 h-1.5 bg-honor-gold rounded-full"></span>
+        <span class="font-['Cinzel'] text-[10px] font-bold tracking-widest text-royal-blue uppercase">
+          Diplomatic Missions & Delegations
+        </span>
+        <span class="w-1.5 h-1.5 bg-honor-gold rounded-full"></span>
+      </div>
+
+      <h2 class="font-['Newsreader'] text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-justice-navy mb-5">
         {s.presence.title}
       </h2>
-      <p class="font-['Inter'] text-base sm:text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+      <div class="w-12 h-0.5 bg-honor-gold mx-auto mb-6"></div>
+      <p class="font-['Inter'] text-base text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
         {s.presence.subtitle}
       </p>
     </div>
 
-    {/*- Two Column Details: Clean Regional Directory & Blended World Map */}
+    {/*- Two Column Details: Structured Diplomatic Directory & Archival Map Frame */}
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
       
-      {/*- Left Column: Clean Regional Presence List */}
-      <div class="lg:col-span-5 divide-y divide-border/80 border-y border-border/80 animate-on-scroll">
+      {/*- Left Column: Diplomatic Directory */}
+      <div class="lg:col-span-5 divide-y divide-border border-y border-border bg-white p-6 sm:p-8 shadow-2xs">
         
         {/*- International Delegations */}
-        <div class="py-6">
-          <h3 class="font-['Hanken_Grotesk'] text-sm font-bold text-royal-blue uppercase tracking-wider mb-2 flex items-center gap-2">
-            <span class="material-symbols-outlined text-lg">public</span>
+        <div class="pb-6">
+          <h3 class="font-['Cinzel'] text-xs font-bold text-royal-blue uppercase tracking-wider mb-2 flex items-center gap-2">
+            <span class="material-symbols-outlined text-base">public</span>
             <span>{t.internationalTitle}</span>
           </h3>
-          <p class="font-['Inter'] text-base text-justice-navy font-medium leading-relaxed">
+          <p class="font-['Inter'] text-sm sm:text-base text-justice-navy font-medium leading-relaxed">
             {t.internationalOffices.map((office) => office.country).join(' · ')}
           </p>
         </div>
 
         {/*- National Chapters */}
         <div class="py-6">
-          <h3 class="font-['Hanken_Grotesk'] text-sm font-bold text-emerald-accent uppercase tracking-wider mb-2 flex items-center gap-2">
-            <span class="material-symbols-outlined text-lg">flag</span>
+          <h3 class="font-['Cinzel'] text-xs font-bold text-emerald-accent uppercase tracking-wider mb-2 flex items-center gap-2">
+            <span class="material-symbols-outlined text-base">flag</span>
             <span>{t.nationalTitle}</span>
           </h3>
-          <p class="font-['Inter'] text-base text-justice-navy font-medium leading-relaxed">
+          <p class="font-['Inter'] text-sm sm:text-base text-justice-navy font-medium leading-relaxed">
             {t.nationalChapters.join(' · ')}
           </p>
         </div>
 
         {/*- Regional Councils */}
-        <div class="py-6">
-          <h3 class="font-['Hanken_Grotesk'] text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-2 flex items-center gap-2">
-            <span class="material-symbols-outlined text-lg">apartment</span>
+        <div class="pt-6">
+          <h3 class="font-['Cinzel'] text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2 flex items-center gap-2">
+            <span class="material-symbols-outlined text-base">apartment</span>
             <span>{t.stateTitle}</span>
           </h3>
-          <p class="font-['Inter'] text-sm sm:text-base text-on-surface-variant leading-relaxed">
+          <p class="font-['Inter'] text-sm text-on-surface-variant leading-relaxed">
             {t.stateChapters.join(' · ')}
           </p>
         </div>
 
       </div>
 
-      {/*- Right Column: Seamless White-Blended World Map with Parallax */}
-      <div class="lg:col-span-7 relative">
-        <div class="relative w-full h-80 sm:h-96 overflow-hidden">
-          <div class="absolute -inset-y-12 inset-x-0 parallax-layer" data-parallax={CONFIG.PARALLAX.MAP_IMAGE_SPEED}>
-            <img
-              src={digitalMap.src}
-              alt={s.presence.title}
-              class="w-full h-full object-cover object-center"
-            />
-          </div>
-          {/*- Four-edge feathered white blend so no gray box edges appear */}
-          <div class="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-white via-white/60 to-transparent pointer-events-none"></div>
-          <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white via-white/60 to-transparent pointer-events-none"></div>
-          <div class="absolute inset-y-0 left-0 w-16 sm:w-24 bg-gradient-to-r from-white via-white/60 to-transparent pointer-events-none"></div>
-          <div class="absolute inset-y-0 right-0 w-16 sm:w-24 bg-gradient-to-l from-white via-white/60 to-transparent pointer-events-none"></div>
+      {/*- Right Column: Archival Cartographic Map Frame */}
+      <div class="lg:col-span-7 relative p-2 bg-white border border-border shadow-2xs">
+        <div class="relative w-full h-80 sm:h-96 overflow-hidden border border-border/60 bg-canvas-muted">
+          <img
+            src={digitalMap.src}
+            alt={s.presence.title}
+            class="w-full h-full object-cover object-center"
+          />
         </div>
       </div>
 

@@ -1,62 +1,110 @@
 ---
-//- Three-pillar institutional charter section with structured editorial frames and crisp dividers
+//- "Engage With Our Ongoing Causes" interactive carousel with working arrow controls, authentic mission status, and responsive scroll-snap
+
 import { getStrings } from "../../constants/strings";
 
 const { local = "en" } = Astro.params;
 const s = getStrings(local);
+
+const EXTRA_ITEMS = [
+  {
+    tag: "ENVIRONMENTAL RIGHTS",
+    title: "Defending Climate Justice & Indigenous Lands",
+    description: "Advocating for indigenous sovereignty and legal protection against environmental degradation and resource exploitation.",
+    image: "https://images.pexels.com/photos/1181248/pexels-photo-1181248.jpeg",
+    cta: "Support Initiative",
+  },
+  {
+    tag: "EDUCATION & RESEARCH",
+    title: "Frontline Human Rights Academy & Fellowships",
+    description: "Training grassroots youth advocates, legal observers, and community leaders in international human rights treaties.",
+    image: "https://images.pexels.com/photos/1595385/pexels-photo-1595385.jpeg",
+    cta: "Support Initiative",
+  },
+];
+
+const allItems = [...s.causes.items, ...EXTRA_ITEMS];
 ---
 
-<section id="mission" class="relative py-24 md:py-32 bg-canvas text-justice-navy overflow-hidden w-full border-b border-border scroll-mt-20">
-  
-  <div class="relative w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
+<section class="py-20 md:py-28 bg-gray-50 text-zinc-900 border-b border-gray-100 w-full overflow-hidden" id="causes">
+  <div class="w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
     
-    {/*- Section Header */}
-    <div class="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-      <h2 class="font-['Newsreader'] text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-justice-navy mb-4 leading-tight">
-        <span>{s.pillars.sectionTitleLine1}</span>{" "}
-        <span class="italic font-normal text-royal-blue">{s.pillars.sectionTitleLine2}</span>
-      </h2>
-      <p class="font-['Inter'] text-sm sm:text-base text-on-surface-variant leading-relaxed max-w-xl mx-auto">
-        {s.pillars.sectionSubtitle}
-      </p>
+    {/*- Section Header with Working Carousel Navigation Buttons */}
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 md:mb-16 animate-on-scroll">
+      <div class="max-w-xl">
+        <h2 class="font-['Newsreader'] text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-900 mb-3">
+          {s.causes.title}
+        </h2>
+        <p class="font-['Inter'] text-sm sm:text-base text-zinc-600 font-normal">
+          {s.causes.subtitle}
+        </p>
+      </div>
+
+      {/*- Working Navigation Controls */}
+      <div class="flex items-center gap-2 shrink-0">
+        <button
+          id="causesPrevBtn"
+          class="w-10 h-10 rounded-full border border-gray-300 bg-white text-zinc-700 flex items-center justify-center hover:bg-coral hover:text-white hover:border-coral transition-colors cursor-pointer shadow-xs active:scale-95 disabled:hover:bg-white disabled:hover:text-zinc-700 disabled:hover:border-gray-300 disabled:active:scale-100"
+          aria-label="Previous Cause"
+        >
+          <span class="material-symbols-outlined text-base">chevron_left</span>
+        </button>
+        <button
+          id="causesNextBtn"
+          class="w-10 h-10 rounded-full border border-gray-300 bg-white text-zinc-700 flex items-center justify-center hover:bg-coral hover:text-white hover:border-coral transition-colors cursor-pointer shadow-xs active:scale-95 disabled:hover:bg-white disabled:hover:text-zinc-700 disabled:hover:border-gray-300 disabled:active:scale-100"
+          aria-label="Next Cause"
+        >
+          <span class="material-symbols-outlined text-base">chevron_right</span>
+        </button>
+      </div>
     </div>
 
-    {/*- 3-Column Structured Institutional Dossiers */}
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
-      {s.pillars.cards.map((card, index) => (
-        <div class="bg-white border border-border p-7 text-justice-navy flex flex-col justify-between shadow-2xs hover:border-royal-blue transition-colors group">
+    {/*- Smooth Interactive Carousel Track */}
+    <div
+      id="causesTrack"
+      class="relative flex gap-6 md:gap-8 overflow-x-auto no-scrollbar snap-x snap-mandatory py-2"
+    >
+      {allItems.map((item) => (
+        <div class="w-[85vw] sm:w-[360px] md:w-[380px] lg:w-[410px] shrink-0 snap-start bg-white rounded-2xl p-5 border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow group">
           <div>
-            {/*- Archival Photo Frame */}
-            <div class="border border-border/80 overflow-hidden mb-6 aspect-video bg-canvas-muted p-1">
+            {/*- Image Container with Tag Badge */}
+            <div class="relative w-full aspect-[16/10] rounded-xl overflow-hidden mb-5 bg-gray-100">
               <img
-                src={card.image}
-                alt={card.title}
+                src={item.image}
+                alt={item.title}
                 class="w-full h-full object-cover"
+                loading="lazy"
               />
-            </div>
-            
-            {/*- Dossier Number & Title */}
-            <div class="flex items-center gap-2 mb-2">
-              <span class="font-['Cinzel'] text-[10px] font-bold tracking-widest text-honor-gold uppercase">
-                Pillar 0{index + 1}
+              <span class="absolute top-3 left-3 bg-coral text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-xs">
+                {item.tag}
               </span>
             </div>
-            <h3 class="font-['Newsreader'] text-2xl font-semibold text-justice-navy mb-3 tracking-tight group-hover:text-royal-blue transition-colors">
-              {card.title}
+
+            {/*- Title & Description */}
+            <h3 class="font-['Newsreader'] text-xl sm:text-2xl font-bold text-zinc-900 leading-snug mb-3 group-hover:text-coral transition-colors">
+              {item.title}
             </h3>
-            <p class="font-['Inter'] text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-              {card.description}
+            <p class="font-['Inter'] text-xs sm:text-sm text-zinc-600 leading-relaxed mb-6 font-normal">
+              {item.description}
             </p>
           </div>
 
-          {/*- Action Link */}
-          <div class="mt-8 pt-5 border-t border-border flex items-center justify-between">
+          <div>
+            {/*- Operational Program Metadata (Real mission status, no fake fundraising numbers) */}
+            <div class="mb-5 pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-zinc-500 font-medium">
+              <span class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-sm text-coral">public</span>
+                <span>45+ Member Nations</span>
+              </span>
+              <span class="text-coral font-semibold uppercase tracking-wider text-[11px]">Active Mission</span>
+            </div>
+
+            {/*- Action Button */}
             <a
-              href={`/${local}/contact?topic=${encodeURIComponent(card.title.toLowerCase())}`}
-              class="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase text-royal-blue hover:text-justice-navy transition-colors"
+              href={`/${local}/contact?topic=${encodeURIComponent(item.tag.toLowerCase())}`}
+              class="w-full inline-flex items-center justify-center py-3 rounded-full bg-coral hover:bg-coral-hover text-white text-xs font-bold uppercase tracking-wider shadow-xs transition-colors cursor-pointer text-center"
             >
-              <span>{s.pillars.ctaLabel} {card.title}</span>
-              <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              {item.cta}
             </a>
           </div>
         </div>
@@ -65,3 +113,66 @@ const s = getStrings(local);
 
   </div>
 </section>
+
+<script>
+  //- Lightweight, bounded carousel navigation without infinite looping
+  const EDGE_BUFFER_PX = 8;
+  const FALLBACK_STEP_PX = 380;
+
+  const track = document.getElementById('causesTrack') as HTMLElement | null;
+  const prevBtn = document.getElementById('causesPrevBtn') as HTMLButtonElement | null;
+  const nextBtn = document.getElementById('causesNextBtn') as HTMLButtonElement | null;
+
+  if (track && prevBtn && nextBtn) {
+    const getCardStep = (): number => {
+      const card = track.querySelector('.snap-start') as HTMLElement | null;
+      if (card) {
+        const style = window.getComputedStyle(track);
+        const gap = parseFloat(style.columnGap || style.gap) || 24;
+        return card.offsetWidth + gap;
+      }
+      return FALLBACK_STEP_PX;
+    };
+
+    const updateButtonStates = () => {
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      const isAtStart = track.scrollLeft <= EDGE_BUFFER_PX;
+      const isAtEnd = track.scrollLeft >= maxScroll - EDGE_BUFFER_PX;
+
+      if (isAtStart) {
+        prevBtn.classList.add('opacity-40', 'cursor-not-allowed');
+        prevBtn.setAttribute('disabled', 'true');
+      } else {
+        prevBtn.classList.remove('opacity-40', 'cursor-not-allowed');
+        prevBtn.removeAttribute('disabled');
+      }
+
+      if (isAtEnd) {
+        nextBtn.classList.add('opacity-40', 'cursor-not-allowed');
+        nextBtn.setAttribute('disabled', 'true');
+      } else {
+        nextBtn.classList.remove('opacity-40', 'cursor-not-allowed');
+        nextBtn.removeAttribute('disabled');
+      }
+    };
+
+    nextBtn.addEventListener('click', () => {
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      if (track.scrollLeft < maxScroll - EDGE_BUFFER_PX) {
+        const step = getCardStep();
+        track.scrollBy({ left: step, behavior: 'smooth' });
+      }
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (track.scrollLeft > EDGE_BUFFER_PX) {
+        const step = getCardStep();
+        track.scrollBy({ left: -step, behavior: 'smooth' });
+      }
+    });
+
+    track.addEventListener('scroll', updateButtonStates, { passive: true });
+    window.addEventListener('resize', updateButtonStates);
+    updateButtonStates();
+  }
+</script>

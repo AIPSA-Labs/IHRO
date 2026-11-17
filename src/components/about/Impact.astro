@@ -1,7 +1,7 @@
 ---
-//- Global humanitarian impact metrics connected to live AIPSA Database
+//- Global humanitarian impact metrics connected to live AIPSA Database in modern coral theme
+
 import { translations } from "../../locals/about/impact";
-import { TrendingUp, Award, Users, Globe } from "@lucide/astro";
 import { fetchOrganizationMetrics } from "../../services/db";
 
 type Locale = 'en' | 'hi' | 'fr';
@@ -10,31 +10,32 @@ const t = translations[local as Locale] || translations['en'];
 const metrics = await fetchOrganizationMetrics();
 
 const dynamicStats = [
-  { number: `${metrics.nations}+`, label: t.stats[0]?.label || "Nations Reached" },
-  { number: `${metrics.chapters}+`, label: t.stats[1]?.label || "Active Chapters" },
-  { number: `${metrics.casesSupported.toLocaleString()}+`, label: t.stats[2]?.label || "Cases Supported" },
-  { number: `${metrics.volunteers.toLocaleString()}+`, label: t.stats[3]?.label || "Active Volunteers" },
+  { number: `${metrics.nations}+`, label: t.stats[0]?.label || "Nations Reached", icon: "trending_up" },
+  { number: `${metrics.chapters}+`, label: t.stats[1]?.label || "Active Chapters", icon: "workspace_premium" },
+  { number: `${metrics.casesSupported.toLocaleString()}+`, label: t.stats[2]?.label || "Cases Supported", icon: "groups" },
+  { number: `${metrics.volunteers.toLocaleString()}+`, label: t.stats[3]?.label || "Active Volunteers", icon: "public" },
 ];
-
-const statIcons = [TrendingUp, Award, Users, Globe];
 ---
 
-<section class="relative py-24 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden bg-canvas text-justice-navy border-b border-border w-full">
-  <div class="w-full max-w-screen-2xl mx-auto text-center mb-16 relative z-10">
-    <h2 class="font-['Newsreader'] text-3xl sm:text-4xl md:text-5xl font-medium text-justice-navy mb-4">{t.title}</h2>
-    <p class="font-['Inter'] text-base text-on-surface-variant max-w-2xl mx-auto leading-relaxed">{t.subtitle}</p>
+<section class="relative py-20 md:py-28 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden bg-white text-zinc-900 border-b border-gray-100 w-full">
+  <div class="w-full max-w-screen-2xl mx-auto text-center mb-16 relative z-10 animate-on-scroll">
+    <span class="text-coral text-xs sm:text-sm font-bold tracking-widest uppercase mb-2 block">
+      Verified Impact
+    </span>
+    <h2 class="font-['Newsreader'] text-3xl sm:text-4xl md:text-5xl font-bold text-zinc-900 mb-4">{t.title}</h2>
+    <p class="font-['Inter'] text-sm sm:text-base text-zinc-600 max-w-2xl mx-auto leading-relaxed font-normal">{t.subtitle}</p>
   </div>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-screen-2xl mx-auto text-center relative z-10">
     {dynamicStats.map((stat, index) => {
-      const Icon = statIcons[index % statIcons.length];
+      const delays = ['delay-100', 'delay-200', 'delay-300', 'delay-400'];
       return (
-        <div class="bg-white border border-border p-8 shadow-2xs hover:border-royal-blue transition-colors flex flex-col items-center justify-between">
-          <div class="p-3 border border-border bg-canvas-muted text-royal-blue mb-4">
-            <Icon class="w-6 h-6" />
+        <div class={`bg-gray-50 border border-gray-100 rounded-2xl p-8 shadow-sm flex flex-col items-center justify-between animate-on-scroll ${delays[index % 4]}`}>
+          <div class="p-3.5 rounded-xl bg-coral/10 text-coral mb-4">
+            <span class="material-symbols-outlined text-2xl">{stat.icon}</span>
           </div>
-          <h3 class="font-['Newsreader'] text-4xl font-semibold text-royal-blue">{stat.number}</h3>
-          <p class="font-['Inter'] text-xs uppercase tracking-wider text-on-surface-variant font-medium mt-2">{stat.label}</p>
+          <h3 class="font-['Newsreader'] text-4xl sm:text-5xl font-bold text-zinc-900">{stat.number}</h3>
+          <p class="font-['Inter'] text-xs uppercase tracking-wider text-zinc-600 font-semibold mt-2">{stat.label}</p>
         </div>
       );
     })}

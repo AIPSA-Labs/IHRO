@@ -1,5 +1,6 @@
 ---
-//- Leadership and international diplomatic council members
+//- Leadership and international diplomatic council members in modern humanitarian theme
+
 import { translations } from "../../locals/about/leadership";
 
 type Locale = 'en' | 'hi' | 'fr';
@@ -7,20 +8,23 @@ const { local = 'en' } = Astro.params ?? {};
 const t = translations[local as Locale] || translations['en'];
 ---
 
-<section id="leadership" class="bg-canvas text-justice-navy py-24 px-6 sm:px-10 lg:px-16 xl:px-20 relative overflow-hidden w-full border-b border-border scroll-mt-20">
+<section id="leadership" class="bg-gray-50 text-zinc-900 py-20 md:py-28 px-6 sm:px-10 lg:px-16 xl:px-20 relative overflow-hidden w-full border-b border-gray-100 scroll-mt-20">
   <div class="w-full max-w-screen-2xl mx-auto relative z-10">
-    <div class="text-center mb-16">
-      <h2 class="font-['Newsreader'] text-3xl sm:text-4xl md:text-5xl font-medium mb-4 text-justice-navy">{t.title}</h2>
+    <div class="text-center mb-16 max-w-2xl mx-auto animate-on-scroll">
+      <span class="text-coral text-xs sm:text-sm font-bold tracking-widest uppercase mb-2 block">
+        Council & Governance
+      </span>
+      <h2 class="font-['Newsreader'] text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-zinc-900">{t.title}</h2>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {t.leaders.map((leader) => (
-        <div class="bg-white border border-border p-6 flex flex-col items-center text-center shadow-2xs hover:border-royal-blue transition-colors group">
-          <div class="relative mb-4 p-1 border border-border bg-canvas-muted">
-            <img src={leader.image} alt={leader.name} class="w-32 h-32 object-cover" />
+      {t.leaders.map((leader, idx) => (
+        <div class={`bg-white border border-gray-100 rounded-2xl p-6 flex flex-col items-center text-center shadow-sm hover:border-coral transition-colors group animate-on-scroll delay-${((idx % 4) + 1) * 100}`}>
+          <div class="w-32 h-32 rounded-2xl overflow-hidden mb-4 bg-gray-100 border border-gray-100">
+            <img src={leader.image} alt={leader.name} class="w-full h-full object-cover" />
           </div>
-          <h3 class="font-['Newsreader'] text-xl font-semibold text-justice-navy group-hover:text-royal-blue transition-colors">{leader.name}</h3>
-          <p class="font-['Inter'] text-xs uppercase tracking-wider text-on-surface-variant mt-1 font-medium">{leader.position}</p>
+          <h3 class="font-['Newsreader'] text-xl font-bold text-zinc-900 group-hover:text-coral transition-colors">{leader.name}</h3>
+          <p class="font-['Inter'] text-xs uppercase tracking-wider text-coral font-semibold mt-1">{leader.position}</p>
         </div>
       ))}
     </div>

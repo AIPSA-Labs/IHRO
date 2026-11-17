@@ -1,72 +1,54 @@
 ---
-//- Core programs section structured as official institutional dossiers with balanced multi-column layout and authoritative serif typography
+//- Core humanitarian focus cards: "Helping The Vulnerable, Your Support Matters" matching the reference design layout
 
-import { translations } from "../../locals/home/program";
 import { getStrings } from "../../constants/strings";
-import { fetchPrograms } from "../../services/db";
 
-type Locale = 'en' | 'hi' | 'fr';
-const { local = 'en' } = Astro.params ?? {};
-const t = translations[local as Locale] || translations['en'];
+const { local = "en" } = Astro.params;
 const s = getStrings(local);
 
-const dbPrograms = await fetchPrograms();
-const displayPrograms = (local === 'en' && dbPrograms.length > 0)
-  ? dbPrograms.map((p) => ({
-      title: p.title,
-      description: p.description,
-      icon: p.icon,
-    }))
-  : t.programs;
+const DELAYS = ["delay-100", "delay-200", "delay-300", "delay-400"];
 ---
 
-<section class="py-24 md:py-32 bg-canvas px-6 sm:px-10 lg:px-16 xl:px-20 border-b border-border w-full" id="programs">
-  <div class="w-full max-w-screen-2xl mx-auto">
+<section class="pt-16 pb-20 md:pt-20 md:pb-28 bg-white text-zinc-900 border-b border-gray-100 w-full" id="vulnerable">
+  <div class="w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
     
-    {/*- Section Header */}
-    <div class="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-      <h2 class="font-['Newsreader'] text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-justice-navy mb-4">
-        {t.title}
+    {/*- Centered Section Header */}
+    <div class="text-center max-w-2xl mx-auto mb-14 md:mb-18 animate-on-scroll">
+      <h2 class="font-['Newsreader'] text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-900 mb-4">
+        {s.vulnerable.title}
       </h2>
-      <p class="font-['Inter'] text-base text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-        {t.subtitle}
+      <p class="font-['Inter'] text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">
+        {s.vulnerable.subtitle}
       </p>
     </div>
 
-    {/*- Structured Equal-Column Institutional Dossiers */}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {displayPrograms.map((prog, index) => (
-        <div class="bg-white border border-border p-8 transition-colors flex flex-col justify-between group shadow-2xs hover:border-royal-blue">
-          <div>
-            {/*- Header with Dossier ID & Official Icon */}
-            <div class="flex items-center justify-between mb-6 pb-4 border-b border-border/60">
-              <span class="font-['Cinzel'] text-[11px] font-bold tracking-widest text-honor-gold uppercase">
-                Initiative #{String(index + 1).padStart(2, '0')}
-              </span>
-              <div class="w-10 h-10 border border-border bg-canvas-muted text-royal-blue flex items-center justify-center group-hover:bg-royal-blue group-hover:text-white transition-colors">
-                <span class="material-symbols-outlined text-xl">{prog.icon}</span>
-              </div>
-            </div>
-            
-            <h3 class="font-['Newsreader'] text-2xl font-semibold mb-3 tracking-tight text-justice-navy group-hover:text-royal-blue transition-colors">
-              {prog.title}
-            </h3>
-            
-            <p class="font-['Inter'] text-sm text-on-surface-variant leading-relaxed">
-              {prog.description}
-            </p>
+    {/*- 4-Card Horizontal Grid */}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+      {s.vulnerable.cards.map((card, index) => (
+        <a
+          href={`/${local}/contact?topic=${encodeURIComponent(card.category.toLowerCase())}`}
+          class={`group flex flex-col items-center text-center cursor-pointer animate-on-scroll ${DELAYS[index % 4]}`}
+        >
+          {/*- Card Image with Rounded Corners */}
+          <div class="w-full aspect-[4/3] rounded-2xl overflow-hidden mb-4 bg-gray-100 shadow-sm border border-gray-100">
+            <img
+              src={card.image}
+              alt={card.title}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
           </div>
 
-          <div class="mt-8 pt-5 border-t border-border flex items-center justify-between">
-            <a
-              href={`/${local}/contact?topic=${encodeURIComponent(prog.title.toLowerCase())}`}
-              class="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase text-royal-blue hover:text-justice-navy transition-colors"
-            >
-              <span>{s.pillars.ctaLabel}</span>
-              <span class="material-symbols-outlined text-sm">arrow_forward</span>
-            </a>
-          </div>
-        </div>
+          {/*- Category Pill */}
+          <span class="text-[11px] font-bold uppercase tracking-wider text-coral mb-1">
+            {card.category}
+          </span>
+
+          {/*- Card Title */}
+          <h3 class="font-['Newsreader'] text-xl font-bold text-zinc-900 group-hover:text-coral transition-colors">
+            {card.title}
+          </h3>
+        </a>
       ))}
     </div>
 

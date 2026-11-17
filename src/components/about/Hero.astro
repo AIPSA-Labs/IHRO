@@ -1,4 +1,6 @@
 ---
+//- About page hero section matching the dark modern humanitarian theme with coral accents
+
 import { translations } from "../../locals/about/hero";
 
 type Locale = 'en' | 'hi' | 'fr';
@@ -6,10 +8,24 @@ const { local = 'en' } = Astro.params ?? {};
 const t = translations[local as Locale] || translations['en'];
 ---
 
-<section class="relative bg-canvas text-justice-navy pt-32 pb-20 sm:pt-40 sm:pb-24 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden w-full border-b border-border">
-  <div class="w-full max-w-screen-2xl mx-auto text-center relative z-10">
-    <h1 class="font-['Newsreader'] text-4xl sm:text-5xl md:text-6xl font-medium mb-6 leading-tight text-justice-navy">{t.title}</h1>
-    <p class="font-['Newsreader'] italic text-lg sm:text-xl md:text-2xl text-royal-blue mb-6 leading-relaxed max-w-3xl mx-auto">{t.subtitle}</p>
-    <p class="font-['Inter'] text-sm sm:text-base text-on-surface-variant max-w-3xl mx-auto leading-relaxed">{t.description}</p>
+<section class="relative bg-charcoal-dark text-white pt-36 pb-20 sm:pt-44 sm:pb-28 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden w-full border-b border-white/10">
+  <div class="w-full max-w-screen-2xl mx-auto text-center relative z-10 animate-on-scroll">
+    <div class="mb-4">
+      <span class="text-coral text-xs sm:text-sm font-bold tracking-widest uppercase">
+        About IHRO
+      </span>
+    </div>
+    <h1 class="font-['Inter'] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight text-white tracking-tight">
+      {t.title}
+    </h1>
+    <p class="font-['Newsreader'] italic text-xl sm:text-2xl text-coral-light mb-6 leading-relaxed max-w-3xl mx-auto font-medium">
+      {t.subtitle}
+    </p>
+    <p class="font-['Inter'] text-sm sm:text-base md:text-lg text-zinc-300 max-w-3xl mx-auto leading-relaxed font-normal">
+      {t.description}
+    </p>
   </div>
+
+  {/*- Decorative background glow */}
+  <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-coral/15 blur-3xl pointer-events-none"></div>
 </section>

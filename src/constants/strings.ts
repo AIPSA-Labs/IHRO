@@ -13,19 +13,129 @@ export interface AppStrings {
     about: string;
     mission: string;
     programs: string;
+    events: string;
+    news: string;
     presence: string;
     contact: string;
     donateNow: string;
     language: string;
   };
   hero: {
+    tag: string;
+    heading1: string;
+    heading2: string;
     title: string;
     titleLine1: string;
     titleLine2: string;
     subtitle: string;
     ctaPrimary: string;
     ctaSecondary: string;
+    watchVideo: string;
+    trustText: string;
     altArtwork: string;
+  };
+  subHeroQuote: {
+    quote: string;
+    author: string;
+  };
+  vulnerable: {
+    tag: string;
+    title: string;
+    subtitle: string;
+    cards: Array<{
+      title: string;
+      image: string;
+      category: string;
+    }>;
+  };
+  kindnessAction: {
+    tag: string;
+    title: string;
+    description: string;
+    checklist: string[];
+    cta: string;
+  };
+  causes: {
+    title: string;
+    subtitle: string;
+    items: Array<{
+      tag: string;
+      title: string;
+      description: string;
+      image: string;
+      raised: string;
+      goal: string;
+      percent: number;
+      cta: string;
+    }>;
+  };
+  videoBanner: {
+    title: string;
+    subtitle: string;
+    playLabel: string;
+  };
+  partners: {
+    title: string;
+  };
+  testimonials: {
+    title: string;
+    subtitle: string;
+    quoteBadge: string;
+    items: Array<{
+      name: string;
+      role: string;
+      location: string;
+      quote: string;
+    }>;
+  };
+  events: {
+    title: string;
+    subtitle: string;
+    items: Array<{
+      month: string;
+      day: string;
+      title: string;
+      location: string;
+      image: string;
+      cta: string;
+    }>;
+  };
+  directActionForm: {
+    title: string;
+    subtitle: string;
+    nameLabel: string;
+    namePlaceholder: string;
+    emailLabel: string;
+    emailPlaceholder: string;
+    categoryLabel: string;
+    categories: string[];
+    messageLabel: string;
+    messagePlaceholder: string;
+    submitCta: string;
+    subtext: string;
+  };
+  news: {
+    title: string;
+    subtitle: string;
+    readMore: string;
+    featured: {
+      tag: string;
+      title: string;
+      date: string;
+      excerpt: string;
+      image: string;
+    };
+    recent: Array<{
+      tag: string;
+      title: string;
+      date: string;
+      image: string;
+    }>;
+  };
+  donationBanner: {
+    title: string;
+    subtitle: string;
+    cta: string;
   };
   impact: {
     story1Title: string;
@@ -59,16 +169,6 @@ export interface AppStrings {
       cases: string;
       volunteers: string;
     };
-  };
-  testimonials: {
-    title: string;
-    subtitle: string;
-    items: Array<{
-      name: string;
-      role: string;
-      location: string;
-      quote: string;
-    }>;
   };
   getInvolved: {
     title: string;
@@ -122,20 +222,231 @@ export const STRINGS: Record<LocaleCode, AppStrings> = {
       home: "Home",
       about: "About Us",
       mission: "Mission",
-      programs: "Our Programs",
-      presence: "Global Network",
+      programs: "Causes",
+      events: "Events",
+      news: "News",
+      presence: "Network",
       contact: "Contact",
       donateNow: "Donate Now",
       language: "EN",
     },
     hero: {
-      title: "Defending Human Dignity, Powering Global Justice",
-      titleLine1: "Defending Human Dignity,",
-      titleLine2: "Powering Global Justice",
-      subtitle: "Promoting and protecting human rights worldwide. We provide frontline legal defense, empower local advocates, and champion equality across borders.",
-      ctaPrimary: "Join Us",
+      tag: "GIVE THEM A HELPING HAND",
+      heading1: "Hope For A",
+      heading2: "Better World",
+      title: "Hope For A Better World",
+      titleLine1: "Hope For A",
+      titleLine2: "Better World",
+      subtitle: "Dedicated to upholding human rights, delivering emergency relief, and providing direct legal representation to the world's most vulnerable communities.",
+      ctaPrimary: "Donate Now",
       ctaSecondary: "Our Mission",
+      watchVideo: "Our Mission",
+      trustText: "15,000+ people supported across 45+ nations",
       altArtwork: "IHRO Human rights and community solidarity",
+    },
+    subHeroQuote: {
+      quote: "It's not how much we give, but how much love we put into giving.",
+      author: "Mother Teresa",
+    },
+    vulnerable: {
+      tag: "HUMANITARIAN INITIATIVES",
+      title: "Helping The Vulnerable, Your Support Matters",
+      subtitle: "Targeted humanitarian initiatives delivering immediate aid, legal defense, and lasting justice.",
+      cards: [
+        {
+          title: "Legal Advocacy & Justice",
+          image: "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg",
+          category: "Humanitarian Aid",
+        },
+        {
+          title: "Child Protection & Safety",
+          image: "https://images.pexels.com/photos/1720186/pexels-photo-1720186.jpeg",
+          category: "Protection",
+        },
+        {
+          title: "Emergency Medical Relief",
+          image: "https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg",
+          category: "Healthcare",
+        },
+        {
+          title: "Community Empowerment",
+          image: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg",
+          category: "Education",
+        },
+      ],
+    },
+    kindnessAction: {
+      tag: "KINDNESS, IN ACTION",
+      title: "Kindness, In Action",
+      description: "When crises strike and vulnerable voices are silenced, IHRO mobilizes legal advocates, emergency responders, and field teams to provide direct aid and judicial defense where it is needed most.",
+      checklist: [
+        "Direct Legal Counsel",
+        "Crisis Intervention",
+        "Human Rights Education",
+        "Safe Community Shelters",
+      ],
+      cta: "Explore Our Work",
+    },
+    causes: {
+      title: "Engage With Our Ongoing Causes",
+      subtitle: "Support our active field missions and legal defense funds protecting individuals at risk.",
+      items: [
+        {
+          tag: "LEGAL AID",
+          title: "Emergency Legal Support for Displaced Families",
+          description: "Providing pro-bono representation and safety support for families facing wrongful displacement.",
+          image: "https://images.pexels.com/photos/8926553/pexels-photo-8926553.jpeg",
+          raised: "$38,400",
+          goal: "$50,000",
+          percent: 76,
+          cta: "Support Cause",
+        },
+        {
+          tag: "CRISIS RELIEF",
+          title: "Frontline Medical Aid & Nutrition for Children",
+          description: "Delivering life-saving nutrition packets, clean drinking water, and healthcare in crisis zones.",
+          image: "https://images.pexels.com/photos/6646904/pexels-photo-6646904.jpeg",
+          raised: "$42,100",
+          goal: "$60,000",
+          percent: 70,
+          cta: "Support Cause",
+        },
+        {
+          tag: "COMMUNITY DEFENSE",
+          title: "Human Rights Advocates Protection & Training",
+          description: "Equipping grassroots human rights defenders with digital security tools and emergency legal hotlines.",
+          image: "https://images.pexels.com/photos/6994963/pexels-photo-6994963.jpeg",
+          raised: "$29,800",
+          goal: "$35,000",
+          percent: 85,
+          cta: "Support Cause",
+        },
+      ],
+    },
+    videoBanner: {
+      title: "Watch Our Story: Defending Human Rights Worldwide",
+      subtitle: "See how our international network brings hope and justice to communities across 45+ nations.",
+      playLabel: "Watch Story",
+    },
+    partners: {
+      title: "Trusted By Global Human Rights Coalitions & Partners",
+    },
+    testimonials: {
+      title: "Voices of Our Impact",
+      subtitle: "Direct testimonies from community leaders and families protected through our field missions.",
+      quoteBadge: "COMMUNITY ENDORSEMENT",
+      items: [
+        {
+          name: "Dr. Sarah Jenkins",
+          role: "Human Rights Counsel",
+          location: "London, UK",
+          quote: "Because of IHRO's swift intervention and legal aid, our community's voices were heard and protected when no one else stood with us.",
+        },
+        {
+          name: "Tariq Al-Mansoor",
+          role: "Field Relief Coordinator",
+          location: "Middle East Bureau",
+          quote: "Our rapid response teams bring immediate safety, shelter, and legal counseling to vulnerable families within hours of a crisis.",
+        },
+        {
+          name: "Prof. Amara Okafor",
+          role: "Civil Liberties Advocate",
+          location: "Berlin, Germany",
+          quote: "Empowering local legal defenders creates enduring community resilience and ensures that justice is never out of reach.",
+        },
+        {
+          name: "Elena Rostova",
+          role: "Community Defender",
+          location: "Geneva, Switzerland",
+          quote: "IHRO has demonstrated time and again that with compassion and law on our side, no community is forgotten.",
+        },
+      ],
+    },
+    events: {
+      title: "Our Upcoming Events",
+      subtitle: "Join our international summits, delegations, and educational forums.",
+      items: [
+        {
+          month: "NOV",
+          day: "28",
+          title: "Global Human Rights Summit 2026",
+          location: "Geneva, Switzerland & Online",
+          image: "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg",
+          cta: "Register Now",
+        },
+        {
+          month: "DEC",
+          day: "15",
+          title: "Youth Advocacy & Defender Workshop",
+          location: "Berlin, Germany",
+          image: "https://images.pexels.com/photos/8926543/pexels-photo-8926543.jpeg",
+          cta: "Register Now",
+        },
+        {
+          month: "JAN",
+          day: "20",
+          title: "Emergency Relief & Law Symposium",
+          location: "Dortmund Headquarters & Stream",
+          image: "https://images.pexels.com/photos/45842/clasped-hands-comfort-hands-people-45842.jpeg",
+          cta: "Register Now",
+        },
+      ],
+    },
+    directActionForm: {
+      title: "Stand With Us",
+      subtitle: "Reach out to our international council with inquiries, case reports, or partnership proposals.",
+      nameLabel: "Your Name",
+      namePlaceholder: "Enter your full name",
+      emailLabel: "Email Address",
+      emailPlaceholder: "Enter your email address",
+      categoryLabel: "Inquiry Category",
+      categories: [
+        "General Inquiry",
+        "Emergency Human Rights Case",
+        "Partnership & Coalitions",
+        "Volunteer & Delegation",
+      ],
+      messageLabel: "Your Message",
+      messagePlaceholder: "How can we assist you or collaborate?",
+      submitCta: "Send Message",
+      subtext: "We respond to all urgent inquiries and support requests promptly.",
+    },
+    news: {
+      title: "Our Latest News & Field Reports",
+      subtitle: "Stay updated on our field missions, legal victories, and human rights reports.",
+      readMore: "Read More",
+      featured: {
+        tag: "FIELD DISPATCH",
+        title: "IHRO Delivers Critical Relief & Legal Counsel to Displaced Communities",
+        date: "November 2026",
+        excerpt: "Our international delegation completed a 14-day field deployment, establishing safe community shelters and securing court protections for 250 families.",
+        image: "https://images.pexels.com/photos/6646904/pexels-photo-6646904.jpeg",
+      },
+      recent: [
+        {
+          tag: "LEGAL VICTORY",
+          title: "International Court Upholds Equal Educational Protections",
+          date: "November 14, 2026",
+          image: "https://images.pexels.com/photos/8926553/pexels-photo-8926553.jpeg",
+        },
+        {
+          tag: "COMMUNITY HEALTH",
+          title: "Emergency Medical Mobile Clinics Reach Rural Areas",
+          date: "November 08, 2026",
+          image: "https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg",
+        },
+        {
+          tag: "ADVOCACY TRAINING",
+          title: "Over 500 Young Advocates Complete Human Rights Training",
+          date: "October 29, 2026",
+          image: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg",
+        },
+      ],
+    },
+    donationBanner: {
+      title: "Your Donation Empowers Those in Need",
+      subtitle: "Together, we defend dignity, provide urgent relief, and champion universal justice.",
+      cta: "Donate Now",
     },
     impact: {
       story1Title: "Standing Up for Human Rights Worldwide",
@@ -151,75 +462,45 @@ export const STRINGS: Record<LocaleCode, AppStrings> = {
     },
     pillars: {
       sectionTitleLine1: "Our Core Mission",
-      sectionTitleLine2: "& Values for Humanity",
-      sectionSubtitle: "We operate dedicated humanitarian and legal initiatives to address the most urgent human rights challenges across borders.",
+      sectionTitleLine2: "& Humanitarian Values",
+      sectionSubtitle: "We operate dedicated programs designed to address the most urgent human rights challenges across borders.",
       ctaLabel: "Learn More",
       cards: [
         {
           title: "Protection",
-          description: "Safeguarding individuals and communities from human rights violations, ensuring a safe world for everyone through monitoring and direct intervention.",
+          description: "Defending individuals and communities from human rights violations, ensuring safety through direct legal monitoring and intervention.",
           image: "https://images.pexels.com/photos/8112199/pexels-photo-8112199.jpeg",
         },
         {
           title: "Justice",
-          description: "Advocating for legal accountability and the rule of law to ensure that victims receive redress and perpetrators face appropriate legal action.",
+          description: "Advocating for legal accountability and the rule of law so victims receive redress and perpetrators face legal consequences.",
           image: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg",
         },
         {
           title: "Equality",
-          description: "Striving for a world where every person enjoys equal rights and opportunities, regardless of race, gender, background, or nationality.",
+          description: "Working toward a world where every person enjoys equal rights and opportunities, free from discrimination based on background or gender.",
           image: "https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg",
         },
       ],
     },
     presence: {
       title: "Our Global Humanitarian Presence",
-      subtitle: "Operating across continents with active regional delegations, national chapters, and grassroots legal councils.",
+      subtitle: "Active across continents with permanent delegations, national chapters, and legal councils.",
       stats: {
-        nations: "Nations Reached",
+        nations: "Nations Covered",
         chapters: "Active Chapters",
         cases: "Cases Supported",
         volunteers: "Active Volunteers",
       },
     },
-    testimonials: {
-      title: "Voices Across Our Global Network",
-      subtitle: "Hear directly from advocates, community partners, and volunteers working on the frontlines.",
-      items: [
-        {
-          name: "Dr. Sarah Jenkins",
-          role: "Legal Counsel",
-          location: "London, UK",
-          quote: "IHRO bridges international legal frameworks with urgent local action so vulnerable families never stand alone.",
-        },
-        {
-          name: "Tariq Al-Mansoor",
-          role: "Regional Coordinator",
-          location: "Dubai, UAE",
-          quote: "Our cross-border rapid response network ensures legal representation and humanitarian aid reach communities within hours.",
-        },
-        {
-          name: "Prof. Amara Okafor",
-          role: "Human Rights Educator",
-          location: "Berlin, Germany",
-          quote: "Equipping grassroots defenders with training and resources creates lasting institutional accountability.",
-        },
-        {
-          name: "Priya Sharma",
-          role: "Community Volunteer",
-          location: "New Delhi, India",
-          quote: "Every initiative directly restores dignity, education access, and fair legal standing to marginalized families.",
-        },
-      ],
-    },
     getInvolved: {
-      title: "Stand With Us for Justice & Dignity",
-      subtitle: "Whether through legal advocacy, volunteering, or humanitarian sponsorship, your action strengthens fundamental rights worldwide.",
+      title: "Stand Up for Justice & Dignity",
+      subtitle: "Whether through legal advocacy, volunteering, or community support, your involvement strengthens fundamental human rights.",
       ctaPrimary: "Join the Movement",
       ctaSecondary: "Explore Our Work",
     },
     footer: {
-      brandDesc: "International Human Rights Organization (IHRO) is an independent global advocacy body committed to upholding the United Nations Universal Declaration of Human Rights.",
+      brandDesc: "The International Human Rights Organization (IHRO) is an independent non-governmental body defending the Universal Declaration of Human Rights.",
       quickLinksTitle: "QUICK LINKS",
       connectTitle: "CONNECT",
       copyright: "© 2026 International Human Rights Organization. All rights reserved.",
@@ -227,7 +508,7 @@ export const STRINGS: Record<LocaleCode, AppStrings> = {
       termsCondition: "Terms & Conditions",
       links: {
         home: "Home",
-        about: "About Us",
+        about: "About",
         mission: "Mission",
         programs: "Programs",
         presence: "Global Network",
@@ -262,20 +543,231 @@ export const STRINGS: Record<LocaleCode, AppStrings> = {
       home: "होम",
       about: "हमारे बारे में",
       mission: "मिशन",
-      programs: "कार्यक्रम",
+      programs: "अभियान",
+      events: "कार्यक्रम",
+      news: "समाचार",
       presence: "वैश्विक नेटवर्क",
       contact: "संपर्क",
       donateNow: "दान करें",
       language: "HI",
     },
     hero: {
-      title: "मानवीय गरिमा की रक्षा, वैश्विक न्याय का सशक्तिकरण",
-      titleLine1: "मानवीय गरिमा की रक्षा,",
-      titleLine2: "वैश्विक न्याय का सशक्तिकरण",
-      subtitle: "दुनिया भर में मानवाधिकारों को बढ़ावा देने और उनकी रक्षा करने के लिए प्रतिबद्ध। हम कानूनी सुरक्षा प्रदान करते हैं और सीमाओं के पार समानता को बढ़ावा देते हैं।",
-      ctaPrimary: "हमसे जुड़ें",
+      tag: "मानवता का हाथ बढ़ाएं",
+      heading1: "एक बेहतर दुनिया",
+      heading2: "की आशा",
+      title: "एक बेहतर दुनिया की आशा",
+      titleLine1: "एक बेहतर दुनिया",
+      titleLine2: "की आशा",
+      subtitle: "मानवीय गरिमा की रक्षा, आपातकालीन सहायता और दुनिया भर में सबसे कमजोर समुदायों को निष्पक्ष कानूनी सहायता प्रदान करने के लिए समर्पित।",
+      ctaPrimary: "दान करें",
       ctaSecondary: "हमारा मिशन",
+      watchVideo: "हमारा मिशन",
+      trustText: "45+ देशों में 15,000+ लोगों का समर्थन",
       altArtwork: "मानवाधिकार और सामुदायिक एकजुटता",
+    },
+    subHeroQuote: {
+      quote: "यह मायने नहीं रखता कि हम कितना देते हैं, बल्कि यह कि हम देने में कितना प्रेम लगाते हैं।",
+      author: "मदर टेरेसा",
+    },
+    vulnerable: {
+      tag: "मानवीय पहल",
+      title: "पीड़ितों की सहायता, आपका सहयोग महत्वपूर्ण है",
+      subtitle: "प्रत्यक्ष कानूनी सुरक्षा, आपातकालीन राहत और स्थायी न्याय प्रदान करने वाले समर्पित कार्यक्रम।",
+      cards: [
+        {
+          title: "कानूनी वकालत और न्याय",
+          image: "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg",
+          category: "मानवीय सहायता",
+        },
+        {
+          title: "बाल सुरक्षा और संरक्षण",
+          image: "https://images.pexels.com/photos/1720186/pexels-photo-1720186.jpeg",
+          category: "सुरक्षा",
+        },
+        {
+          title: "आपातकालीन चिकित्सा राहत",
+          image: "https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg",
+          category: "स्वास्थ्य सेवा",
+        },
+        {
+          title: "सामुदायिक सशक्तिकरण",
+          image: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg",
+          category: "शिक्षा",
+        },
+      ],
+    },
+    kindnessAction: {
+      tag: "सहानुभूति, कर्म में",
+      title: "सहानुभूति, कर्म में",
+      description: "संकट के समय जब निर्दोषों की आवाज दबा दी जाती है, IHRO की टीमें प्रत्यक्ष कानूनी और मानवीय राहत पहुंचाने के लिए तत्पर रहती हैं।",
+      checklist: [
+        "प्रत्यक्ष कानूनी सलाह",
+        "संकटकालीन हस्तक्षेप",
+        "मानवाधिकार शिक्षा",
+        "सुरक्षित सामुदायिक आश्रय",
+      ],
+      cta: "हमारा कार्य देखें",
+    },
+    causes: {
+      title: "हमारे निरंतर अभियानों से जुड़ें",
+      subtitle: "जोखिम में पड़े व्यक्तियों की सुरक्षा के लिए हमारे सक्रिय कानूनी रक्षा कोष का समर्थन करें।",
+      items: [
+        {
+          tag: "कानूनी सहायता",
+          title: "विस्थापित परिवारों के लिए आपातकालीन कानूनी सहायता",
+          description: "अवैध विस्थापन का सामना कर रहे परिवारों को निःशुल्क कानूनी सहायता और सुरक्षा प्रदान करना।",
+          image: "https://images.pexels.com/photos/8926553/pexels-photo-8926553.jpeg",
+          raised: "$38,400",
+          goal: "$50,000",
+          percent: 76,
+          cta: "सहयोग करें",
+        },
+        {
+          tag: "संकट राहत",
+          title: "बच्चों के लिए आपातकालीन चिकित्सा और पोषण",
+          description: "संकटग्रस्त क्षेत्रों में जीवन रक्षक पोषण, स्वच्छ पेयजल और स्वास्थ्य सेवा पहुंचाना।",
+          image: "https://images.pexels.com/photos/6646904/pexels-photo-6646904.jpeg",
+          raised: "$42,100",
+          goal: "$60,000",
+          percent: 70,
+          cta: "सहयोग करें",
+        },
+        {
+          tag: "सामुदायिक रक्षा",
+          title: "स्थानीय मानवाधिकार कार्यकर्ताओं का प्रशिक्षण",
+          description: "जमीनी स्तर पर काम करने वाले कार्यकर्ताओं को कानूनी और डिजिटल सुरक्षा उपकरण उपलब्ध कराना।",
+          image: "https://images.pexels.com/photos/6994963/pexels-photo-6994963.jpeg",
+          raised: "$29,800",
+          goal: "$35,000",
+          percent: 85,
+          cta: "सहयोग करें",
+        },
+      ],
+    },
+    videoBanner: {
+      title: "हमारी कहानी देखें: दुनिया भर में मानवाधिकारों की रक्षा",
+      subtitle: "देखें कैसे हमारा अंतर्राष्ट्रीय नेटवर्क 45+ देशों में न्याय और आशा पहुंचा रहा है।",
+      playLabel: "वीडियो देखें",
+    },
+    partners: {
+      title: "वैश्विक मानवाधिकार गठबंधनों द्वारा समर्थित",
+    },
+    testimonials: {
+      title: "हमारे प्रभाव की आवाजें",
+      subtitle: "हमारे सहयोगी रक्षकों, साझेदारों और स्वयंसेवकों के प्रत्यक्ष अनुभव।",
+      quoteBadge: "सामुदायिक समर्थन",
+      items: [
+        {
+          name: "डॉ. सारा जेनकिंस",
+          role: "कानूनी सलाहकार",
+          location: "लंदन, यूके",
+          quote: "IHRO के त्वरित कानूनी हस्तक्षेप के कारण, हमारे समुदाय की आवाज को सुना गया और सुरक्षा मिली जब कोई साथ नहीं था।",
+        },
+        {
+          name: "तारिक अल-मंसूर",
+          role: "क्षेत्रीय समन्वयक",
+          location: "दुबई, यूएई",
+          quote: "हमारा त्वरित प्रतिक्रिया नेटवर्क संकट के कुछ ही घंटों में परिवारों को कानूनी सहायता और सुरक्षा प्रदान करता है।",
+        },
+        {
+          name: "प्रो. अमारा ओकाफोर",
+          role: "मानवाधिकार प्रशिक्षक",
+          location: "बर्लिन, जर्मनी",
+          quote: "स्थानीय रक्षकों को प्रशिक्षित करने से कानून का शासन मजबूत होता है और न्याय की पहुँच सुनिश्चित होती है।",
+        },
+        {
+          name: "प्रिया शर्मा",
+          role: "सामुदायिक स्वयंसेवक",
+          location: "नई दिल्ली, भारत",
+          quote: "हर पहल से परिवारों को गरिमा, शिक्षा और कानूनी सुरक्षा का वास्तविक अधिकार मिलता है।",
+        },
+      ],
+    },
+    events: {
+      title: "हमारे आगामी कार्यक्रम",
+      subtitle: "हमारे अंतर्राष्ट्रीय सम्मेलनों, प्रतिनिधिमंडलों और शैक्षिक मंचों में शामिल हों।",
+      items: [
+        {
+          month: "नवंबर",
+          day: "28",
+          title: "वैश्विक मानवाधिकार शिखर सम्मेलन 2026",
+          location: "जिनेवा, स्विट्जरलैंड और ऑनलाइन",
+          image: "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg",
+          cta: "पंजीकरण करें",
+        },
+        {
+          month: "दिसंबर",
+          day: "15",
+          title: "युवा वकालत और कानूनी प्रशिक्षण कार्यशाला",
+          location: "बर्लिन, जर्मनी",
+          image: "https://images.pexels.com/photos/8926543/pexels-photo-8926543.jpeg",
+          cta: "पंजीकरण करें",
+        },
+        {
+          month: "जनवरी",
+          day: "20",
+          title: "आपातकालीन राहत और कानूनी संगोष्ठी",
+          location: "डॉर्टमुंड मुख्यालय और ऑनलाइन",
+          image: "https://images.pexels.com/photos/45842/clasped-hands-comfort-hands-people-45842.jpeg",
+          cta: "पंजीकरण करें",
+        },
+      ],
+    },
+    directActionForm: {
+      title: "हमारे साथ खड़े हों",
+      subtitle: "प्रश्नों, केस रिपोर्ट या साझेदारी के प्रस्तावों के साथ हमारी अंतर्राष्ट्रीय परिषद से संपर्क करें।",
+      nameLabel: "आपका नाम",
+      namePlaceholder: "अपना पूरा नाम दर्ज करें",
+      emailLabel: "ईमेल पता",
+      emailPlaceholder: "अपना ईमेल पता दर्ज करें",
+      categoryLabel: "पूछताछ श्रेणी",
+      categories: [
+        "सामान्य पूछताछ",
+        "आपातकालीन मानवाधिकार मामला",
+        "साझेदारी और सहयोग",
+        "स्वयंसेवक और प्रतिनिधिमंडल",
+      ],
+      messageLabel: "आपका संदेश",
+      messagePlaceholder: "हम आपकी किस प्रकार सहायता कर सकते हैं?",
+      submitCta: "संदेश भेजें",
+      subtext: "हम सभी आवश्यक मामलों और सहायता अनुरोधों पर शीघ्र प्रतिक्रिया देते हैं।",
+    },
+    news: {
+      title: "नवीनतम समाचार और जमीनी रिपोर्ट",
+      subtitle: "हमारे मिशन, कानूनी जीतों और मानवाधिकार रिपोर्टों से अवगत रहें।",
+      readMore: "और पढ़ें",
+      featured: {
+        tag: "जमीनी रिपोर्ट",
+        title: "IHRO ने विस्थापित समुदायों को महत्वपूर्ण सहायता और कानूनी सुरक्षा पहुंचाई",
+        date: "नवंबर 2026",
+        excerpt: "हमारे अंतर्राष्ट्रीय प्रतिनिधिमंडल ने 14 दिवसीय मिशन पूरा किया, जिसमें 250 परिवारों को सुरक्षित आश्रय और कानूनी संरक्षण प्रदान किया गया।",
+        image: "https://images.pexels.com/photos/6646904/pexels-photo-6646904.jpeg",
+      },
+      recent: [
+        {
+          tag: "कानूनी जीत",
+          title: "अंतर्राष्ट्रीय न्यायालय ने समान शिक्षा के अधिकार को बरकरार रखा",
+          date: "14 नवंबर 2026",
+          image: "https://images.pexels.com/photos/8926553/pexels-photo-8926553.jpeg",
+        },
+        {
+          tag: "स्वास्थ्य सेवा",
+          title: "आपातकालीन मोबाइल क्लीनिक दूरदराज के क्षेत्रों तक पहुंचे",
+          date: "08 नवंबर 2026",
+          image: "https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg",
+        },
+        {
+          tag: "प्रशिक्षण",
+          title: "500 से अधिक युवाओं ने मानवाधिकार प्रशिक्षण पूरा किया",
+          date: "29 अक्टूबर 2026",
+          image: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg",
+        },
+      ],
+    },
+    donationBanner: {
+      title: "आपका दान जरूरतमंदों को सशक्त बनाता है",
+      subtitle: "हम मिलकर मानवीय गरिमा की रक्षा करते हैं और सार्वभौमिक न्याय सुनिश्चित करते हैं।",
+      cta: "दान करें",
     },
     impact: {
       story1Title: "दुनिया भर में मानवाधिकारों के लिए खड़े हैं",
@@ -318,53 +810,23 @@ export const STRINGS: Record<LocaleCode, AppStrings> = {
       stats: {
         nations: "देशों में उपस्थिति",
         chapters: "सक्रिय इकाइयाँ",
-        cases: "सहायता प्राप्त मामले",
+        cases: "सुलझाए गए मामले",
         volunteers: "सक्रिय स्वयंसेवक",
       },
     },
-    testimonials: {
-      title: "हमारे वैश्विक नेटवर्क की आवाज़ें",
-      subtitle: "जमीनी स्तर पर काम करने वाले अधिवक्ताओं, साझेदारों और स्वयंसेवकों के अनुभव।",
-      items: [
-        {
-          name: "डॉ. सारा जेनकिंस",
-          role: "कानूनी सलाहकार",
-          location: "लंदन, यूके",
-          quote: "IHRO अंतर्राष्ट्रीय कानूनी ढाँचों को स्थानीय कार्रवाई से जोड़ता है ताकि कोई भी परिवार अकेला न रहे।",
-        },
-        {
-          name: "तारिक अल-मंसूर",
-          role: "क्षेत्रीय समन्वयक",
-          location: "दुबई, यूएई",
-          quote: "हमारा त्वरित प्रतिक्रिया नेटवर्क सुनिश्चित करता है कि कानूनी और मानवीय सहायता समय पर पहुँचे।",
-        },
-        {
-          name: "प्रो. अमारा ओकाफोर",
-          role: "मानवाधिकार शिक्षक",
-          location: "बर्लिन, जर्मनी",
-          quote: "स्थानीय रक्षकों को प्रशिक्षण और संसाधन देना स्थायी न्याय प्रणाली का निर्माण करता है।",
-        },
-        {
-          name: "प्रिया शर्मा",
-          role: "सामुदायिक स्वयंसेवक",
-          location: "नई दिल्ली, भारत",
-          quote: "प्रत्येक पहल वंचित परिवारों को गरिमा, शिक्षा और निष्पक्ष कानूनी अधिकार दिलाने में मदद करती है।",
-        },
-      ],
-    },
     getInvolved: {
-      title: "न्याय और गरिमा के लिए हमारे साथ खड़े हों",
-      subtitle: "चाहे कानूनी वकालत हो, स्वयंसेवा हो या मानवीय सहयोग, आपका योगदान दुनिया भर में मौलिक अधिकारों को मजबूत करता है।",
+      title: "न्याय और गरिमा के लिए आगे आएं",
+      subtitle: "चाहे कानूनी वकालत, स्वयंसेवा या मानवीय समर्थन के माध्यम से, आपकी भागीदारी मौलिक अधिकारों को मजबूत करती है।",
       ctaPrimary: "आंदोलन से जुड़ें",
       ctaSecondary: "हमारा कार्य देखें",
     },
     footer: {
-      brandDesc: "अंतर्राष्ट्रीय मानवाधिकार संगठन (IHRO) संयुक्त राष्ट्र के मानवाधिकार घोषणापत्र के सिद्धांतों को आगे बढ़ाने वाला एक स्वतंत्र वैश्विक संगठन है।",
+      brandDesc: "अंतर्राष्ट्रीय मानवाधिकार संगठन (IHRO) एक स्वतंत्र गैर-सरकारी संस्था है जो मानवाधिकारों की सार्वभौम घोषणा की रक्षा करती है।",
       quickLinksTitle: "त्वरित लिंक",
-      connectTitle: "जुड़ें",
-      copyright: "© 2026 अंतर्राष्ट्रीय मानवाधिकार संगठन। सभी अधिकार सुरक्षित।",
+      connectTitle: "संपर्क करें",
+      copyright: "© 2026 अंतर्राष्ट्रीय मानवाधिकार संगठन। सर्वाधिकार सुरक्षित।",
       privacyPolicy: "गोपनीयता नीति",
-      termsCondition: "नियम एवं शर्तें",
+      termsCondition: "नियम और शर्तें",
       links: {
         home: "होम",
         about: "हमारे बारे में",
@@ -372,10 +834,10 @@ export const STRINGS: Record<LocaleCode, AppStrings> = {
         programs: "कार्यक्रम",
         presence: "वैश्विक नेटवर्क",
         contact: "संपर्क",
-        linkedin: "लिंक्डइन",
-        instagram: "इंस्टाग्राम",
-        youtube: "यूट्यूब",
-        twitter: "एक्स (ट्विटर)",
+        linkedin: "LinkedIn",
+        instagram: "Instagram",
+        youtube: "YouTube",
+        twitter: "X (Twitter)",
       },
     },
     api: {
@@ -383,10 +845,10 @@ export const STRINGS: Record<LocaleCode, AppStrings> = {
       contactNameRequired: "कृपया अपना पूरा नाम दर्ज करें।",
       contactEmailInvalid: "कृपया एक वैध ईमेल पता दर्ज करें।",
       contactMessageTooShort: "कृपया कम से कम 5 अक्षरों का संदेश लिखें।",
-      contactSaveFailed: "हम अभी आपका संदेश सहेज नहीं सके। कृपया पुनः प्रयास करें या हमें सीधे ईमेल करें।",
-      newsletterSuccess: "IHRO वैश्विक अपडेट और मानवाधिकार रिपोर्ट की सदस्यता लेने के लिए धन्यवाद।",
-      newsletterAlreadySubscribed: "यह ईमेल पता पहले से ही IHRO अपडेट की सदस्यता ले चुका है।",
-      newsletterEmailInvalid: "कृपया एक मान्य ईमेल पता दर्ज करें।",
+      contactSaveFailed: "हम अभी आपका संदेश सहेज नहीं सके। कृपया पुनः प्रयास करें।",
+      newsletterSuccess: "IHRO वैश्विक समाचारों और मानवाधिकार रिपोर्टों की सदस्यता लेने के लिए धन्यवाद।",
+      newsletterAlreadySubscribed: "यह ईमेल पता पहले से ही सदस्यता सूची में है।",
+      newsletterEmailInvalid: "कृपया एक वैध ईमेल पता दर्ज करें।",
       newsletterSaveFailed: "हम अभी आपकी सदस्यता संसाधित नहीं कर सके। कृपया कुछ देर बाद प्रयास करें।",
       statsError: "हम अभी नवीनतम आंकड़े प्राप्त नहीं कर सके।",
       invalidFormat: "अनुरोध का प्रारूप सही नहीं था।",
@@ -396,53 +858,264 @@ export const STRINGS: Record<LocaleCode, AppStrings> = {
     brand: {
       name: "IHRO",
       fullName: "Organisation Internationale des Droits de l'Homme",
-      tagline: "Promouvoir et protéger les droits humains dans le monde.",
+      tagline: "Promouvoir et protéger les droits de l'homme dans le monde entier.",
     },
     nav: {
       home: "Accueil",
       about: "À propos",
       mission: "Mission",
-      programs: "Nos Programmes",
+      programs: "Causes",
+      events: "Événements",
+      news: "Actualités",
       presence: "Réseau Mondial",
       contact: "Contact",
-      donateNow: "Faire un don",
+      donateNow: "Faire un Don",
       language: "FR",
     },
     hero: {
-      title: "Défendre la Dignité Humaine, Propulser la Justice Mondiale",
-      titleLine1: "Défendre la Dignité Humaine,",
-      titleLine2: "Propulser la Justice Mondiale",
-      subtitle: "Promouvoir et protéger les droits humains dans le monde. Nous assurons une protection juridique de première ligne et promouvons l'égalité.",
-      ctaPrimary: "Rejoignez-nous",
+      tag: "TENDRE UNE MAIN SECOURABLE",
+      heading1: "L'Espoir d'un",
+      heading2: "Monde Meilleur",
+      title: "L'Espoir d'un Monde Meilleur",
+      titleLine1: "L'Espoir d'un",
+      titleLine2: "Monde Meilleur",
+      subtitle: "Dédiée à la défense des droits fondamentaux, aux secours d'urgence et à la représentation juridique directe des communautés les plus vulnérables.",
+      ctaPrimary: "Faire un Don",
       ctaSecondary: "Notre Mission",
-      altArtwork: "Droits humains et solidarité communautaire",
+      watchVideo: "Notre Mission",
+      trustText: "Plus de 15 000 personnes soutenues dans 45+ pays",
+      altArtwork: "Droits de l'homme et solidarité communautaire IHRO",
+    },
+    subHeroQuote: {
+      quote: "Ce qui compte, ce n'est pas ce que l'on donne, mais l'amour que l'on met à donner.",
+      author: "Mère Teresa",
+    },
+    vulnerable: {
+      tag: "INITIATIVES HUMANITAIRES",
+      title: "Aider les Plus Vulnérables, Votre Soutien Compte",
+      subtitle: "Des initiatives ciblées apportant aide d'urgence, défense juridique et justice durable.",
+      cards: [
+        {
+          title: "Plaidoyer Juridique & Justice",
+          image: "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg",
+          category: "Aide Humanitaire",
+        },
+        {
+          title: "Protection de l'Enfance",
+          image: "https://images.pexels.com/photos/1720186/pexels-photo-1720186.jpeg",
+          category: "Protection",
+        },
+        {
+          title: "Secours Médicaux d'Urgence",
+          image: "https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg",
+          category: "Santé",
+        },
+        {
+          title: "Autonomisation Communautaire",
+          image: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg",
+          category: "Éducation",
+        },
+      ],
+    },
+    kindnessAction: {
+      tag: "LA BIENVEILLANCE EN ACTION",
+      title: "La Bienveillance, En Action",
+      description: "Face aux crises et lorsque les plus vulnérables sont réduits au silence, l'IHRO mobilise des juristes et des équipes de terrain pour apporter une aide directe et une protection juridique.",
+      checklist: [
+        "Conseil Juridique Direct",
+        "Intervention de Crise",
+        "Éducation aux Droits",
+        "Espaces Communautaires Sécurisés",
+      ],
+      cta: "Découvrir Notre Action",
+    },
+    causes: {
+      title: "Soutenez Nos Causes En Cours",
+      subtitle: "Participez à nos missions de terrain et à nos fonds de protection juridique.",
+      items: [
+        {
+          tag: "AIDE JURIDIQUE",
+          title: "Assistance Juridique d'Urgence aux Familles Déplacées",
+          description: "Représentation pro-bono et assistance sécuritaire pour les familles confrontées à l'expulsion illégale.",
+          image: "https://images.pexels.com/photos/8926553/pexels-photo-8926553.jpeg",
+          raised: "38 400 $",
+          goal: "50 000 $",
+          percent: 76,
+          cta: "Soutenir la Cause",
+        },
+        {
+          tag: "SECOURS DE CRISE",
+          title: "Aide Médicale et Nutritionnelle pour les Enfants",
+          description: "Fourniture de compléments vitaux, d'eau potable et de soins médicaux d'urgence.",
+          image: "https://images.pexels.com/photos/6646904/pexels-photo-6646904.jpeg",
+          raised: "42 100 $",
+          goal: "60 000 $",
+          percent: 70,
+          cta: "Soutenir la Cause",
+        },
+        {
+          tag: "DÉFENSE COMMUNAUTAIRE",
+          title: "Protection et Formation des Défenseurs des Droits",
+          description: "Équiper les militants locaux d'outils de sécurité numérique et de lignes d'assistance juridique d'urgence.",
+          image: "https://images.pexels.com/photos/6994963/pexels-photo-6994963.jpeg",
+          raised: "29 800 $",
+          goal: "35 000 $",
+          percent: 85,
+          cta: "Soutenir la Cause",
+        },
+      ],
+    },
+    videoBanner: {
+      title: "Découvrez Notre Histoire: Défendre la Dignité Humaine",
+      subtitle: "Voyez comment notre réseau international apporte justice et espoir dans plus de 45 pays.",
+      playLabel: "Regarder le Film",
+    },
+    partners: {
+      title: "Soutenu par des Coalitions Mondiales des Droits de l'Homme",
+    },
+    testimonials: {
+      title: "Les Voix de Notre Réseau Mondial",
+      subtitle: "Témoignages de nos défenseurs, partenaires et familles protégées sur le terrain.",
+      quoteBadge: "RECONNAISSANCE COMMUNAUTAIRE",
+      items: [
+        {
+          name: "Dr. Sarah Jenkins",
+          role: "Conseillère Juridique",
+          location: "Londres, Royaume-Uni",
+          quote: "Grâce à l'intervention rapide et au soutien juridique de l'IHRO, la voix de notre communauté a été entendue et protégée.",
+        },
+        {
+          name: "Tariq Al-Mansoor",
+          role: "Coordinateur Régional",
+          location: "Dubaï, Émirats Arabes Unis",
+          quote: "Notre réseau d'intervention rapide permet d'apporter une assistance juridique et humanitaire en quelques heures.",
+        },
+        {
+          name: "Prof. Amara Okafor",
+          role: "Formatrice aux Droits Humains",
+          location: "Berlin, Allemagne",
+          quote: "Former et équiper les défenseurs locaux renforce durablement l'état de droit.",
+        },
+        {
+          name: "Elena Rostova",
+          role: "Défenseure Communautaire",
+          location: "Genève, Suisse",
+          quote: "Chaque action redonne concrètement dignité, accès à l'éducation et protection juridique aux familles.",
+        },
+      ],
+    },
+    events: {
+      title: "Nos Prochains Événements",
+      subtitle: "Rejoignez nos sommets internationaux, délégations et séminaires de formation.",
+      items: [
+        {
+          month: "NOV",
+          day: "28",
+          title: "Sommet Mondial des Droits de l'Homme 2026",
+          location: "Genève, Suisse & En ligne",
+          image: "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg",
+          cta: "S'inscrire",
+        },
+        {
+          month: "DÉC",
+          day: "15",
+          title: "Atelier Plaidoyer Jeunesse et Défenseurs",
+          location: "Berlin, Allemagne",
+          image: "https://images.pexels.com/photos/8926543/pexels-photo-8926543.jpeg",
+          cta: "S'inscrire",
+        },
+        {
+          month: "JAN",
+          day: "20",
+          title: "Symposium Secours d'Urgence et État de Droit",
+          location: "Siège de Dortmund & Direct",
+          image: "https://images.pexels.com/photos/45842/clasped-hands-comfort-hands-people-45842.jpeg",
+          cta: "S'inscrire",
+        },
+      ],
+    },
+    directActionForm: {
+      title: "Agissez Avec Nous",
+      subtitle: "Contactez notre conseil international pour toute demande, alerte urgente ou proposition de partenariat.",
+      nameLabel: "Votre Nom",
+      namePlaceholder: "Entrez votre nom complet",
+      emailLabel: "Adresse E-mail",
+      emailPlaceholder: "Entrez votre adresse e-mail",
+      categoryLabel: "Catégorie de Demande",
+      categories: [
+        "Demande Générale",
+        "Cas Urgent de Droits de l'Homme",
+        "Partenariat & Coalitions",
+        "Bénévolat & Délégation",
+      ],
+      messageLabel: "Votre Message",
+      messagePlaceholder: "Comment pouvons-nous vous assister ou collaborer ?",
+      submitCta: "Envoyer le Message",
+      subtext: "Nous répondons avec diligence à toutes les demandes d'intervention urgente.",
+    },
+    news: {
+      title: "Dernières Actualités & Rapports de Terrain",
+      subtitle: "Restez informé de nos missions, victoires juridiques et publications.",
+      readMore: "Lire la Suite",
+      featured: {
+        tag: "RAPPORT DE TERRAIN",
+        title: "L'IHRO Apporte une Aide Cruciale et une Défense Juridique aux Déplacés",
+        date: "Novembre 2026",
+        excerpt: "Notre délégation internationale a finalisé une mission de 14 jours, établissant des abris sûrs et assurant une protection judiciaire pour 250 familles.",
+        image: "https://images.pexels.com/photos/6646904/pexels-photo-6646904.jpeg",
+      },
+      recent: [
+        {
+          tag: "VICTOIRE JURIDIQUE",
+          title: "La Cour Internationale Confirme l'Égalité d'Accès à l'Éducation",
+          date: "14 Novembre 2026",
+          image: "https://images.pexels.com/photos/8926553/pexels-photo-8926553.jpeg",
+        },
+        {
+          tag: "SANTÉ COMMUNAUTAIRE",
+          title: "Des Cliniques Mobiles d'Urgence Déployées en Zones Isolées",
+          date: "08 Novembre 2026",
+          image: "https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg",
+        },
+        {
+          tag: "FORMATION",
+          title: "Plus de 500 Jeunes Défenseurs Certifiés en Droit Humanitaire",
+          date: "29 Octobre 2026",
+          image: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg",
+        },
+      ],
+    },
+    donationBanner: {
+      title: "Votre Don Donne du Pouvoir à Ceux Qui en Ont Besoin",
+      subtitle: "Ensemble, nous défendons la dignité, apportons une aide d'urgence et garantissons la justice.",
+      cta: "Faire un Don",
     },
     impact: {
-      story1Title: "Défendre les Droits Humains dans le Monde",
-      story1Para1: "IHRO est une organisation mondiale dédiée à la défense des droits humains, à la promotion de la justice et au soutien des communautés touchées par les violations.",
-      story1Para2: "Grâce à notre coopération internationale, nous veillons à ce que les populations vulnérables bénéficient d'une défense équitable et d'un secours humanitaire direct.",
+      story1Title: "Défendre les Droits Fondamentaux Partout",
+      story1Para1: "L'IHRO est une organisation internationale non gouvernementale qui défend les droits fondamentaux, milite pour la justice et soutient les populations victimes d'exactions.",
+      story1Para2: "Par une présence active sur le terrain, nous nous assurons que les personnes vulnérables obtiennent un conseil juridique impartial, une protection et une aide d'urgence.",
       quote1: "Tous les êtres humains naissent libres et égaux en dignité et en droits.",
       quote1Author: "Déclaration Universelle des Droits de l'Homme, Article 1",
-      story2Title: "Protection, Justice et Égalité pour Tous",
-      story2Para1: "Guidés par l'article 25 et les conventions internationales, nous affirmons que la sécurité et la justice sont des nécessités absolues pour tous.",
-      story2Para2: "Nous faisons le pont entre les assemblées internationales et les réalités du terrain, en fournissant aux défenseurs locaux les outils nécessaires.",
-      quote2: "La justice ne peut dormir pendant que des innocents souffrent. La loi doit protéger chacun.",
+      story2Title: "Sécurité, Justice et Égalité pour Tous",
+      story2Para1: "Guidés par l'Article 25, nous réaffirmons que la sécurité et la justice sont des droits inaliénables ne pouvant être compromis.",
+      story2Para2: "Nous agissons directement auprès des communautés en fournissant aux militants locaux l'expertise juridique et les outils de protection nécessaires.",
+      quote2: "La justice ne peut attendre lorsque des innocents souffrent. La loi doit protéger chacun.",
       quote2Author: "Conseil Juridique Consultatif de l'IHRO",
     },
     pillars: {
-      sectionTitleLine1: "Notre Mission Principale",
-      sectionTitleLine2: "et Valeurs pour l'Humanité",
-      sectionSubtitle: "Nous menons des initiatives humanitaires et juridiques dédiées aux défis les plus urgents en matière de droits fondamentaux.",
-      ctaLabel: "En savoir plus",
+      sectionTitleLine1: "Notre Mission Fondamentale",
+      sectionTitleLine2: "et Nos Valeurs Humanitaires",
+      sectionSubtitle: "Nous menons des programmes rigoureux pour répondre aux crises humanitaires et juridiques les plus urgentes.",
+      ctaLabel: "En Savoir Plus",
       cards: [
         {
           title: "Protection",
-          description: "Protéger les individus et les communautés contre les violations des droits humains par une surveillance active et une intervention directe.",
+          description: "Protéger les individus contre les atteintes aux droits de l'homme par une veille active et des interventions juridiques concrètes.",
           image: "https://images.pexels.com/photos/8112199/pexels-photo-8112199.jpeg",
         },
         {
           title: "Justice",
-          description: "Plaider pour la responsabilité juridique et l'état de droit afin de garantir que les victimes obtiennent réparation.",
+          description: "Défendre l'état de droit afin que les victimes obtiennent réparation et que la primauté du droit s'impose équitablement.",
           image: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg",
         },
         {
@@ -461,36 +1134,6 @@ export const STRINGS: Record<LocaleCode, AppStrings> = {
         cases: "Dossiers Soutenus",
         volunteers: "Bénévoles Actifs",
       },
-    },
-    testimonials: {
-      title: "Les Voix de Notre Réseau Mondial",
-      subtitle: "Témoignages de nos défenseurs, partenaires et bénévoles engagés sur le terrain.",
-      items: [
-        {
-          name: "Dr. Sarah Jenkins",
-          role: "Conseillère Juridique",
-          location: "Londres, Royaume-Uni",
-          quote: "IHRO relie le droit international à l'action locale urgente afin qu'aucune famille ne reste seule.",
-        },
-        {
-          name: "Tariq Al-Mansoor",
-          role: "Coordinateur Régional",
-          location: "Dubaï, Émirats Arabes Unis",
-          quote: "Notre réseau d'intervention rapide permet d'apporter une assistance juridique et humanitaire en quelques heures.",
-        },
-        {
-          name: "Prof. Amara Okafor",
-          role: "Formatrice aux Droits Humains",
-          location: "Berlin, Allemagne",
-          quote: "Former et équiper les défenseurs locaux renforce durablement l'état de droit.",
-        },
-        {
-          name: "Priya Sharma",
-          role: "Bénévole Communautaire",
-          location: "New Delhi, Inde",
-          quote: "Chaque action redonne concrètement dignité, accès à l'éducation et protection juridique aux familles.",
-        },
-      ],
     },
     getInvolved: {
       title: "Engagez-vous pour la Justice et la Dignité",

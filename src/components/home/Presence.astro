@@ -1,82 +1,76 @@
 ---
-//- Global network and diplomatic presence directory featuring structured official delegations and cartographic map showcase
+//- Large rounded humanitarian video impact banner and dark partner coalition strip matching the reference design layout
 
-import { translations } from "../../locals/home/presence";
 import { getStrings } from "../../constants/strings";
-import digitalMap from "../../assets/digital-map.png";
 
-type Locale = 'en' | 'hi' | 'fr';
-const { local = 'en' } = Astro.params ?? {};
-const t = translations[local as Locale] || translations['en'];
+const { local = "en" } = Astro.params;
 const s = getStrings(local);
+
+const PARTNERS = [
+  { name: "Global Human Rights Coalition", icon: "policy" },
+  { name: "UN Civil Society Alliance", icon: "public" },
+  { name: "International Peace Council", icon: "balance" },
+  { name: "European Rights Foundation", icon: "gavel" },
+  { name: "Red Cross Partner Network", icon: "health_and_safety" },
+  { name: "Humanitarian Relief Forum", icon: "diversity_1" },
+];
 ---
 
-<section class="py-24 md:py-32 bg-canvas px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden border-b border-border w-full" id="presence">
-  <div class="w-full max-w-screen-2xl mx-auto">
+<section class="py-16 md:py-24 bg-white text-zinc-900 w-full" id="impact-media">
+  <div class="w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
     
-    {/*- Section Header */}
-    <div class="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-      <h2 class="font-['Newsreader'] text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-justice-navy mb-4">
-        {s.presence.title}
-      </h2>
-      <p class="font-['Inter'] text-base text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-        {s.presence.subtitle}
-      </p>
-    </div>
-
-    {/*- Two Column Details: Structured Diplomatic Directory & Archival Map Frame */}
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+    {/*- Large Rounded Video / Media Banner */}
+    <div class="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-3xl overflow-hidden shadow-2xl bg-charcoal-dark mb-16 border border-gray-100 animate-on-scroll scroll-scale">
+      <img
+        src="https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=1600"
+        alt={s.videoBanner.title}
+        class="w-full h-full object-cover object-center"
+        loading="lazy"
+      />
       
-      {/*- Left Column: Diplomatic Directory */}
-      <div class="lg:col-span-5 divide-y divide-border border-y border-border bg-white p-6 sm:p-8 shadow-2xs">
-        
-        {/*- International Delegations */}
-        <div class="pb-6">
-          <h3 class="font-['Cinzel'] text-xs font-bold text-royal-blue uppercase tracking-wider mb-2 flex items-center gap-2">
-            <span class="material-symbols-outlined text-base">public</span>
-            <span>{t.internationalTitle}</span>
-          </h3>
-          <p class="font-['Inter'] text-sm sm:text-base text-justice-navy font-medium leading-relaxed">
-            {t.internationalOffices.map((office) => office.country).join(' · ')}
-          </p>
-        </div>
+      {/*- Gradient overlay */}
+      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20 flex flex-col items-center justify-center p-6 text-center">
+        {/*- Play Button with Animated Ring */}
+        <button
+          class="relative group cursor-pointer mb-5"
+          aria-label={s.videoBanner.playLabel}
+          onclick="alert('IHRO Humanitarian Documentary: Defending Rights Across 45+ Nations.')"
+        >
+          <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border-2 border-white/60 group-hover:bg-coral group-hover:border-coral transition-colors duration-300 shadow-xl">
+            <span class="material-symbols-outlined text-3xl sm:text-4xl text-white ml-1">play_arrow</span>
+          </div>
+          <span class="absolute -inset-2 rounded-full border border-white/30 animate-ping pointer-events-none"></span>
+        </button>
 
-        {/*- National Chapters */}
-        <div class="py-6">
-          <h3 class="font-['Cinzel'] text-xs font-bold text-emerald-accent uppercase tracking-wider mb-2 flex items-center gap-2">
-            <span class="material-symbols-outlined text-base">flag</span>
-            <span>{t.nationalTitle}</span>
-          </h3>
-          <p class="font-['Inter'] text-sm sm:text-base text-justice-navy font-medium leading-relaxed">
-            {t.nationalChapters.join(' · ')}
-          </p>
-        </div>
-
-        {/*- Regional Councils */}
-        <div class="pt-6">
-          <h3 class="font-['Cinzel'] text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2 flex items-center gap-2">
-            <span class="material-symbols-outlined text-base">apartment</span>
-            <span>{t.stateTitle}</span>
-          </h3>
-          <p class="font-['Inter'] text-sm text-on-surface-variant leading-relaxed">
-            {t.stateChapters.join(' · ')}
-          </p>
-        </div>
-
+        <h3 class="font-['Newsreader'] text-2xl sm:text-3xl md:text-4xl font-bold text-white max-w-2xl leading-tight mb-2">
+          {s.videoBanner.title}
+        </h3>
+        <p class="font-['Inter'] text-xs sm:text-sm text-zinc-300 max-w-lg font-normal">
+          {s.videoBanner.subtitle}
+        </p>
       </div>
-
-      {/*- Right Column: Archival Cartographic Map Frame */}
-      <div class="lg:col-span-7 relative p-2 bg-white border border-border shadow-2xs">
-        <div class="relative w-full h-80 sm:h-96 overflow-hidden border border-border/60 bg-canvas-muted">
-          <img
-            src={digitalMap.src}
-            alt={s.presence.title}
-            class="w-full h-full object-cover object-center"
-          />
-        </div>
-      </div>
-
     </div>
 
+  </div>
+
+  {/*- Dark Charcoal Partner & Coalition Strip */}
+  <div class="w-full bg-charcoal-dark text-white py-12 px-6 sm:px-10 lg:px-16 xl:px-20 border-y border-white/10">
+    <div class="w-full max-w-screen-2xl mx-auto">
+      <p class="text-center font-['Inter'] text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-8">
+        {s.partners.title}
+      </p>
+
+      {/*- Coalition Logos / Badges */}
+      <div class="flex flex-wrap items-center justify-center gap-8 sm:gap-12 md:gap-16 opacity-85">
+        {PARTNERS.map((partner) => (
+          <div class="flex items-center gap-2.5 text-zinc-300 hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-2xl text-coral">{partner.icon}</span>
+            <span class="font-['Cinzel'] text-xs sm:text-sm font-bold tracking-wider uppercase">
+              {partner.name}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
   </div>
 </section>

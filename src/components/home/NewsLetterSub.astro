@@ -1,43 +1,92 @@
 ---
-//- Newsletter subscription component wired to real server API /api/newsletter and AIPSA Database
-import { translations } from "../../locals/home/newsletter";
+//- Official IHRO Field Gazette and Newsletter Subscription component connected to /api/newsletter
+
+import { getStrings } from "../../constants/strings";
+import { translations as nlTranslations } from "../../locals/home/newsletter";
 
 type Locale = 'en' | 'hi' | 'fr';
-const { local = 'en' } = Astro.params ?? {};
-const t = translations[local as Locale] || translations['en'];
+const { local = "en" } = Astro.params;
+const s = getStrings(local);
+const nl = nlTranslations[local as Locale] || nlTranslations['en'];
 ---
 
-<section class="py-20 bg-canvas border-b border-border">
+<section class="py-20 md:py-28 bg-white text-zinc-900 border-b border-gray-100 overflow-hidden w-full" id="newsletter">
   <div class="w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
-    <div class="bg-justice-navy border border-border/30 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
-      <div class="text-left max-w-md">
-        <h2 class="font-['Newsreader'] text-2xl sm:text-3xl font-medium text-white mb-2">{t.title}</h2>
-        <p class="text-canvas-muted/80 font-['Inter'] text-sm sm:text-base font-normal">{t.subtitle}</p>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+
+      {/*- Left Column: Newsletter Subscription Form */}
+      <div class="lg:col-span-6 flex flex-col items-start animate-on-scroll">
+        <span class="text-coral text-xs font-bold uppercase tracking-wider block mb-2">
+          Official Dispatches
+        </span>
+        <h2 class="font-['Newsreader'] text-4xl sm:text-5xl font-bold tracking-tight text-zinc-900 leading-tight mb-3">
+          {nl.title}
+        </h2>
+        <p class="font-['Inter'] text-sm sm:text-base text-zinc-600 leading-relaxed font-normal mb-8 max-w-lg">
+          {nl.subtitle}
+        </p>
+
+        <form id="newsletterForm" class="w-full space-y-4">
+          {/*- Email Address Field */}
+          <div>
+            <label for="newsletterEmail" class="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-1.5">
+              Email Address
+            </label>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <input
+                id="newsletterEmail"
+                name="email"
+                type="email"
+                required
+                placeholder={nl.placeholder}
+                class="flex-1 px-4 py-3.5 rounded-xl border border-gray-200 focus:border-coral focus:ring-1 focus:ring-coral outline-none bg-gray-50 text-zinc-900 text-sm font-['Inter'] transition-colors"
+              />
+              <button
+                id="newsletterSubmitBtn"
+                type="submit"
+                class="px-8 py-3.5 rounded-xl sm:rounded-full bg-coral hover:bg-coral-hover text-white text-xs font-bold uppercase tracking-wider shadow-md transition-all cursor-pointer shrink-0"
+              >
+                <span id="newsletterSubmitText">{nl.cta}</span>
+              </button>
+            </div>
+          </div>
+
+          {/*- Status Notification */}
+          <p id="newsletterMsg" class="hidden text-xs font-semibold pt-1"></p>
+
+          <p class="text-[11px] text-zinc-600 font-normal pt-1">
+            We respect your privacy. No spam, unsubscribe at any time.
+          </p>
+        </form>
       </div>
-      <form id="newsletterForm" class="w-full md:w-auto flex flex-col gap-2">
-        <div class="flex flex-col sm:flex-row gap-3">
-          <input
-            id="newsletterEmail"
-            type="email"
-            placeholder={t.placeholder}
-            required
-            class="flex-grow md:w-80 px-4 py-3 rounded-xs border border-white/20 focus:border-white outline-none bg-white/5 text-white placeholder:text-white/40 text-sm font-['Inter']"
+
+      {/*- Right Column: Organic Circular Artwork */}
+      <div class="lg:col-span-6 relative flex justify-center items-center animate-on-scroll scroll-scale delay-150">
+        {/*- Decorative rings */}
+        <div class="absolute w-80 h-80 sm:w-96 sm:h-96 rounded-full border border-coral/30 -top-6 -right-6 pointer-events-none animate-float"></div>
+
+        <div class="relative z-10 w-80 h-80 sm:w-[420px] sm:h-[420px] rounded-full overflow-hidden shadow-2xl border-4 border-white bg-gray-100">
+          <img
+            src="https://images.pexels.com/photos/7345449/pexels-photo-7345449.jpeg?auto=compress&cs=tinysrgb&w=900"
+            alt="Humanitarian Solidarity"
+            class="w-full h-full object-cover"
+            loading="lazy"
           />
-          <button
-            id="newsletterSubmitBtn"
-            type="submit"
-            class="bg-royal-blue hover:bg-royal-blue-subtle text-white px-7 py-3 rounded-xs font-['Inter'] text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer border border-royal-blue"
-          >
-            <span id="newsletterSubmitText">{t.cta}</span>
-          </button>
         </div>
-        <p id="newsletterMsg" class="hidden text-xs font-['Inter'] mt-1 text-honor-gold"></p>
-      </form>
+      </div>
+
     </div>
   </div>
 </section>
 
-<script define:vars={{ currentLocale: local, defaultCta: t.cta }}>
+<script define:vars={{
+  currentLocale: local,
+  defaultCta: nl.cta,
+  successText: s.api.newsletterSuccess,
+  alreadySubscribedText: s.api.newsletterAlreadySubscribed,
+  invalidEmailText: s.api.newsletterEmailInvalid,
+  failText: s.api.newsletterSaveFailed
+}}>
   //- Newsletter subscription handler wired to /api/newsletter
   const form = document.getElementById('newsletterForm');
   const emailInput = document.getElementById('newsletterEmail');
@@ -45,11 +94,12 @@ const t = translations[local as Locale] || translations['en'];
   const submitText = document.getElementById('newsletterSubmitText');
   const msg = document.getElementById('newsletterMsg');
 
-  if (form && emailInput) {
+  if (form) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const email = emailInput.value.trim();
-      if (!email) {
+
+      const emailVal = emailInput ? emailInput.value.trim() : '';
+      if (!emailVal) {
         return;
       }
 
@@ -57,34 +107,34 @@ const t = translations[local as Locale] || translations['en'];
         submitBtn.disabled = true;
       }
       if (submitText) {
-        submitText.textContent = "...";
-      }
-      if (msg) {
-        msg.classList.add('hidden');
+        submitText.textContent = '...';
       }
 
       try {
         const response = await fetch('/api/newsletter', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email, locale: currentLocale }),
+          body: JSON.stringify({ email: emailVal, locale: currentLocale }),
         });
-        const result = await response.json();
+
+        const data = await response.json();
+
         if (msg) {
-          msg.textContent = result.message || (result.success ? "Subscribed successfully!" : "Could not subscribe.");
           msg.classList.remove('hidden');
-          if (result.success) {
-            msg.className = "text-xs font-['Inter'] mt-1 text-emerald-accent";
-            emailInput.value = '';
+          if (response.ok && data.success) {
+            msg.textContent = data.message || successText;
+            msg.className = 'text-xs font-semibold pt-1 text-emerald-700';
+            form.reset();
           } else {
-            msg.className = "text-xs font-['Inter'] mt-1 text-red-400";
+            msg.textContent = data.error || failText;
+            msg.className = 'text-xs font-semibold pt-1 text-red-600';
           }
         }
       } catch (err) {
         if (msg) {
-          msg.textContent = "Connection issue. Please check your internet connection and try again.";
-          msg.className = "text-xs font-['Inter'] mt-1 text-red-400";
           msg.classList.remove('hidden');
+          msg.textContent = failText;
+          msg.className = 'text-xs font-semibold pt-1 text-red-600';
         }
       } finally {
         if (submitBtn) {

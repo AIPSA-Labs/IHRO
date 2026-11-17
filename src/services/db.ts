@@ -47,7 +47,23 @@ interface CacheItem<T> {
   cachedAt: number;
 }
 
-let cachedMetrics: CacheItem<OrganizationMetricsData> | null = null;
+const DEFAULT_METRICS: OrganizationMetricsData = {
+  nations: CONFIG.STATS.NATIONS_COUNT,
+  chapters: CONFIG.STATS.CHAPTERS_COUNT,
+  casesSupported: CONFIG.STATS.CASES_SUPPORTED,
+  volunteers: CONFIG.STATS.VOLUNTEERS_COUNT,
+  contact: {
+    email: CONFIG.CONTACT_INFO.EMAIL,
+    phone: CONFIG.CONTACT_INFO.PHONE,
+    phoneFormatted: CONFIG.CONTACT_INFO.PHONE_FORMATTED,
+    headquarters: CONFIG.CONTACT_INFO.ADDRESS,
+  },
+};
+
+let cachedMetrics: CacheItem<OrganizationMetricsData> = {
+  data: DEFAULT_METRICS,
+  cachedAt: 0,
+};
 let cachedPrograms: CacheItem<ProgramRecord[]> | null = null;
 let isRefreshingMetrics = false;
 let isRefreshingPrograms = false;
@@ -246,55 +262,31 @@ async function queryLiveMetrics(): Promise<OrganizationMetricsData | null> {
   }
 }
 
-//- Fetch organization metrics with sub-millisecond memory cache and background revalidation
+//- Fetch organization metrics instantly from cache with background non-blocking revalidation
 export async function fetchOrganizationMetrics(): Promise<OrganizationMetricsData> {
   const now = Date.now();
 
   //- Return cached result in sub-millisecond time if fresh
-  if (cachedMetrics && (now - cachedMetrics.cachedAt < CONFIG.AIPSA_DB.CACHE_TTL_MS)) {
+  if (now - cachedMetrics.cachedAt < CONFIG.AIPSA_DB.CACHE_TTL_MS) {
     return cachedMetrics.data;
   }
 
-  //- Stale-while-revalidate: if stale but within window, return immediate stale data and refresh asynchronously
-  if (cachedMetrics && (now - cachedMetrics.cachedAt < CONFIG.AIPSA_DB.STALE_TTL_MS)) {
-    if (!isRefreshingMetrics) {
-      isRefreshingMetrics = true;
-      queryLiveMetrics().then((freshData) => {
-        if (freshData) {
-          cachedMetrics = {
-            data: freshData,
-            cachedAt: Date.now(),
-          };
-        }
-      }).finally(() => {
-        isRefreshingMetrics = false;
-      });
-    }
-    return cachedMetrics.data;
+  //- Non-blocking background revalidation: return current data immediately, refresh in background
+  if (!isRefreshingMetrics) {
+    isRefreshingMetrics = true;
+    queryLiveMetrics().then((freshData) => {
+      if (freshData) {
+        cachedMetrics = {
+          data: freshData,
+          cachedAt: Date.now(),
+        };
+      }
+    }).finally(() => {
+      isRefreshingMetrics = false;
+    });
   }
 
-  //- Otherwise perform synchronous fetch and populate cache
-  const data = await queryLiveMetrics();
-  if (data) {
-    cachedMetrics = {
-      data: data,
-      cachedAt: now,
-    };
-    return data;
-  }
-
-  return {
-    nations: CONFIG.STATS.NATIONS_COUNT,
-    chapters: CONFIG.STATS.CHAPTERS_COUNT,
-    casesSupported: CONFIG.STATS.CASES_SUPPORTED,
-    volunteers: CONFIG.STATS.VOLUNTEERS_COUNT,
-    contact: {
-      email: CONFIG.CONTACT_INFO.EMAIL,
-      phone: CONFIG.CONTACT_INFO.PHONE,
-      phoneFormatted: CONFIG.CONTACT_INFO.PHONE_FORMATTED,
-      headquarters: CONFIG.CONTACT_INFO.ADDRESS,
-    },
-  };
+  return cachedMetrics.data;
 }
 
 //- Internal helper to execute live programs query from PostgreSQL

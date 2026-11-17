@@ -1,31 +1,35 @@
 ---
-//- Operational policies, treaty governance, and legal defense charters
+//- Operational policies, treaty governance, and legal defense charters in modern humanitarian theme
+
 import { translations } from "../../locals/about/policies";
-import { Shield, Scale, BookOpen, Users, Globe, Heart } from "@lucide/astro";
 
 type Locale = 'en' | 'hi' | 'fr';
 const { local = 'en' } = Astro.params ?? {};
 const t = translations[local as Locale] || translations['en'];
 
-const policyIcons = [Shield, Scale, BookOpen, Users, Globe, Heart];
+const policyIcons = ["shield", "balance", "menu_book", "groups", "public", "favorite"];
 ---
 
-<section id="policies" class="bg-canvas text-justice-navy py-24 px-6 sm:px-10 lg:px-16 xl:px-20 relative overflow-hidden w-full border-b border-border scroll-mt-20">
-  <div class="w-full max-w-screen-2xl mx-auto text-center mb-16 relative z-10">
-    <h2 class="font-['Newsreader'] text-3xl sm:text-4xl md:text-5xl font-medium text-justice-navy mb-4">{t.title}</h2>
-    <p class="font-['Inter'] text-base text-on-surface-variant max-w-2xl mx-auto leading-relaxed">{t.subtitle}</p>
+<section id="policies" class="bg-white text-zinc-900 py-20 md:py-28 px-6 sm:px-10 lg:px-16 xl:px-20 relative overflow-hidden w-full border-b border-gray-100 scroll-mt-20">
+  <div class="w-full max-w-screen-2xl mx-auto text-center mb-16 relative z-10 max-w-2xl mx-auto animate-on-scroll">
+    <span class="text-coral text-xs sm:text-sm font-bold tracking-widest uppercase mb-2 block">
+      Our Charters
+    </span>
+    <h2 class="font-['Newsreader'] text-3xl sm:text-4xl md:text-5xl font-bold text-zinc-900 mb-4">{t.title}</h2>
+    <p class="font-['Inter'] text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">{t.subtitle}</p>
   </div>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-screen-2xl mx-auto relative z-10">
     {t.policies.map((policy, index) => {
-      const Icon = policyIcons[index % policyIcons.length];
+      const icon = policyIcons[index % policyIcons.length];
+      const delays = ['delay-100', 'delay-200', 'delay-300'];
       return (
-        <div class="bg-white border border-border p-8 shadow-2xs hover:border-royal-blue transition-colors flex flex-col items-start text-left">
-          <div class="p-3 border border-border bg-canvas-muted text-royal-blue mb-5">
-            <Icon class="w-6 h-6" />
+        <div class={`bg-gray-50 border border-gray-100 rounded-2xl p-8 shadow-sm hover:border-coral transition-colors flex flex-col items-start text-left animate-on-scroll ${delays[index % 3]}`}>
+          <div class="p-3.5 rounded-xl bg-coral/10 text-coral mb-5">
+            <span class="material-symbols-outlined text-2xl">{icon}</span>
           </div>
-          <h3 class="font-['Newsreader'] text-xl font-semibold mb-2 text-justice-navy">{policy.title}</h3>
-          <p class="font-['Inter'] text-sm text-on-surface-variant leading-relaxed">{policy.description}</p>
+          <h3 class="font-['Newsreader'] text-xl font-bold mb-2 text-zinc-900">{policy.title}</h3>
+          <p class="font-['Inter'] text-sm text-zinc-600 leading-relaxed font-normal">{policy.description}</p>
         </div>
       );
     })}

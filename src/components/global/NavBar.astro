@@ -1,5 +1,5 @@
 ---
-//- Transparent navigation bar matching the official diplomatic institution style with IHRO brand, centered links, language circle, and action button
+//- Dark modern humanitarian navigation bar with IHRO brand, centered links, language dropdown, and coral pill CTA button
 
 import { getStrings } from "../../constants/strings";
 import { supportedLocales } from "../../locals/languages";
@@ -12,120 +12,69 @@ const pathname = Astro.url.pathname;
 const cleanPath = pathname.replace(/^\/(en|hi|fr)/, '') || '';
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-canvas/95 backdrop-blur-xs transition-colors w-full border-b border-border">
-  {/*- Official Diplomatic Top Strip */}
-  <div class="hidden sm:block bg-justice-navy text-canvas-muted text-[10px] font-['Cinzel'] tracking-widest py-1.5 px-6 sm:px-10 lg:px-16 xl:px-20 border-b border-white/10 uppercase">
-    <div class="w-full flex items-center justify-between">
-      <span>International Human Rights Organization</span>
-      <span class="text-honor-gold">Chartered for Human Dignity, Equality & Justice</span>
-      <span>Permanent Global Network</span>
-    </div>
-  </div>
-
-  <div class="w-full px-6 sm:px-10 lg:px-16 xl:px-20">
+<header class="fixed top-0 left-0 right-0 z-50 bg-charcoal-dark/95 backdrop-blur-md transition-colors w-full border-b border-white/10 text-white">
+  <div class="w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
     <div class="flex items-center justify-between h-20">
 
       {/*- IHRO Brand Identity */}
-      <a href={`/${local}/`} class="flex items-center gap-3.5 cursor-pointer group">
-        <div class="p-1 border border-border/80 bg-white shadow-2xs">
-          <img src="/favicon.svg" alt={s.brand.name} class="h-9 w-9 object-contain" />
+      <a href={`/${local}/`} class="flex items-center gap-3 cursor-pointer group">
+        <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center p-1.5 border border-white/20 group-hover:border-coral transition-colors">
+          <img src="/favicon.svg" alt={s.brand.name} class="h-full w-full object-contain" />
         </div>
         <div class="flex flex-col">
-          <span class="font-['Cinzel'] text-xl font-bold text-justice-navy leading-none tracking-wider">
+          <span class="font-['Cinzel'] text-xl font-bold text-white leading-none tracking-wider group-hover:text-coral transition-colors">
             {s.brand.name}
           </span>
-          <span class="hidden sm:inline font-['Inter'] text-[11px] text-on-surface-variant uppercase tracking-wider font-medium mt-1">
+          <span class="hidden sm:inline font-['Inter'] text-[10px] text-zinc-400 uppercase tracking-wider font-medium mt-1">
             {s.brand.fullName}
           </span>
         </div>
       </a>
 
       {/*- Centered Desktop Navigation */}
-      <nav class="hidden lg:flex items-center gap-7 xl:gap-9">
-        <a href={`/${local}/`} class="text-xs font-semibold uppercase tracking-wider text-justice-navy hover:text-royal-blue transition-colors">
+      <nav class="hidden lg:flex items-center gap-5 xl:gap-8">
+        <a href={`/${local}/`} class="text-xs font-semibold uppercase tracking-wider text-white hover:text-coral transition-colors">
           {s.nav.home}
         </a>
-        <a href={`/${local}/about`} class="text-xs font-semibold uppercase tracking-wider text-justice-navy hover:text-royal-blue transition-colors">
+        <a href={`/${local}/about`} class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-coral transition-colors">
           {s.nav.about}
         </a>
-        <a href={`/${local}/#mission`} class="text-xs font-semibold uppercase tracking-wider text-justice-navy hover:text-royal-blue transition-colors">
-          {s.nav.mission}
+        <a href={`/${local}/#causes`} class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-coral transition-colors">
+          {s.nav.programs}
         </a>
-
-        {/*- Interactive Programs Dropdown */}
-        <div class="relative group">
-          <a
-            href={`/${local}/about#policies`}
-            class="flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-justice-navy hover:text-royal-blue transition-colors cursor-pointer py-2"
-          >
-            <span>{s.nav.programs}</span>
-            <span class="material-symbols-outlined text-sm transition-transform group-hover:rotate-180">expand_more</span>
-          </a>
-
-          {/*- Dropdown Menu */}
-          <div class="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 absolute left-0 mt-1 w-64 bg-white border border-border shadow-md py-2 z-50">
-            <a
-              href={`/${local}/about#policies`}
-              class="block px-4 py-2.5 text-xs font-medium text-justice-navy hover:bg-canvas-muted hover:text-royal-blue transition-colors border-b border-border/40"
-            >
-              Advocacy & Legal Defense
-            </a>
-            <a
-              href={`/${local}/contact?topic=legal-aid`}
-              class="block px-4 py-2.5 text-xs font-medium text-justice-navy hover:bg-canvas-muted hover:text-royal-blue transition-colors border-b border-border/40"
-            >
-              Legal Aid & Representation
-            </a>
-            <a
-              href={`/${local}/about#policies`}
-              class="block px-4 py-2.5 text-xs font-medium text-justice-navy hover:bg-canvas-muted hover:text-royal-blue transition-colors border-b border-border/40"
-            >
-              Human Rights Education & Field Training
-            </a>
-            <a
-              href={`/${local}/about#policies`}
-              class="block px-4 py-2.5 text-xs font-medium text-justice-navy hover:bg-canvas-muted hover:text-royal-blue transition-colors border-b border-border/40"
-            >
-              Environmental Justice & Community Rights
-            </a>
-            <a
-              href={`/${local}/contact?topic=community`}
-              class="block px-4 py-2.5 text-xs font-medium text-justice-navy hover:bg-canvas-muted hover:text-royal-blue transition-colors"
-            >
-              Crisis Intervention & Grassroots Aid
-            </a>
-          </div>
-        </div>
-
-        <a href={`/${local}/about#leadership`} class="text-xs font-semibold uppercase tracking-wider text-justice-navy hover:text-royal-blue transition-colors">
-          {s.nav.presence}
+        <a href={`/${local}/#events`} class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-coral transition-colors">
+          {s.nav.events}
         </a>
-        <a href={`/${local}/contact`} class="text-xs font-semibold uppercase tracking-wider text-justice-navy hover:text-royal-blue transition-colors">
+        <a href={`/${local}/#news`} class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-coral transition-colors">
+          {s.nav.news}
+        </a>
+        <a href={`/${local}/contact`} class="text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-coral transition-colors">
           {s.nav.contact}
         </a>
       </nav>
 
-      {/*- Right Actions: Language Selector and Diplomatic Action CTA */}
+      {/*- Right Actions: Language Selector and Coral Pill CTA */}
       <div class="flex items-center gap-3">
         {/*- Circular Language Selector Button */}
         <div class="relative">
           <button
             id="navLangButton"
-            class="w-9 h-9 rounded-xs border border-border bg-white text-justice-navy flex items-center justify-center hover:bg-canvas-muted transition-colors cursor-pointer shadow-2xs"
+            class="h-9 px-3 rounded-full border border-white/20 bg-white/5 text-white flex items-center gap-1.5 hover:bg-white/10 hover:border-white/40 transition-colors cursor-pointer text-xs font-semibold"
             aria-label={s.nav.language}
           >
-            <span class="material-symbols-outlined text-base">translate</span>
+            <span class="material-symbols-outlined text-sm">language</span>
+            <span>{s.nav.language}</span>
           </button>
           
           <div
             id="navLangMenu"
-            class="hidden absolute right-0 mt-2 w-36 bg-white border border-border shadow-md py-1 z-50 animate-in"
+            class="dropdown-hidden absolute right-0 mt-2 w-36 bg-charcoal-card border border-white/15 rounded-xl shadow-xl py-1.5 z-50 text-white"
           >
             {supportedLocales.map((loc) => (
               <a
                 href={`/${loc.code}${cleanPath}`}
                 class={`block px-4 py-2 text-xs font-medium transition-colors ${
-                  loc.code === local ? 'bg-royal-blue text-white font-semibold' : 'text-justice-navy hover:bg-canvas-muted'
+                  loc.code === local ? 'bg-coral text-white font-semibold' : 'text-zinc-300 hover:bg-white/10 hover:text-white'
                 }`}
               >
                 {loc.label}
@@ -134,21 +83,23 @@ const cleanPath = pathname.replace(/^\/(en|hi|fr)/, '') || '';
           </div>
         </div>
 
-        {/*- Structured Diplomatic CTA Button */}
+        {/*- Terracotta / Coral Pill Action CTA Button */}
         <a
           href={`/${local}/contact?type=donate`}
-          class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-xs bg-royal-blue hover:bg-royal-blue-dark text-white text-xs font-semibold uppercase tracking-wider shadow-2xs transition-colors cursor-pointer border border-royal-blue"
+          class="hidden sm:inline-flex items-center justify-center px-4 lg:px-6 py-2.5 rounded-full bg-coral hover:bg-coral-hover text-white text-xs font-bold uppercase tracking-wider shadow-md transition-all cursor-pointer"
         >
           {s.nav.donateNow}
         </a>
 
-        {/*- Mobile Drawer Toggle Button */}
+        {/*- Sleek Borderless Drawer Toggle with Staggered Lines */}
         <button
-          class="lg:hidden p-2 rounded-xs border border-border text-justice-navy hover:bg-canvas-muted transition-colors cursor-pointer"
+          class="lg:hidden flex flex-col justify-center items-end gap-1.5 p-2 text-white hover:text-coral transition-colors cursor-pointer group"
           onclick="toggleDrawer()"
           aria-label={s.nav.home}
         >
-          <span class="material-symbols-outlined text-2xl">menu</span>
+          <span class="w-6 h-0.5 bg-current rounded-full transition-all duration-300"></span>
+          <span class="w-3.5 h-0.5 bg-current rounded-full transition-all duration-300 group-hover:w-6"></span>
+          <span class="w-5 h-0.5 bg-current rounded-full transition-all duration-300 group-hover:w-6"></span>
         </button>
       </div>
 
@@ -164,12 +115,12 @@ const cleanPath = pathname.replace(/^\/(en|hi|fr)/, '') || '';
   if (langButton && langMenu) {
     langButton.addEventListener('click', (e) => {
       e.stopPropagation();
-      langMenu.classList.toggle('hidden');
+      langMenu.classList.toggle('dropdown-hidden');
     });
 
     document.addEventListener('click', () => {
-      if (!langMenu.classList.contains('hidden')) {
-        langMenu.classList.add('hidden');
+      if (!langMenu.classList.contains('dropdown-hidden')) {
+        langMenu.classList.add('dropdown-hidden');
       }
     });
   }

@@ -1,5 +1,5 @@
 ---
-//- Contact page with interactive form connected to real /api/contact endpoint, direct email and phone links, and office address
+//- Modern humanitarian contact and emergency relief inquiry page matching the dark charcoal and coral design system
 
 import { translations } from "../../locals/contact/page";
 import Layout from "../../layouts/Layout.astro";
@@ -15,208 +15,303 @@ const initialTopicParam = searchParams.get('topic') || searchParams.get('type') 
 ---
 
 <Layout>
-<section class="bg-canvas text-justice-navy py-28 sm:py-36 px-6 sm:px-10 lg:px-16 xl:px-20 w-full min-h-[80vh] border-b border-border">
-  <div class="w-full max-w-screen-2xl mx-auto text-center mb-12">
-    <h1 class="font-['Newsreader'] text-4xl sm:text-5xl md:text-6xl font-medium mb-4 text-justice-navy">{t.title}</h1>
-    <p class="font-['Inter'] text-base text-on-surface-variant max-w-2xl mx-auto leading-relaxed">{t.subtitle}</p>
-  </div>
-
-  <div class="w-full max-w-screen-2xl mx-auto grid md:grid-cols-2 gap-10">
-    
-    {/*- Contact Form connected to real server API */}
-    <div class="bg-white p-8 sm:p-10 rounded-xs shadow-2xs border border-border flex flex-col justify-between">
-      
-      {/*- Success Notification */}
-      <div id="contactSuccessMsg" class="hidden mb-6 p-4 rounded-xs bg-emerald-accent/10 border border-emerald-accent/30 text-emerald-800 text-sm font-medium">
-        Thank you for contacting IHRO. We have received your message and our team will get back to you shortly.
+  {/*- Dark Charcoal Contact Hero matching Home and About theme */}
+  <section class="relative bg-charcoal-dark text-white pt-36 pb-20 sm:pt-44 sm:pb-28 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden w-full border-b border-white/10">
+    <div class="w-full max-w-screen-2xl mx-auto text-center relative z-10 animate-on-scroll">
+      <div class="mb-4">
+        <span class="text-coral text-xs sm:text-sm font-bold tracking-widest uppercase">
+          Contact IHRO
+        </span>
       </div>
-
-      {/*- Error Notification */}
-      <div id="contactErrorMsg" class="hidden mb-6 p-4 rounded-xs bg-red-50 border border-red-200 text-red-700 text-sm font-medium"></div>
-
-      <form id="contactForm" class="flex flex-col gap-6">
-        <label class="flex flex-col text-left">
-          <span class="mb-1 text-xs font-semibold uppercase tracking-wider text-on-surface-variant">{t.form.name}</span>
-          <input
-            id="formName"
-            name="name"
-            type="text"
-            required
-            placeholder={t.form.namePlaceholder}
-            class="border-0 border-b border-border rounded-none px-0 py-2.5 text-sm bg-transparent text-justice-navy placeholder:text-on-surface-variant/50 focus:border-b-2 focus:border-royal-blue focus:outline-none focus:ring-0 transition-colors"
-          />
-        </label>
-
-        <label class="flex flex-col text-left">
-          <span class="mb-1 text-xs font-semibold uppercase tracking-wider text-on-surface-variant">{t.form.email}</span>
-          <input
-            id="formEmail"
-            name="email"
-            type="email"
-            required
-            placeholder={t.form.emailPlaceholder}
-            class="border-0 border-b border-border rounded-none px-0 py-2.5 text-sm bg-transparent text-justice-navy placeholder:text-on-surface-variant/50 focus:border-b-2 focus:border-royal-blue focus:outline-none focus:ring-0 transition-colors"
-          />
-        </label>
-
-        <label class="flex flex-col text-left">
-          <span class="mb-1 text-xs font-semibold uppercase tracking-wider text-on-surface-variant font-['Cinzel']">Inquiry Category</span>
-          <select
-            id="formTopic"
-            name="topic"
-            class="border-0 border-b border-border rounded-none px-0 py-2.5 text-sm bg-transparent text-justice-navy focus:border-b-2 focus:border-royal-blue focus:outline-none focus:ring-0 cursor-pointer transition-colors"
-          >
-            <option value="General Inquiry">General Inquiry</option>
-            <option value="Human Rights Protection" selected={initialTopicParam.toLowerCase().includes('protection')}>Human Rights Protection</option>
-            <option value="Legal Defense & Redress" selected={initialTopicParam.toLowerCase().includes('justice') || initialTopicParam.toLowerCase().includes('legal')}>Legal Defense & Redress</option>
-            <option value="Equality & Discrimination Support" selected={initialTopicParam.toLowerCase().includes('equality')}>Equality & Discrimination Support</option>
-            <option value="Volunteer Application" selected={initialTopicParam.toLowerCase().includes('volunteer')}>Volunteer Application</option>
-            <option value="Donation & Humanitarian Aid" selected={initialTopicParam.toLowerCase().includes('donate')}>Donation & Humanitarian Aid</option>
-          </select>
-        </label>
-
-        <label class="flex flex-col text-left">
-          <span class="mb-1 text-xs font-semibold uppercase tracking-wider text-on-surface-variant">{t.form.message}</span>
-          <textarea
-            id="formMessage"
-            name="message"
-            required
-            placeholder={t.form.messagePlaceholder}
-            rows="4"
-            class="border-0 border-b border-border rounded-none px-0 py-2.5 text-sm bg-transparent text-justice-navy placeholder:text-on-surface-variant/50 focus:border-b-2 focus:border-royal-blue focus:outline-none focus:ring-0 transition-colors resize-y"
-          ></textarea>
-        </label>
-
-        <button
-          id="formSubmitBtn"
-          type="submit"
-          class="bg-royal-blue text-white font-semibold px-6 py-3.5 rounded-xs hover:bg-royal-blue-dark transition-colors mt-2 cursor-pointer shadow-2xs text-xs uppercase tracking-wider flex items-center justify-center gap-2 border border-royal-blue"
-        >
-          <span id="submitBtnText">{t.form.submit}</span>
-          <span id="submitSpinner" style="display: none;" class="material-symbols-outlined text-base">progress_activity</span>
-        </button>
-      </form>
+      <h1 class="font-['Inter'] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight text-white tracking-tight">
+        {t.title}
+      </h1>
+      <p class="font-['Newsreader'] italic text-xl sm:text-2xl text-coral-light mb-6 leading-relaxed max-w-3xl mx-auto font-medium">
+        {t.subtitle}
+      </p>
+      <p class="font-['Inter'] text-sm sm:text-base text-zinc-300 max-w-2xl mx-auto leading-relaxed font-normal">
+        {t.contact.description}
+      </p>
     </div>
 
-    {/*- Contact Details & Direct Actions */}
-    <div class="flex flex-col justify-between gap-6 bg-white p-8 sm:p-10 rounded-xs shadow-2xs border border-border text-justice-navy">
-      <div>
-        <h2 class="font-['Newsreader'] text-2xl font-semibold mb-3 text-justice-navy">{t.contact.title}</h2>
-        <p class="font-['Inter'] text-on-surface-variant text-sm leading-relaxed mb-6">{t.contact.description}</p>
-        
-        <div class="space-y-4 text-sm font-['Inter']">
-          <p class="flex items-center gap-3">
-            <span class="material-symbols-outlined text-royal-blue">mail</span>
-            <span><strong>{t.contact.emailLabel}:</strong> <a href={`mailto:${CONFIG.CONTACT_INFO.EMAIL}`} class="text-royal-blue hover:underline">{CONFIG.CONTACT_INFO.EMAIL}</a></span>
-          </p>
-          <p class="flex items-center gap-3">
-            <span class="material-symbols-outlined text-royal-blue">call</span>
-            <span><strong>{t.contact.phoneLabel}:</strong> <a href={`tel:${CONFIG.CONTACT_INFO.PHONE}`} class="text-royal-blue hover:underline">{CONFIG.CONTACT_INFO.PHONE_FORMATTED}</a></span>
-          </p>
-          <p class="flex items-start gap-3">
-            <span class="material-symbols-outlined text-royal-blue mt-0.5">location_on</span>
-            <span><strong>{t.contact.addressLabel}:</strong> {CONFIG.CONTACT_INFO.ADDRESS}</span>
-          </p>
+    {/*- Decorative background glow */}
+    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-coral/15 blur-3xl pointer-events-none"></div>
+  </section>
+
+  {/*- Main Interactive Inquiry Form & Direct Channel Directory */}
+  <section class="bg-gray-50 text-zinc-900 py-16 md:py-24 px-6 sm:px-10 lg:px-16 xl:px-20 w-full border-b border-gray-100">
+    <div class="w-full max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+      
+      {/*- Left Column: Direct Inquiry Form */}
+      <div class="lg:col-span-7 bg-white p-8 sm:p-12 rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between animate-on-scroll">
+        <div>
+          <div class="mb-8">
+            <span class="text-coral text-xs font-bold uppercase tracking-wider block mb-2">
+              Direct Communication
+            </span>
+            <h2 class="font-['Newsreader'] text-2xl sm:text-3xl font-bold text-zinc-900">
+              Send an Inquiry or Incident Report
+            </h2>
+          </div>
+
+          {/*- Success Notification */}
+          <div id="contactSuccessMsg" class="hidden mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm font-medium">
+            Thank you for contacting IHRO. We have received your message and our team will get back to you shortly.
+          </div>
+
+          {/*- Error Notification */}
+          <div id="contactErrorMsg" class="hidden mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm font-medium"></div>
+
+          <form id="contactForm" class="flex flex-col gap-5">
+            {/*- Full Name */}
+            <div>
+              <label for="formName" class="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-1.5">
+                {t.form.name}
+              </label>
+              <input
+                id="formName"
+                name="name"
+                type="text"
+                required
+                placeholder={t.form.namePlaceholder}
+                class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-coral focus:ring-1 focus:ring-coral outline-none bg-gray-50 text-zinc-900 text-sm font-['Inter'] transition-colors"
+              />
+            </div>
+
+            {/*- Email Address */}
+            <div>
+              <label for="formEmail" class="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-1.5">
+                {t.form.email}
+              </label>
+              <input
+                id="formEmail"
+                name="email"
+                type="email"
+                required
+                placeholder={t.form.emailPlaceholder}
+                class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-coral focus:ring-1 focus:ring-coral outline-none bg-gray-50 text-zinc-900 text-sm font-['Inter'] transition-colors"
+              />
+            </div>
+
+            {/*- Category Select */}
+            <div>
+              <label for="formTopic" class="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-1.5">
+                Inquiry Category
+              </label>
+              <select
+                id="formTopic"
+                name="topic"
+                class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-coral focus:ring-1 focus:ring-coral outline-none bg-gray-50 text-zinc-900 text-sm font-['Inter'] transition-colors cursor-pointer"
+              >
+                <option value="General Inquiry">General Inquiry</option>
+                <option value="Human Rights Protection" selected={initialTopicParam.toLowerCase().includes('protection')}>Human Rights Protection</option>
+                <option value="Legal Defense & Redress" selected={initialTopicParam.toLowerCase().includes('justice') || initialTopicParam.toLowerCase().includes('legal')}>Legal Defense & Redress</option>
+                <option value="Equality & Discrimination Support" selected={initialTopicParam.toLowerCase().includes('equality')}>Equality & Discrimination Support</option>
+                <option value="Volunteer Application" selected={initialTopicParam.toLowerCase().includes('volunteer')}>Volunteer Application</option>
+                <option value="Donation & Humanitarian Aid" selected={initialTopicParam.toLowerCase().includes('donate')}>Donation & Humanitarian Aid</option>
+              </select>
+            </div>
+
+            {/*- Message Textarea */}
+            <div>
+              <label for="formMessage" class="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-1.5">
+                {t.form.message}
+              </label>
+              <textarea
+                id="formMessage"
+                name="message"
+                required
+                rows="4"
+                placeholder={t.form.messagePlaceholder}
+                class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-coral focus:ring-1 focus:ring-coral outline-none bg-gray-50 text-zinc-900 text-sm font-['Inter'] transition-colors resize-none"
+              ></textarea>
+            </div>
+
+            {/*- Submit Button */}
+            <div class="pt-2">
+              <button
+                id="formSubmitBtn"
+                type="submit"
+                class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-coral hover:bg-coral-hover text-white text-xs font-bold uppercase tracking-wider shadow-md transition-all cursor-pointer w-full sm:w-auto"
+              >
+                <span id="submitBtnText">{t.form.submit}</span>
+                <span id="submitSpinner" style="display: none;" class="material-symbols-outlined text-base animate-spin">progress_activity</span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
 
-      {/*- Location Card */}
-      <div class="rounded-xs p-6 bg-canvas border border-border flex flex-col justify-center items-center text-center">
-        <span class="material-symbols-outlined text-3xl text-royal-blue mb-2">public</span>
-        <h3 class="font-['Cinzel'] font-bold text-xs uppercase tracking-wider text-justice-navy mb-1">Global Headquarters</h3>
-        <p class="font-['Inter'] text-xs text-on-surface-variant max-w-xs">{CONFIG.CONTACT_INFO.ADDRESS}</p>
+      {/*- Right Column: Contact Cards, Office Address & Emergency Hotline */}
+      <div class="lg:col-span-5 flex flex-col gap-6 animate-on-scroll delay-150">
+        
+        {/*- Channel Details Card */}
+        <div class="bg-white p-8 sm:p-10 rounded-3xl shadow-sm border border-gray-100">
+          <span class="text-coral text-xs font-bold uppercase tracking-wider block mb-2">
+            Direct Channels
+          </span>
+          <h2 class="font-['Newsreader'] text-2xl font-bold mb-6 text-zinc-900">
+            {t.contact.title}
+          </h2>
+          
+          <div class="space-y-6 text-sm font-['Inter']">
+            {/*- Email */}
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-coral/10 text-coral flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-xl">mail</span>
+              </div>
+              <div>
+                <span class="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-0.5">
+                  {t.contact.emailLabel}
+                </span>
+                <a href={`mailto:${CONFIG.CONTACT_INFO.EMAIL}`} class="text-sm font-semibold text-zinc-900 hover:text-coral transition-colors">
+                  {CONFIG.CONTACT_INFO.EMAIL}
+                </a>
+              </div>
+            </div>
+
+            {/*- Phone */}
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-coral/10 text-coral flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-xl">call</span>
+              </div>
+              <div>
+                <span class="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-0.5">
+                  {t.contact.phoneLabel}
+                </span>
+                <a href={`tel:${CONFIG.CONTACT_INFO.PHONE}`} class="text-sm font-semibold text-zinc-900 hover:text-coral transition-colors">
+                  {CONFIG.CONTACT_INFO.PHONE_FORMATTED}
+                </a>
+              </div>
+            </div>
+
+            {/*- Address */}
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-coral/10 text-coral flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-xl">location_on</span>
+              </div>
+              <div>
+                <span class="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-0.5">
+                  {t.contact.addressLabel}
+                </span>
+                <p class="text-sm font-medium text-zinc-800 leading-snug">
+                  {CONFIG.CONTACT_INFO.ADDRESS}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/*- Global Secretariat Card in Dark Charcoal */}
+        <div class="bg-charcoal-dark text-white p-8 sm:p-10 rounded-3xl shadow-xl border border-white/10 relative overflow-hidden">
+          <div class="relative z-10">
+            <div class="w-12 h-12 rounded-2xl bg-coral/20 text-coral flex items-center justify-center mb-4 border border-coral/30">
+              <span class="material-symbols-outlined text-2xl">public</span>
+            </div>
+            <h3 class="font-['Cinzel'] text-lg font-bold uppercase tracking-wider text-white mb-2">
+              Global Coordination Secretariat
+            </h3>
+            <p class="font-['Inter'] text-xs sm:text-sm text-zinc-300 leading-relaxed font-normal mb-6">
+              Our international coordination network operates across 45+ member states to safeguard fundamental rights, provide rapid legal representation, and coordinate emergency humanitarian interventions.
+            </p>
+            <div class="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/10 text-coral text-xs font-bold uppercase tracking-wider border border-white/10">
+              <span>Regional Desks Active 24/7</span>
+            </div>
+          </div>
+
+          {/*- Ambient glow */}
+          <div class="absolute -bottom-16 -right-16 w-60 h-60 rounded-full bg-coral/15 blur-2xl pointer-events-none"></div>
+        </div>
+
       </div>
+
     </div>
+  </section>
 
-  </div>
-</section>
+  <script define:vars={{ currentLocale: local }}>
+    //- Client-side handler calling real server API /api/contact
+    const form = document.getElementById('contactForm');
+    const successMsg = document.getElementById('contactSuccessMsg');
+    const errorMsg = document.getElementById('contactErrorMsg');
+    const submitBtn = document.getElementById('formSubmitBtn');
+    const submitText = document.getElementById('submitBtnText');
+    const submitSpinner = document.getElementById('submitSpinner');
 
-<script define:vars={{ currentLocale: local }}>
-  //- Client-side handler calling real server API /api/contact
-  const form = document.getElementById('contactForm');
-  const successMsg = document.getElementById('contactSuccessMsg');
-  const errorMsg = document.getElementById('contactErrorMsg');
-  const submitBtn = document.getElementById('formSubmitBtn');
-  const submitText = document.getElementById('submitBtnText');
-  const submitSpinner = document.getElementById('submitSpinner');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-  if (form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      if (successMsg) {
-        successMsg.classList.add('hidden');
-      }
-      if (errorMsg) {
-        errorMsg.classList.add('hidden');
-      }
-
-      const nameInput = document.getElementById('formName');
-      const emailInput = document.getElementById('formEmail');
-      const topicInput = document.getElementById('formTopic');
-      const messageInput = document.getElementById('formMessage');
-
-      const payload = {
-        name: nameInput ? nameInput.value : '',
-        email: emailInput ? emailInput.value : '',
-        topic: topicInput ? topicInput.value : 'General Inquiry',
-        message: messageInput ? messageInput.value : '',
-        locale: currentLocale,
-      };
-
-      //- UI loading state
-      if (submitBtn) {
-        submitBtn.disabled = true;
-      }
-      if (submitText) {
-        submitText.textContent = "Sending...";
-      }
-      if (submitSpinner) {
-        submitSpinner.style.display = 'inline-block';
-        submitSpinner.classList.add('animate-spin');
-      }
-
-      try {
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-        });
-
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          if (successMsg) {
-            successMsg.textContent = result.message || "Thank you for contacting IHRO. Your message has been received.";
-            successMsg.classList.remove('hidden');
-          }
-          form.reset();
-        } else {
-          if (errorMsg) {
-            errorMsg.textContent = result.error || "We could not send your message. Please check your entries and try again.";
-            errorMsg.classList.remove('hidden');
-          }
+        if (successMsg) {
+          successMsg.classList.add('hidden');
         }
-      } catch (err) {
         if (errorMsg) {
-          errorMsg.textContent = "We encountered a network issue. Please check your internet connection or email us directly.";
-          errorMsg.classList.remove('hidden');
+          errorMsg.classList.add('hidden');
         }
-      } finally {
+
+        const nameInput = document.getElementById('formName');
+        const emailInput = document.getElementById('formEmail');
+        const topicInput = document.getElementById('formTopic');
+        const messageInput = document.getElementById('formMessage');
+
+        const payload = {
+          name: nameInput ? nameInput.value : '',
+          email: emailInput ? emailInput.value : '',
+          topic: topicInput ? topicInput.value : 'General Inquiry',
+          message: messageInput ? messageInput.value : '',
+          locale: currentLocale,
+        };
+
+        //- UI loading state
         if (submitBtn) {
-          submitBtn.disabled = false;
+          submitBtn.disabled = true;
         }
         if (submitText) {
-          submitText.textContent = "Send Message";
+          submitText.textContent = "Sending...";
         }
         if (submitSpinner) {
-          submitSpinner.style.display = 'none';
-          submitSpinner.classList.remove('animate-spin');
+          submitSpinner.style.display = 'inline-block';
         }
-      }
-    });
-  }
-</script>
+
+        try {
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+          });
+
+          const result = await response.json();
+
+          if (response.ok && result.success) {
+            if (successMsg) {
+              successMsg.textContent = result.message || "Thank you for contacting IHRO. Your message has been received.";
+              successMsg.classList.remove('hidden');
+            }
+            form.reset();
+          } else {
+            if (errorMsg) {
+              errorMsg.textContent = result.error || "We could not send your message. Please check your entries and try again.";
+              errorMsg.classList.remove('hidden');
+            }
+          }
+        } catch (err) {
+          if (errorMsg) {
+            errorMsg.textContent = "We encountered a network issue. Please check your internet connection or email us directly.";
+            errorMsg.classList.remove('hidden');
+          }
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+          }
+          if (submitText) {
+            submitText.textContent = "Send Message";
+          }
+          if (submitSpinner) {
+            submitSpinner.style.display = 'none';
+          }
+        }
+      });
+    }
+  </script>
 </Layout>

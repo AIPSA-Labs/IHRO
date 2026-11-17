@@ -1,13 +1,15 @@
 ---
-//- Home page layout rendering the complete landing experience
+//- Home page layout rendering the complete landing experience matching the reference UI design
 
 import HeroSection from "../../components/home/HeroSection.astro";
+import ProgramSection from "../../components/home/ProgramSection.astro";
 import AboutSection from "../../components/home/AboutSection.astro";
 import MissionSection from "../../components/home/MissionSection.astro";
-import ProgramSection from "../../components/home/ProgramSection.astro";
 import Presence from "../../components/home/Presence.astro";
 import Testimonial from "../../components/home/Testimonial.astro";
+import UpcomingEvents from "../../components/home/UpcomingEvents.astro";
 import NewsLetterSub from "../../components/home/NewsLetterSub.astro";
+import NewsSection from "../../components/home/NewsSection.astro";
 import GetInvolved from "../../components/home/GetInvolved.astro";
 import Layout from "../../layouts/Layout.astro";
 import { supportedLocales } from "../../locals/languages";
@@ -22,11 +24,13 @@ if (!codes.includes(local || '')) {
 
 <Layout>
   <HeroSection/>
+  <ProgramSection/>
   <AboutSection/>
   <MissionSection/>
-  <ProgramSection/>
   <Presence/>
   <Testimonial/>
+  <UpcomingEvents/>
   <NewsLetterSub/>
+  <NewsSection/>
   <GetInvolved/>
 </Layout>

@@ -1,5 +1,5 @@
 ---
-//- Global footer matching the exact reference video layout with multi-column links, social handles, and copyright
+//- Dark modern humanitarian footer matching the reference design layout with brand summary, quick links, contact info, and copyright
 
 import { getStrings } from "../../constants/strings";
 import { CONFIG } from "../../constants/config";
@@ -8,119 +8,151 @@ const { local = "en" } = Astro.params;
 const s = getStrings(local);
 ---
 
-<footer class="bg-justice-navy text-white pt-16 pb-12 w-full border-t border-white/10">
+<footer class="bg-charcoal-dark text-white pt-16 pb-12 w-full border-t border-white/10">
   <div class="w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
     
     {/*- Main Footer Columns */}
     <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
       
       {/*- Brand Summary & Direct Contact */}
-      <div class="md:col-span-6 lg:col-span-5">
-        <div class="flex flex-col mb-4">
-          <span class="font-['Cinzel'] text-lg md:text-xl font-bold text-white leading-tight tracking-wider">
-            {s.brand.name}
-          </span>
-          <span class="font-['Inter'] text-[11px] uppercase tracking-wider text-honor-gold font-medium mt-1">
-            {s.brand.fullName}
-          </span>
+      <div class="md:col-span-6 lg:col-span-4">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center p-1.5 border border-white/20">
+            <img src="/favicon.svg" alt={s.brand.name} class="h-full w-full object-contain" />
+          </div>
+          <div class="flex flex-col">
+            <span class="font-['Cinzel'] text-xl font-bold text-white leading-none tracking-wider">
+              {s.brand.name}
+            </span>
+            <span class="font-['Inter'] text-[10px] uppercase tracking-wider text-coral font-semibold mt-1">
+              {s.brand.fullName}
+            </span>
+          </div>
         </div>
-        <p class="font-['Inter'] text-xs sm:text-sm text-canvas-muted/80 leading-relaxed max-w-sm mb-6">
+
+        <p class="font-['Inter'] text-xs sm:text-sm text-zinc-400 leading-relaxed max-w-sm mb-6">
           {s.footer.brandDesc}
         </p>
-        <div class="space-y-1.5 text-xs text-canvas-muted/60 font-['Inter']">
+
+        {/*- Social Handles */}
+        <div class="flex items-center gap-3">
+          <a
+            href={CONFIG.SOCIAL_URLS.LINKEDIN}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-zinc-300 hover:text-white hover:border-coral hover:bg-coral transition-colors"
+            aria-label="LinkedIn"
+          >
+            <span class="text-xs font-bold">in</span>
+          </a>
+          <a
+            href={CONFIG.SOCIAL_URLS.TWITTER}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-zinc-300 hover:text-white hover:border-coral hover:bg-coral transition-colors"
+            aria-label="X (Twitter)"
+          >
+            <span class="text-xs font-bold">𝕏</span>
+          </a>
+          <a
+            href={CONFIG.SOCIAL_URLS.INSTAGRAM}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-zinc-300 hover:text-white hover:border-coral hover:bg-coral transition-colors"
+            aria-label="Instagram"
+          >
+            <span class="text-xs font-bold">ig</span>
+          </a>
+          <a
+            href={CONFIG.SOCIAL_URLS.YOUTUBE}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-zinc-300 hover:text-white hover:border-coral hover:bg-coral transition-colors"
+            aria-label="YouTube"
+          >
+            <span class="text-xs font-bold">yt</span>
+          </a>
+        </div>
+      </div>
+
+      {/*- Quick Links */}
+      <div class="md:col-span-3 lg:col-span-2">
+        <h4 class="font-['Cinzel'] text-xs font-bold uppercase tracking-wider text-coral mb-4">
+          {s.footer.quickLinksTitle}
+        </h4>
+        <ul class="space-y-2.5 font-['Inter'] text-xs sm:text-sm">
+          <li><a href={`/${local}/`} class="text-zinc-400 hover:text-white transition-colors">{s.footer.links.home}</a></li>
+          <li><a href={`/${local}/about`} class="text-zinc-400 hover:text-white transition-colors">{s.footer.links.about}</a></li>
+          <li><a href={`/${local}/#causes`} class="text-zinc-400 hover:text-white transition-colors">{s.footer.links.programs}</a></li>
+          <li><a href={`/${local}/#events`} class="text-zinc-400 hover:text-white transition-colors">{s.nav.events}</a></li>
+          <li><a href={`/${local}/#news`} class="text-zinc-400 hover:text-white transition-colors">{s.nav.news}</a></li>
+          <li><a href={`/${local}/contact`} class="text-zinc-400 hover:text-white transition-colors">{s.footer.links.contact}</a></li>
+        </ul>
+      </div>
+
+      {/*- Programs & Causes */}
+      <div class="md:col-span-3 lg:col-span-3">
+        <h4 class="font-['Cinzel'] text-xs font-bold uppercase tracking-wider text-coral mb-4">
+          Humanitarian Causes
+        </h4>
+        <ul class="space-y-2.5 font-['Inter'] text-xs sm:text-sm text-zinc-400">
+          <li><a href={`/${local}/contact?topic=legal-aid`} class="hover:text-white transition-colors">Emergency Legal Defense</a></li>
+          <li><a href={`/${local}/contact?topic=protection`} class="hover:text-white transition-colors">Child Rights & Safety</a></li>
+          <li><a href={`/${local}/contact?topic=healthcare`} class="hover:text-white transition-colors">Crisis Medical Relief</a></li>
+          <li><a href={`/${local}/contact?topic=education`} class="hover:text-white transition-colors">Defender Training Programs</a></li>
+        </ul>
+      </div>
+
+      {/*- Headquarters & Field Dispatch Thumbnail */}
+      <div class="md:col-span-12 lg:col-span-3">
+        <h4 class="font-['Cinzel'] text-xs font-bold uppercase tracking-wider text-coral mb-4">
+          Headquarters
+        </h4>
+        <div class="space-y-2 text-xs text-zinc-400 font-['Inter'] mb-5">
+          <p class="text-white font-medium">{CONFIG.CONTACT_INFO.ADDRESS}</p>
           <p>
-            <a href={`mailto:${CONFIG.CONTACT_INFO.EMAIL}`} class="hover:text-white transition-colors underline-offset-2 hover:underline">
+            <a href={`mailto:${CONFIG.CONTACT_INFO.EMAIL}`} class="hover:text-white transition-colors">
               {CONFIG.CONTACT_INFO.EMAIL}
             </a>
           </p>
           <p>
-            <a href={`tel:${CONFIG.CONTACT_INFO.PHONE}`} class="hover:text-white transition-colors underline-offset-2 hover:underline">
+            <a href={`tel:${CONFIG.CONTACT_INFO.PHONE}`} class="hover:text-white transition-colors">
               {CONFIG.CONTACT_INFO.PHONE_FORMATTED}
             </a>
           </p>
-          <p>{CONFIG.CONTACT_INFO.ADDRESS}</p>
         </div>
-      </div>
 
-      {/*- Spacer */}
-      <div class="hidden lg:block lg:col-span-1"></div>
-
-      {/*- Quick Links */}
-      <div class="md:col-span-3 lg:col-span-3">
-        <h4 class="font-['Cinzel'] text-xs font-bold uppercase tracking-wider text-honor-gold mb-4">
-          {s.footer.quickLinksTitle}
-        </h4>
-        <ul class="space-y-2.5 font-['Inter'] text-xs sm:text-sm">
-          <li><a href={`/${local}/`} class="text-white/80 hover:text-white transition-colors">{s.footer.links.home}</a></li>
-          <li><a href={`/${local}/about`} class="text-white/80 hover:text-white transition-colors">{s.footer.links.about}</a></li>
-          <li><a href={`/${local}/#mission`} class="text-white/80 hover:text-white transition-colors">{s.footer.links.mission}</a></li>
-          <li><a href={`/${local}/about#policies`} class="text-white/80 hover:text-white transition-colors">{s.footer.links.programs}</a></li>
-          <li><a href={`/${local}/contact`} class="text-white/80 hover:text-white transition-colors">{s.footer.links.contact}</a></li>
-        </ul>
-      </div>
-
-      {/*- Connect Links (Real external links with new tab attributes) */}
-      <div class="md:col-span-3 lg:col-span-3">
-        <h4 class="font-['Cinzel'] text-xs font-bold uppercase tracking-wider text-honor-gold mb-4">
-          {s.footer.connectTitle}
-        </h4>
-        <ul class="space-y-2.5 font-['Inter'] text-xs sm:text-sm">
-          <li>
-            <a
-              href={CONFIG.SOCIAL_URLS.LINKEDIN}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-white/80 hover:text-white transition-colors inline-flex items-center gap-1.5"
-            >
-              <span>{s.footer.links.linkedin}</span>
-              <span class="material-symbols-outlined text-xs">arrow_outward</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href={CONFIG.SOCIAL_URLS.INSTAGRAM}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-white/80 hover:text-white transition-colors inline-flex items-center gap-1.5"
-            >
-              <span>{s.footer.links.instagram}</span>
-              <span class="material-symbols-outlined text-xs">arrow_outward</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href={CONFIG.SOCIAL_URLS.YOUTUBE}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-white/80 hover:text-white transition-colors inline-flex items-center gap-1.5"
-            >
-              <span>{s.footer.links.youtube}</span>
-              <span class="material-symbols-outlined text-xs">arrow_outward</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href={CONFIG.SOCIAL_URLS.TWITTER}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-white/80 hover:text-white transition-colors inline-flex items-center gap-1.5"
-            >
-              <span>{s.footer.links.twitter}</span>
-              <span class="material-symbols-outlined text-xs">arrow_outward</span>
-            </a>
-          </li>
-        </ul>
+        {/*- Field Dispatch Thumbnail */}
+        <div class="w-full h-24 rounded-xl overflow-hidden border border-white/10 relative">
+          <img
+            src="https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=500"
+            alt="IHRO Global Mission"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-white">
+              Permanent Global Network
+            </span>
+          </div>
+        </div>
       </div>
 
     </div>
 
-    {/*- Bottom Bar */}
-    <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-['Inter'] text-white/50">
+    {/*- Copyright & Legal Row */}
+    <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500 font-['Inter']">
       <p>{s.footer.copyright}</p>
-      <div class="flex items-center gap-4">
-        <a href={`/${local}/privacy`} class="hover:text-white transition-colors">{s.footer.privacyPolicy}</a>
-        <span>•</span>
-        <a href={`/${local}/terms`} class="hover:text-white transition-colors">{s.footer.termsCondition}</a>
+      <div class="flex items-center gap-6">
+        <a href={`/${local}/privacy`} class="hover:text-zinc-300 transition-colors">
+          {s.footer.privacyPolicy}
+        </a>
+        <a href={`/${local}/terms`} class="hover:text-zinc-300 transition-colors">
+          {s.footer.termsCondition}
+        </a>
+        <a href={`/${local}/admin/inquiries`} class="text-zinc-600 hover:text-coral transition-colors">
+          Council Inbox
+        </a>
       </div>
     </div>
 

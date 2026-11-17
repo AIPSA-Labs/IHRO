@@ -1,129 +1,126 @@
 ---
-//- Hero section featuring official diplomatic UN aesthetic with authoritative serif typography, structured charter badge, archival framed showcase, and live impact registry
+//- Dark humanitarian split hero section with pixel-perfect alignment to navbar, concentric arch lines, authentic children photo, and integrated bottom quote strip
 
 import { getStrings } from "../../constants/strings";
-import { CONFIG } from "../../constants/config";
-import heroImg from "../../assets/hero.png";
 
 const { local = "en" } = Astro.params;
 const s = getStrings(local);
+
+const AVATARS = [
+  "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150",
+  "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=150",
+  "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=150",
+  "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150",
+];
 ---
 
-<section class="relative pt-24 md:pt-32 pb-16 bg-canvas overflow-hidden w-full flex flex-col items-center border-b border-border">
-  <div class="w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20 text-center">
-    
-    {/*- Main Hero Copy & CTAs */}
-    <div class="max-w-4xl mx-auto mb-10">
-      <h1 class="font-['Newsreader'] text-4xl sm:text-6xl md:text-7xl font-medium tracking-tight text-justice-navy leading-[1.08] mb-5">
-        <span class="block">{s.hero.titleLine1}</span>
-        <span class="block italic font-normal text-royal-blue">{s.hero.titleLine2}</span>
-      </h1>
+<section class="relative bg-charcoal-dark text-white overflow-hidden w-full">
+  
+  {/*- Concentric Arch Lines on the Left Edge matching reference */}
+  <svg
+    class="absolute left-0 bottom-44 sm:bottom-52 w-36 sm:w-48 md:w-56 h-72 sm:h-88 pointer-events-none z-0"
+    viewBox="0 0 180 300"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path d="M 12 300 V 120 A 48 48 0 0 1 60 72 H 180" stroke="#e05e3f" stroke-opacity="0.32" stroke-width="1.5" />
+    <path d="M 24 300 V 120 A 60 60 0 0 1 84 60 H 180" stroke="#e05e3f" stroke-opacity="0.32" stroke-width="1.5" />
+    <path d="M 36 300 V 120 A 72 72 0 0 1 108 48 H 180" stroke="#e05e3f" stroke-opacity="0.32" stroke-width="1.5" />
+    <path d="M 48 300 V 120 A 84 84 0 0 1 132 36 H 180" stroke="#e05e3f" stroke-opacity="0.32" stroke-width="1.5" />
+    <path d="M 60 300 V 120 A 96 96 0 0 1 156 24 H 180" stroke="#e05e3f" stroke-opacity="0.32" stroke-width="1.5" />
+  </svg>
 
-      <p class="font-['Inter'] text-sm sm:text-base md:text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed mb-8">
-        {s.hero.subtitle}
-      </p>
+  {/*- Main Hero Content: Exactly aligned with NavBar max-w-screen-2xl */}
+  <div class="w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20 pt-28 sm:pt-36 lg:pt-40 pb-14 sm:pb-16 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
 
-      <div class="flex flex-wrap items-center justify-center gap-4 relative z-20">
-        <a
-          href={`/${local}/contact`}
-          class="inline-flex items-center justify-center px-8 py-3.5 rounded-xs bg-royal-blue hover:bg-royal-blue-dark text-white text-xs font-semibold tracking-wider uppercase shadow-2xs transition-colors cursor-pointer border border-royal-blue"
-        >
-          {s.hero.ctaPrimary}
-        </a>
-        <a
-          href="#mission"
-          class="inline-flex items-center justify-center px-8 py-3.5 rounded-xs bg-white hover:bg-canvas-muted text-justice-navy text-xs font-semibold tracking-wider uppercase transition-colors cursor-pointer border border-border shadow-2xs"
-        >
-          {s.hero.ctaSecondary}
-        </a>
+      {/*- Left Content Column */}
+      <div class="lg:col-span-7 flex flex-col items-start text-left z-10">
+        
+        {/*- Coral Pre-title Tag */}
+        <div class="mb-4 animate-on-scroll">
+          <span class="text-coral text-xs sm:text-sm font-bold tracking-widest uppercase">
+            {s.hero.tag}
+          </span>
+        </div>
+
+        {/*- Bold Modern Headline */}
+        <h1 class="font-['Inter'] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-6 animate-on-scroll delay-100">
+          <span class="block">{s.hero.heading1}</span>
+          <span class="block text-white">{s.hero.heading2}</span>
+        </h1>
+
+        {/*- Subtitle Paragraph */}
+        <p class="font-['Inter'] text-sm sm:text-base md:text-lg text-zinc-300 leading-relaxed mb-8 font-normal max-w-xl animate-on-scroll delay-150">
+          {s.hero.subtitle}
+        </p>
+
+        {/*- Dual Action Buttons */}
+        <div class="flex flex-wrap items-center gap-4 sm:gap-6 mb-8 sm:mb-10 animate-on-scroll delay-200">
+          <a
+            href={`/${local}/contact?type=donate`}
+            class="inline-flex items-center gap-2 px-7 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl bg-coral hover:bg-coral-hover text-white text-sm font-bold shadow-lg transition-colors cursor-pointer"
+          >
+            <span>{s.hero.ctaPrimary}</span>
+            <span class="material-symbols-outlined text-base">arrow_forward</span>
+          </a>
+
+          <a
+            href={`/${local}/about`}
+            class="inline-flex items-center gap-3 text-white text-sm font-semibold hover:text-coral transition-colors cursor-pointer"
+          >
+            <div class="w-10 h-10 rounded-full bg-coral flex items-center justify-center text-white shadow-md">
+              <span class="material-symbols-outlined text-base ml-0.5">play_arrow</span>
+            </div>
+            <span>{s.hero.watchVideo}</span>
+          </a>
+        </div>
+
+        {/*- Overlapping Avatars & Trust Text */}
+        <div class="flex items-center gap-4 pt-4 border-t border-white/15 w-full max-w-md animate-on-scroll delay-300">
+          <div class="flex -space-x-2.5 shrink-0">
+            {AVATARS.map((avatarUrl) => (
+              <img
+                src={avatarUrl}
+                alt="Advocate"
+                class="w-10 h-10 rounded-full object-cover border-2 border-charcoal-dark"
+                loading="lazy"
+              />
+            ))}
+          </div>
+          <div class="text-xs sm:text-sm text-zinc-300 font-medium leading-snug">
+            {s.hero.trustText}
+          </div>
+        </div>
+
       </div>
+
+      {/*- Right Column: Children Photo with Organic Curved Arch & White Dashed Border */}
+      <div class="lg:col-span-5 relative flex justify-center lg:justify-end animate-on-scroll scroll-scale delay-200">
+        <div class="relative w-full max-w-md sm:max-w-lg lg:max-w-none aspect-[4/5] rounded-tl-[120px] sm:rounded-tl-[160px] rounded-br-[50px] sm:rounded-br-[70px] rounded-tr-3xl rounded-bl-3xl overflow-hidden shadow-2xl bg-charcoal-card border-l-2 border-dashed border-white/50">
+          <img
+            src="https://images.pexels.com/photos/8926543/pexels-photo-8926543.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            alt={s.hero.altArtwork}
+            class="w-full h-full object-cover object-center"
+            loading="eager"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
+        </div>
+      </div>
+
     </div>
-
-    {/*- Seamlessly Blended Visual Artwork */}
-    <div class="w-full max-w-5xl mx-auto relative z-10">
-      <div class="relative w-full h-72 sm:h-96 md:h-96 overflow-hidden">
-        <img
-          src={heroImg.src}
-          alt={s.hero.altArtwork}
-          class="w-full h-full object-cover object-center"
-        />
-        {/*- Four-edge feathered canvas blend so the image fades softly into the background */}
-        <div class="absolute inset-x-0 top-0 h-20 sm:h-24 bg-gradient-to-b from-canvas via-canvas/60 to-transparent pointer-events-none"></div>
-        <div class="absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-t from-canvas via-canvas/70 to-transparent pointer-events-none"></div>
-        <div class="absolute inset-y-0 left-0 w-20 sm:w-40 md:w-56 bg-gradient-to-r from-canvas via-canvas/70 to-transparent pointer-events-none"></div>
-        <div class="absolute inset-y-0 right-0 w-20 sm:w-40 md:w-56 bg-gradient-to-l from-canvas via-canvas/70 to-transparent pointer-events-none"></div>
-      </div>
-    </div>
-
-    {/*- Unified Live Global Impact Registry Strip */}
-    <div class="w-full max-w-5xl mx-auto mt-10 pt-8 border-t border-border grid grid-cols-2 md:grid-cols-4 gap-y-6 md:gap-y-0 md:divide-x divide-border">
-      <div class="py-2 px-4 text-center">
-        <span id="heroStatNations" class="font-['Newsreader'] text-3xl sm:text-4xl font-semibold text-royal-blue block">
-          {CONFIG.STATS.NATIONS_COUNT}+
-        </span>
-        <span class="font-['Inter'] text-[11px] uppercase tracking-wider text-on-surface-variant font-medium mt-1 block">
-          {s.presence.stats.nations}
-        </span>
-      </div>
-      <div class="py-2 px-4 text-center">
-        <span id="heroStatChapters" class="font-['Newsreader'] text-3xl sm:text-4xl font-semibold text-emerald-accent block">
-          {CONFIG.STATS.CHAPTERS_COUNT}+
-        </span>
-        <span class="font-['Inter'] text-[11px] uppercase tracking-wider text-on-surface-variant font-medium mt-1 block">
-          {s.presence.stats.chapters}
-        </span>
-      </div>
-      <div class="py-2 px-4 text-center">
-        <span id="heroStatCases" class="font-['Newsreader'] text-3xl sm:text-4xl font-semibold text-justice-navy block">
-          {CONFIG.STATS.CASES_SUPPORTED.toLocaleString()}+
-        </span>
-        <span class="font-['Inter'] text-[11px] uppercase tracking-wider text-on-surface-variant font-medium mt-1 block">
-          {s.presence.stats.cases}
-        </span>
-      </div>
-      <div class="py-2 px-4 text-center">
-        <span id="heroStatVolunteers" class="font-['Newsreader'] text-3xl sm:text-4xl font-semibold text-royal-blue block">
-          {CONFIG.STATS.VOLUNTEERS_COUNT.toLocaleString()}+
-        </span>
-        <span class="font-['Inter'] text-[11px] uppercase tracking-wider text-on-surface-variant font-medium mt-1 block">
-          {s.presence.stats.volunteers}
-        </span>
-      </div>
-    </div>
-
   </div>
-</section>
 
-<script>
-  //- Sync hero metrics with live server endpoint /api/stats
-  fetch('/api/stats')
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return null;
-    })
-    .then((data) => {
-      if (data && data.success && data.stats) {
-        const nationsEl = document.getElementById('heroStatNations');
-        const chaptersEl = document.getElementById('heroStatChapters');
-        const casesEl = document.getElementById('heroStatCases');
-        const volunteersEl = document.getElementById('heroStatVolunteers');
-        if (nationsEl) {
-          nationsEl.textContent = `${data.stats.nations}+`;
-        }
-        if (chaptersEl) {
-          chaptersEl.textContent = `${data.stats.chapters}+`;
-        }
-        if (casesEl) {
-          casesEl.textContent = `${data.stats.casesSupported.toLocaleString()}+`;
-        }
-        if (volunteersEl) {
-          volunteersEl.textContent = `${data.stats.volunteers.toLocaleString()}+`;
-        }
-      }
-    })
-    .catch((err) => {
-      console.error("[IHRO Hero Stats Sync Error]", err);
-    });
-</script>
+  {/*- Bottom Integrated Quote Strip (Clean horizontal baseline in the same section) */}
+  <div class="w-full bg-white text-zinc-900 border-t border-gray-100 py-7 sm:py-8 px-6 sm:px-10 lg:px-16 xl:px-20 relative z-20 shadow-xs animate-on-scroll">
+    <div class="w-full max-w-screen-2xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <p class="font-['Newsreader'] text-xl sm:text-2xl md:text-3xl italic font-semibold text-zinc-900 leading-snug">
+        "{s.subHeroQuote.quote}"
+      </p>
+      <p class="font-['Inter'] text-xs sm:text-sm font-bold text-coral uppercase tracking-wider shrink-0">
+        — {s.subHeroQuote.author}
+      </p>
+    </div>
+  </div>
+
+</section>

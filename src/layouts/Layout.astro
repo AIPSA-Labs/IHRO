@@ -11,7 +11,7 @@ const { local = "en" } = Astro.params;
 ---
 
 <!doctype html>
-<html lang={local} class="scroll-smooth">
+<html lang={local}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,74 +30,5 @@ const { local = "en" } = Astro.params;
 			<slot />
 		</main>
 		<Footer/>
-
-		<script define:vars={{ thresholdVal: CONFIG.INTERSECTION_THRESHOLD, parallaxConfig: CONFIG.PARALLAX }}>
-			//- Initialize scroll reveal animations for elements with .animate-on-scroll
-			const observer = new IntersectionObserver((entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						entry.target.classList.add('in-view');
-					}
-				});
-			}, { threshold: thresholdVal });
-
-			document.querySelectorAll('.animate-on-scroll').forEach((el) => {
-				observer.observe(el);
-			});
-
-			//- Initialize smooth lerp-smoothed GPU parallax engine
-			const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-			const parallaxElements = Array.from(document.querySelectorAll('[data-parallax]'));
-
-			if (!reducedMotionQuery.matches && parallaxElements.length > 0) {
-				const CENTER_DIVISOR = 2;
-				const currentOffsets = parallaxElements.map(() => 0);
-				let rafId = 0;
-
-				const updateParallax = () => {
-					const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-					const viewportCenter = viewportHeight / CENTER_DIVISOR;
-					let hasPendingMotion = false;
-
-					for (let i = 0; i < parallaxElements.length; i += 1) {
-						const el = parallaxElements[i];
-						const speedAttr = el.getAttribute('data-parallax');
-						const speed = speedAttr ? Number.parseFloat(speedAttr) : 0;
-						const rect = el.getBoundingClientRect();
-						const elementCenter = rect.top + (rect.height / CENTER_DIVISOR);
-						const rawOffset = (viewportCenter - elementCenter) * speed;
-						const clampedTarget = Math.max(
-							-parallaxConfig.MAX_OFFSET_PX,
-							Math.min(parallaxConfig.MAX_OFFSET_PX, rawOffset)
-						);
-
-						const delta = clampedTarget - currentOffsets[i];
-						currentOffsets[i] += delta * parallaxConfig.LERP_FACTOR;
-
-						if (Math.abs(delta) > parallaxConfig.SETTLE_EPSILON_PX) {
-							hasPendingMotion = true;
-						}
-
-						el.style.transform = `translate3d(0, ${currentOffsets[i].toFixed(2)}px, 0)`;
-					}
-
-					if (hasPendingMotion) {
-						rafId = window.requestAnimationFrame(updateParallax);
-					} else {
-						rafId = 0;
-					}
-				};
-
-				const scheduleParallax = () => {
-					if (rafId === 0) {
-						rafId = window.requestAnimationFrame(updateParallax);
-					}
-				};
-
-				window.addEventListener('scroll', scheduleParallax, { passive: true });
-				window.addEventListener('resize', scheduleParallax, { passive: true });
-				scheduleParallax();
-			}
-		</script>
 	</body>
 </html>

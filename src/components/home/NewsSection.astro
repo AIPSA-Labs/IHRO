@@ -1,0 +1,110 @@
+---
+//- "Our Latest News & Field Reports" section featuring 1 large featured dispatch and 3 stacked horizontal reports
+
+import { getStrings } from "../../constants/strings";
+
+const { local = "en" } = Astro.params;
+const s = getStrings(local);
+---
+
+<section class="py-20 md:py-28 bg-gray-50 text-zinc-900 border-b border-gray-100 w-full" id="news">
+  <div class="w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
+    
+    {/*- Section Header */}
+    <div class="text-center max-w-2xl mx-auto mb-14 md:mb-18 animate-on-scroll">
+      <h2 class="font-['Newsreader'] text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-900 mb-3">
+        {s.news.title}
+      </h2>
+      <p class="font-['Inter'] text-sm sm:text-base text-zinc-600 font-normal">
+        {s.news.subtitle}
+      </p>
+    </div>
+
+    {/*- 2-Column Split News Layout */}
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+
+      {/*- Left Column: Featured News Card */}
+      <div class="lg:col-span-6 bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex flex-col justify-between group animate-on-scroll">
+        <div>
+          <div class="relative w-full aspect-[16/10] rounded-xl overflow-hidden mb-5 bg-gray-100">
+            <img
+              src={s.news.featured.image}
+              alt={s.news.featured.title}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <span class="absolute top-3 left-3 bg-coral text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-xs">
+              {s.news.featured.tag}
+            </span>
+          </div>
+
+          <div class="text-xs text-zinc-500 font-medium mb-2">
+            {s.news.featured.date}
+          </div>
+
+          <h3 class="font-['Newsreader'] text-2xl sm:text-3xl font-bold text-zinc-900 leading-snug mb-3 group-hover:text-coral transition-colors">
+            {s.news.featured.title}
+          </h3>
+
+          <p class="font-['Inter'] text-sm text-zinc-600 leading-relaxed font-normal mb-6">
+            {s.news.featured.excerpt}
+          </p>
+        </div>
+
+        <div>
+          <a
+            href={`/${local}/contact?topic=news`}
+            class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-coral hover:text-zinc-900 transition-colors"
+          >
+            <span>{s.news.readMore}</span>
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+
+      {/*- Right Column: 3 Stacked Horizontal News Rows */}
+      <div class="lg:col-span-6 flex flex-col gap-6 animate-on-scroll delay-150">
+        {s.news.recent.map((item) => (
+          <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm flex gap-5 items-center group hover:shadow-md transition-shadow">
+            {/*- Thumbnail */}
+            <div class="w-28 sm:w-36 aspect-[4/3] rounded-xl overflow-hidden shrink-0 bg-gray-100">
+              <img
+                src={item.image}
+                alt={item.title}
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+
+            {/*- Text & Link */}
+            <div class="flex-grow">
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-coral">
+                  {item.tag}
+                </span>
+                <span class="text-zinc-300">·</span>
+                <span class="text-xs text-zinc-500 font-normal">
+                  {item.date}
+                </span>
+              </div>
+
+              <h4 class="font-['Newsreader'] text-lg sm:text-xl font-bold text-zinc-900 leading-snug mb-2 group-hover:text-coral transition-colors line-clamp-2">
+                {item.title}
+              </h4>
+
+              <a
+                href={`/${local}/contact?topic=news`}
+                class="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-coral hover:text-zinc-900 transition-colors"
+              >
+                <span>{s.news.readMore}</span>
+                <span class="material-symbols-outlined text-xs">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+
+  </div>
+</section>

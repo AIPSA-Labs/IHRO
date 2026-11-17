@@ -1,5 +1,6 @@
 ---
-//- Fullscreen slide-down navigation drawer with responsive editorial layout, language switcher, contact highlights, and quick links
+//- Fullscreen modern editorial slide-down navigation drawer with clean typography, coral accents, and smooth dismiss
+
 import { getStrings } from "../../constants/strings";
 import { supportedLocales } from "../../locals/languages";
 import { CONFIG } from "../../constants/config";
@@ -12,108 +13,84 @@ const pathname = Astro.url.pathname;
 const cleanPath = pathname.replace(/^\/(en|hi|fr)/, '') || '';
 
 const navItems = [
-  { href: `/${local}/`, label: s.nav.home, icon: 'home', active: cleanPath === '' || cleanPath === '/' },
-  { href: `/${local}/about`, label: s.nav.about, icon: 'info', active: cleanPath.startsWith('/about') },
-  { href: `/${local}/#mission`, label: s.nav.mission, icon: 'flag', active: false },
-  { href: `/${local}/about#policies`, label: s.nav.programs, icon: 'category', active: false },
-  { href: `/${local}/about#leadership`, label: s.nav.presence, icon: 'public', active: false },
-  { href: `/${local}/contact`, label: s.nav.contact, icon: 'mail', active: cleanPath.startsWith('/contact') },
+  { href: `/${local}/`, label: s.nav.home, active: cleanPath === '' || cleanPath === '/' },
+  { href: `/${local}/about`, label: s.nav.about, active: cleanPath.startsWith('/about') },
+  { href: `/${local}/#causes`, label: s.nav.programs, active: false },
+  { href: `/${local}/#events`, label: s.nav.events, active: false },
+  { href: `/${local}/#news`, label: s.nav.news, active: false },
+  { href: `/${local}/contact`, label: s.nav.contact, active: cleanPath.startsWith('/contact') },
 ];
 ---
 
 <div class="fixed inset-0 z-50 transform -translate-y-full transition-transform duration-500 ease-out" id="drawer">
-  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleDrawer()"></div>
-  <aside class="w-full h-full relative flex flex-col z-10 overflow-hidden bg-canvas">
+  <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="toggleDrawer()"></div>
+  <aside class="w-full h-full relative flex flex-col z-10 overflow-hidden bg-charcoal-dark text-white">
     
-    {/*- Drawer Header with Official Brand Identity */}
-    <div class="flex justify-between items-center px-6 sm:px-10 py-5 border-b border-border bg-white">
-      <div class="flex items-center gap-3.5">
-        <div class="p-1 border border-border/80 bg-white shadow-2xs">
-          <img src="/favicon.svg" alt={s.brand.name} class="h-9 w-9 object-contain" />
+    {/*- Drawer Header with Official Brand Identity and Borderless Close Trigger */}
+    <div class="flex justify-between items-center px-6 sm:px-10 py-5 border-b border-white/10 bg-charcoal-dark/95">
+      <a href={`/${local}/`} onclick="toggleDrawer()" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center p-1.5 border border-white/20 group-hover:border-coral transition-colors">
+          <img src="/favicon.svg" alt={s.brand.name} class="h-full w-full object-contain" />
         </div>
         <div class="flex flex-col">
-          <span class="font-['Cinzel'] text-lg font-bold text-justice-navy leading-none tracking-wider">
+          <span class="font-['Cinzel'] text-lg font-bold text-white leading-none tracking-wider group-hover:text-coral transition-colors">
             {s.brand.name}
           </span>
-          <span class="font-['Inter'] text-[11px] uppercase tracking-wider text-on-surface-variant font-medium mt-1">
+          <span class="font-['Inter'] text-[10px] uppercase tracking-wider text-coral font-semibold mt-1">
             {s.brand.fullName}
           </span>
         </div>
-      </div>
+      </a>
+      
+      {/*- Sleek Borderless Close Button */}
       <button
-        class="w-9 h-9 flex items-center justify-center hover:bg-canvas-muted rounded-xs transition-colors cursor-pointer text-justice-navy border border-border"
+        class="w-10 h-10 flex items-center justify-center text-white/80 hover:text-coral transition-colors cursor-pointer"
         onclick="toggleDrawer()"
-        aria-label={s.nav.about}
+        aria-label="Close menu"
       >
-        <span class="material-symbols-outlined text-xl">close</span>
+        <span class="material-symbols-outlined text-2xl">close</span>
       </button>
     </div>
 
     {/*- Content Area */}
     <div class="flex flex-1 overflow-hidden">
-      {/*- Desktop Side: Inspiring Humanitarian Image */}
-      <div class="hidden md:flex w-7/12 h-full items-center justify-center p-12 bg-canvas">
-        <div class="w-full h-full relative overflow-hidden p-2 bg-white border border-border shadow-md">
-          <div class="relative w-full h-full overflow-hidden border border-border/60">
-            <img
-              src="https://images.pexels.com/photos/4827709/pexels-photo-4827709.jpeg"
-              alt={s.brand.fullName}
-              class="w-full h-full object-cover"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 text-white">
-              <p class="font-['Newsreader'] text-2xl font-normal leading-snug italic">{s.impact.quote1}</p>
-              <p class="text-xs text-honor-gold mt-2 font-['Cinzel'] uppercase tracking-wider">— {s.impact.quote1Author}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/*- Mobile / Drawer Main Side: Modern Navigation */}
-      <div class="w-full md:w-5/12 h-full flex flex-col justify-between px-6 sm:px-10 py-6 overflow-y-auto no-scrollbar bg-white">
+      
+      {/*- Left Side: Clean Modern Editorial Navigation */}
+      <div class="w-full lg:w-5/12 h-full flex flex-col justify-between px-6 sm:px-12 py-8 overflow-y-auto no-scrollbar bg-charcoal-dark">
         
-        <div class="space-y-6">
-          {/*- Navigation Links */}
-          <nav class="flex flex-col gap-1">
-            {navItems.map((item) => (
-              <a
-                href={item.href}
-                onclick="toggleDrawer()"
-                class={`flex items-center justify-between px-4 py-3 rounded-xs border transition-colors group cursor-pointer ${
-                  item.active
-                    ? 'bg-canvas-muted text-royal-blue font-semibold border-royal-blue/30'
-                    : 'text-justice-navy border-transparent hover:bg-canvas-muted hover:text-royal-blue font-medium'
-                }`}
-              >
-                <div class="flex items-center gap-3.5">
-                  <span class={`material-symbols-outlined text-xl transition-colors ${
-                    item.active ? 'text-royal-blue' : 'text-on-surface-variant group-hover:text-royal-blue'
-                  }`}>
-                    {item.icon}
-                  </span>
-                  <span class="font-['Cinzel'] text-xs font-bold uppercase tracking-wider">
-                    {item.label}
-                  </span>
-                </div>
-                <span class="material-symbols-outlined text-base text-border group-hover:text-justice-navy transition-colors">
-                  chevron_right
-                </span>
-              </a>
-            ))}
-          </nav>
+        {/*- Navigation List with Clean Typography */}
+        <nav class="flex flex-col space-y-2 sm:space-y-3 my-auto">
+          {navItems.map((item) => (
+            <a
+              href={item.href}
+              onclick="toggleDrawer()"
+              class="group flex items-center py-2.5 transition-colors cursor-pointer"
+            >
+              <span class={`font-['Inter'] text-2xl sm:text-3xl font-semibold tracking-tight transition-colors ${
+                item.active ? 'text-coral' : 'text-white hover:text-coral'
+              }`}>
+                {item.label}
+              </span>
+            </a>
+          ))}
+        </nav>
 
-          {/*- Segmented Language Control */}
-          <div class="pt-4 border-t border-border">
-            <span class="text-xs uppercase tracking-wider font-semibold text-on-surface-variant block mb-2 px-1 font-['Cinzel']">
+        {/*- Drawer Bottom Section: Language Selector, Donate CTA, and Contact */}
+        <div class="pt-6 border-t border-white/10 mt-6 space-y-5">
+          
+          {/*- Minimalist Language Switcher */}
+          <div class="flex items-center justify-between">
+            <span class="text-xs uppercase tracking-wider font-semibold text-zinc-400">
               {s.nav.language}
             </span>
-            <div class="grid grid-cols-3 gap-1.5 p-1 rounded-xs bg-canvas-muted border border-border">
+            <div class="flex items-center gap-1.5 p-1 rounded-full bg-white/5 border border-white/10">
               {supportedLocales.map((loc) => (
                 <a
                   href={`/${loc.code}${cleanPath}`}
-                  class={`flex items-center justify-center py-2 rounded-xs text-xs font-semibold transition-all text-center ${
+                  class={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
                     loc.code === local
-                      ? 'bg-royal-blue text-white shadow-2xs'
-                      : 'text-justice-navy hover:bg-white hover:text-black'
+                      ? 'bg-coral text-white shadow-xs'
+                      : 'text-zinc-400 hover:text-white'
                   }`}
                 >
                   {loc.label}
@@ -122,51 +99,51 @@ const navItems = [
             </div>
           </div>
 
-          {/*- Quick Contact Info Strip */}
-          <div class="p-4 rounded-xs bg-canvas border border-border space-y-2 text-xs font-['Inter'] text-on-surface-variant">
-            <a href={`mailto:${CONFIG.CONTACT_INFO.EMAIL}`} class="flex items-center gap-2 hover:text-justice-navy transition-colors">
-              <span class="material-symbols-outlined text-sm text-royal-blue">mail</span>
-              <span>{CONFIG.CONTACT_INFO.EMAIL}</span>
-            </a>
-            <a href={`tel:${CONFIG.CONTACT_INFO.PHONE}`} class="flex items-center gap-2 hover:text-justice-navy transition-colors">
-              <span class="material-symbols-outlined text-sm text-emerald-accent">call</span>
-              <span>{CONFIG.CONTACT_INFO.PHONE_FORMATTED}</span>
-            </a>
-            <p class="flex items-center gap-2 text-on-surface-variant/80">
-              <span class="material-symbols-outlined text-sm text-outline">location_on</span>
-              <span>{CONFIG.CONTACT_INFO.ADDRESS}</span>
-            </p>
-          </div>
-        </div>
-
-        {/*- Drawer Footer CTA & Social Links */}
-        <div class="pt-6 border-t border-border mt-6 space-y-4">
+          {/*- Terracotta Donate CTA Button */}
           <a
             href={`/${local}/contact?type=donate`}
             onclick="toggleDrawer()"
-            class="w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xs bg-royal-blue hover:bg-royal-blue-dark text-white text-xs font-semibold uppercase tracking-wider transition-colors shadow-2xs cursor-pointer border border-royal-blue"
+            class="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-full bg-coral hover:bg-coral-hover text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-lg cursor-pointer"
           >
-            <span class="material-symbols-outlined text-base">volunteer_activism</span>
             <span>{s.nav.donateNow}</span>
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
           </a>
 
-          {/*- Social Handles Row */}
-          <div class="flex items-center justify-center gap-4 text-on-surface-variant text-xs">
-            <a href={CONFIG.SOCIAL_URLS.LINKEDIN} target="_blank" rel="noopener noreferrer" class="hover:text-justice-navy transition-colors">
-              LinkedIn
+          {/*- Subtle Footer Metadata */}
+          <div class="flex items-center justify-between text-xs text-zinc-400 pt-2">
+            <a href={`mailto:${CONFIG.CONTACT_INFO.EMAIL}`} class="hover:text-white transition-colors">
+              {CONFIG.CONTACT_INFO.EMAIL}
             </a>
-            <span>•</span>
-            <a href={CONFIG.SOCIAL_URLS.INSTAGRAM} target="_blank" rel="noopener noreferrer" class="hover:text-justice-navy transition-colors">
-              Instagram
-            </a>
-            <span>•</span>
-            <a href={CONFIG.SOCIAL_URLS.TWITTER} target="_blank" rel="noopener noreferrer" class="hover:text-justice-navy transition-colors">
-              X (Twitter)
-            </a>
+            <div class="flex items-center gap-3">
+              <a href={CONFIG.SOCIAL_URLS.LINKEDIN} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">LinkedIn</a>
+              <span>·</span>
+              <a href={CONFIG.SOCIAL_URLS.INSTAGRAM} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Instagram</a>
+            </div>
           </div>
+
         </div>
 
       </div>
+
+      {/*- Right Side (Desktop / Large Viewport): Atmospheric Humanitarian Photography */}
+      <div class="hidden lg:flex w-7/12 h-full items-center justify-center p-12 bg-charcoal-card border-l border-white/10">
+        <div class="w-full h-full relative overflow-hidden rounded-2xl border border-white/10 shadow-2xl bg-charcoal-dark">
+          <img
+            src="https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=1200"
+            alt={s.brand.fullName}
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-10 text-white">
+            <p class="font-['Newsreader'] text-3xl font-medium leading-snug italic max-w-xl">
+              "{s.subHeroQuote.quote}"
+            </p>
+            <p class="text-xs text-coral mt-3 font-['Inter'] uppercase tracking-wider font-semibold">
+              — {s.subHeroQuote.author}
+            </p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </aside>
 </div>

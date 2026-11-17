@@ -1,74 +1,85 @@
 ---
-//- Diplomatic endorsements and field testimonies with structured editorial quotation plaques
+//- "Voices of Our Impact" testimonial section with curved pointing arrow, overlapping reviewer avatars, 5 stars, and prominent quotation
 
 import { getStrings } from "../../constants/strings";
 
 const { local = "en" } = Astro.params;
 const s = getStrings(local);
+
+const REVIEW_AVATARS = [
+  "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=150",
+  "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150",
+  "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=150",
+  "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150",
+];
+
+const featuredTestimonial = s.testimonials.items[0];
 ---
 
-<section class="py-24 md:py-32 bg-canvas overflow-hidden border-b border-border w-full" id="global-voices">
-  <div class="w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20 mb-16 text-center">
-    <h2 class="font-['Newsreader'] text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-justice-navy mb-4">
-      {s.testimonials.title}
-    </h2>
-    <p class="font-['Inter'] text-base text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-      {s.testimonials.subtitle}
-    </p>
-  </div>
+<section class="py-20 md:py-28 bg-white text-zinc-900 border-b border-gray-100 overflow-hidden w-full" id="voices">
+  <div class="w-full max-w-screen-2xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
-  {/*- Continuous Editorial Testimonials Carousel */}
-  <div class="relative w-full overflow-hidden">
-    <div class="animate-scroll flex gap-6 px-4">
-      
-      {/*- Original Card Set */}
-      <div class="flex gap-6 shrink-0">
-        {s.testimonials.items.map((item) => (
-          <div class="w-80 sm:w-96 bg-white p-7 sm:p-8 border border-border rounded-none shadow-2xs flex flex-col justify-between shrink-0 hover:border-royal-blue transition-colors">
-            <div>
-              <div class="w-8 h-8 border border-border bg-canvas-muted flex items-center justify-center text-royal-blue mb-5">
-                <span class="material-symbols-outlined text-base">format_quote</span>
-              </div>
-              <p class="font-['Newsreader'] text-base sm:text-lg italic text-justice-navy leading-relaxed mb-6 font-normal">
-                "{item.quote}"
-              </p>
-            </div>
-            
-            <div class="pt-4 border-t border-border/80">
-              <h4 class="font-['Cinzel'] text-xs font-bold uppercase tracking-wider text-justice-navy">
-                {item.name}
-              </h4>
-              <p class="font-['Inter'] text-xs text-on-surface-variant mt-1">
-                {item.role} · {item.location}
-              </p>
-            </div>
-          </div>
-        ))}
+      {/*- Left Column: Section Title & Playful Curved Pointer Arrow */}
+      <div class="lg:col-span-5 flex flex-col items-start animate-on-scroll">
+        <span class="text-coral text-xs sm:text-sm font-bold tracking-widest uppercase mb-3">
+          {s.testimonials.quoteBadge}
+        </span>
+        <h2 class="font-['Newsreader'] text-4xl sm:text-5xl font-bold tracking-tight text-zinc-900 leading-tight mb-4">
+          {s.testimonials.title}
+        </h2>
+        <p class="font-['Inter'] text-sm sm:text-base text-zinc-600 leading-relaxed max-w-md font-normal mb-8">
+          {s.testimonials.subtitle}
+        </p>
+
+        {/*- Playful Hand-Drawn Style Coral Arrow Pointing to Right Quote */}
+        <div class="hidden lg:block text-coral mt-4 ml-6 animate-float">
+          <svg width="120" height="60" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="stroke-coral">
+            <path d="M10 10 C 35 45, 80 50, 105 25" stroke-width="2.5" stroke-linecap="round" fill="none" />
+            <path d="M95 18 L 108 24 L 102 36" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+          </svg>
+        </div>
       </div>
 
-      {/*- Duplicated Card Set for Seamless Continuous Loop */}
-      <div aria-hidden="true" class="flex gap-6 shrink-0">
-        {s.testimonials.items.map((item) => (
-          <div class="w-80 sm:w-96 bg-white p-7 sm:p-8 border border-border rounded-none shadow-2xs flex flex-col justify-between shrink-0 hover:border-royal-blue transition-colors">
-            <div>
-              <div class="w-8 h-8 border border-border bg-canvas-muted flex items-center justify-center text-royal-blue mb-5">
-                <span class="material-symbols-outlined text-base">format_quote</span>
-              </div>
-              <p class="font-['Newsreader'] text-base sm:text-lg italic text-justice-navy leading-relaxed mb-6 font-normal">
-                "{item.quote}"
-              </p>
-            </div>
-            
-            <div class="pt-4 border-t border-border/80">
-              <h4 class="font-['Cinzel'] text-xs font-bold uppercase tracking-wider text-justice-navy">
-                {item.name}
-              </h4>
-              <p class="font-['Inter'] text-xs text-on-surface-variant mt-1">
-                {item.role} · {item.location}
-              </p>
-            </div>
-          </div>
-        ))}
+      {/*- Right Column: Reviewer Avatars, Big Quotation, 5 Stars, and Author */}
+      <div class="lg:col-span-7 bg-gray-50 rounded-3xl p-8 sm:p-12 border border-gray-100 shadow-sm relative animate-on-scroll delay-150">
+        
+        {/*- Overlapping Avatars */}
+        <div class="flex -space-x-3 mb-6">
+          {REVIEW_AVATARS.map((avatarUrl, idx) => (
+            <img
+              src={avatarUrl}
+              alt="Community Reviewer"
+              class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-xs"
+              loading="lazy"
+            />
+          ))}
+        </div>
+
+        {/*- Quotation Mark */}
+        <p class="font-['Newsreader'] text-xl sm:text-2xl md:text-3xl italic text-zinc-900 leading-snug mb-6 font-medium">
+          "{featuredTestimonial.quote}"
+        </p>
+
+        {/*- 5 Gold Stars Rating */}
+        <div class="flex items-center gap-1 text-amber-500 mb-4">
+          <span class="material-symbols-outlined text-lg">star</span>
+          <span class="material-symbols-outlined text-lg">star</span>
+          <span class="material-symbols-outlined text-lg">star</span>
+          <span class="material-symbols-outlined text-lg">star</span>
+          <span class="material-symbols-outlined text-lg">star</span>
+        </div>
+
+        {/*- Author Bio */}
+        <div>
+          <h4 class="font-['Cinzel'] text-sm sm:text-base font-bold uppercase tracking-wider text-zinc-900">
+            {featuredTestimonial.name}
+          </h4>
+          <p class="font-['Inter'] text-xs sm:text-sm text-zinc-600 mt-0.5">
+            {featuredTestimonial.role} · {featuredTestimonial.location}
+          </p>
+        </div>
+
       </div>
 
     </div>

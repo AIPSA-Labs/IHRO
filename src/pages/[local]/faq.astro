@@ -1,0 +1,129 @@
+---
+//- Dedicated FAQ page with clean white background, category tags, accordion details, and contact CTA
+import Layout from "../../layouts/Layout.astro";
+import { translations } from "../../locals/faq/page";
+import { supportedLocales } from "../../locals/languages";
+
+type Locale = "en" | "hi" | "fr";
+const { local = "en" } = Astro.params ?? {};
+const codes = supportedLocales.map((l) => l.code);
+
+if (!codes.includes(local)) {
+  return Astro.redirect("/404");
+}
+
+const t = translations[local as Locale] || translations["en"];
+
+//- Distinct badge colors by category
+const CATEGORY_COLORS: Record<string, string> = {
+  General: "bg-blue-50 text-blue-800 border-blue-200",
+  "सामान्य": "bg-blue-50 text-blue-800 border-blue-200",
+  "Général": "bg-blue-50 text-blue-800 border-blue-200",
+
+  Volunteering: "bg-green-50 text-green-800 border-green-200",
+  "स्वयंसेवा": "bg-green-50 text-green-800 border-green-200",
+  "Bénévolat": "bg-green-50 text-green-800 border-green-200",
+
+  "Legal Aid": "bg-red-50 text-red-800 border-red-200",
+  "कानूनी सहायता": "bg-red-50 text-red-800 border-red-200",
+  "Aide Juridique": "bg-red-50 text-red-800 border-red-200",
+
+  Donations: "bg-yellow-50 text-yellow-800 border-yellow-200",
+  "दान": "bg-yellow-50 text-yellow-800 border-yellow-200",
+  "Dons": "bg-yellow-50 text-yellow-800 border-yellow-200",
+
+  Partnership: "bg-purple-50 text-purple-800 border-purple-200",
+  "साझेदारी": "bg-purple-50 text-purple-800 border-purple-200",
+  "Partenariats": "bg-purple-50 text-purple-800 border-purple-200",
+};
+---
+
+<Layout>
+  {/*- Hero section */}
+  <section class="bg-blue-900 text-white pt-24 pb-16 px-4 md:px-8 relative overflow-hidden">
+    <div class="max-w-4xl mx-auto text-center relative z-10">
+      
+      {/*- Breadcrumb */}
+      <nav class="flex justify-center items-center gap-2 text-xs uppercase tracking-wider text-blue-200 mb-6 font-medium">
+        <a href={`/${local}/`} class="hover:text-white transition-colors">Home</a>
+        <span class="text-blue-400">/</span>
+        <span class="text-white">FAQ</span>
+      </nav>
+
+      {/*- Title */}
+      <h1 class="font-['Hanken_Grotesk'] text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+        {t.title}
+      </h1>
+
+      {/*- Subtitle */}
+      <p class="font-['Inter'] text-lg text-blue-100 max-w-2xl mx-auto leading-relaxed">
+        {t.subtitle}
+      </p>
+
+    </div>
+
+    {/*- Decorative multicolor bar at hero bottom */}
+    <div class="colored-bar absolute bottom-0 left-0 right-0">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </section>
+
+  {/*- Main FAQ List Section */}
+  <section class="bg-white py-16 px-4 md:px-8">
+    <div class="max-w-4xl mx-auto">
+
+      {/*- Accordion items */}
+      <div class="space-y-4">
+        {t.items.map((item) => {
+          const badgeClass = CATEGORY_COLORS[item.category] || "bg-gray-100 text-gray-800 border-gray-200";
+          return (
+            <details class="group bg-white border border-gray-200 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm hover:border-blue-600 transition-all">
+              <summary class="flex justify-between items-start sm:items-center cursor-pointer list-none gap-3 sm:gap-4">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                  <span class={`self-start text-xs font-semibold px-2.5 py-0.5 rounded-md border ${badgeClass}`}>
+                    {item.category}
+                  </span>
+                  <span class="font-['Hanken_Grotesk'] text-base sm:text-lg md:text-xl font-bold text-gray-900 group-open:text-blue-900">
+                    {item.question}
+                  </span>
+                </div>
+                <span class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 group-open:bg-blue-800 group-open:text-white transition-all flex-shrink-0 mt-0.5 sm:mt-0">
+                  <span class="material-symbols-outlined text-lg transition-transform group-open:rotate-180">
+                    expand_more
+                  </span>
+                </span>
+              </summary>
+              <div class="pt-4 mt-4 border-t border-gray-100">
+                <p class="font-['Inter'] text-gray-600 leading-relaxed text-base">
+                  {item.answer}
+                </p>
+              </div>
+            </details>
+          );
+        })}
+      </div>
+
+      {/*- Direct help banner */}
+      <div class="mt-16 bg-gray-50 border border-gray-200 rounded-2xl p-8 md:p-10 text-center">
+        <div class="w-12 h-12 bg-blue-100 text-blue-800 rounded-full flex items-center justify-center mx-auto mb-4">
+          <span class="material-symbols-outlined text-2xl">support_agent</span>
+        </div>
+        <h3 class="font-['Hanken_Grotesk'] text-2xl font-bold text-gray-900 mb-2">
+          {t.contactPrompt}
+        </h3>
+        <p class="font-['Inter'] text-gray-600 text-sm max-w-lg mx-auto mb-6">
+          Our global team is available to answer any questions regarding advocacy, volunteer opportunities, and partnerships.
+        </p>
+        <a
+          href={`/${local}/contact`}
+          class="inline-flex items-center gap-2 bg-blue-800 text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-900 transition-colors text-sm shadow-sm"
+        >
+          {t.contactAction}
+          <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+</Layout>
+

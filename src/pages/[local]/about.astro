@@ -1,20 +1,29 @@
 ---
+//- About Us page with structured sections for mission, impact, history, policies, leadership, and CTA
 import Hero from "../../components/about/Hero.astro";
 import HistorySection from "../../components/about/HistorySection.astro";
 import VisionMission from "../../components/about/VisionMission.astro";
-    import Leadership from "../../components/about/Leadership.astro";
+import Leadership from "../../components/about/Leadership.astro";
 import Layout from "../../layouts/Layout.astro";
 import GetInvolved from "../../components/about/GetInvolved.astro";
 import Impact from "../../components/about/Impact.astro";
 import Policies from "../../components/about/Policies.astro";
+import { supportedLocales } from "../../locals/languages";
+
+const { local } = Astro.params;
+const codes = supportedLocales.map((l) => l.code);
+
+if (!codes.includes(local || "")) {
+  return Astro.redirect("/404");
+}
 ---
 
 <Layout>
-    <Hero/>
-    <VisionMission/>
-    <HistorySection/>
-    <Leadership/>
-    <Impact/>
-    <Policies/>
-    <GetInvolved/>
+  <Hero />
+  <VisionMission />
+  <Impact />
+  <HistorySection />
+  <Policies />
+  <Leadership />
+  <GetInvolved />
 </Layout>

@@ -1,26 +1,93 @@
 ---
+//- Get Involved CTA section with gradient background and 3 action cards
 import { translations } from "../../locals/home/getInvolved";
 
-type Locale = 'en' | 'hi' | 'fr';
-const { local = 'en' } = Astro.params ?? {};
-const t = translations[local as Locale] || translations['en'];
+type Locale = "en" | "hi" | "fr";
+const { local = "en" } = Astro.params ?? {};
+const t = translations[local as Locale] || translations["en"];
 ---
 
-<section class="bg-justice-navy text-white py-20">
-  <div class="max-w-7xl mx-auto px-4 md:px-6 text-center">
-    <h2 class="animate-on-scroll font-['Hanken_Grotesk'] text-[32px] md:text-[40px] leading-[48px] tracking-[-0.01em] font-semibold mb-6">
-      {t.title}
-    </h2>
-    <p class="animate-on-scroll delay-1 text-white/70 font-['Inter'] mb-12 max-w-xl mx-auto">
-      {t.subtitle}
-    </p>
+<section class="bg-gradient-to-br from-blue-900 to-blue-800 py-24 px-4 md:px-8 relative" id="get-involved">
+  <div class="max-w-7xl mx-auto">
 
-    <div class="animate-on-scroll delay-2 flex justify-center">
-      {t.actions.map((action) => (
-        <a href={action.link} class="bg-white text-justice-navy px-8 py-3 rounded-full font-['Inter'] text-sm font-semibold hover:bg-surface-container transition-all">
-          {action.cta}
-        </a>
-      ))}
+    {/*- Section header */}
+    <div class="text-center mb-10 md:mb-14">
+      <h2 class="animate-on-scroll font-['Hanken_Grotesk'] text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+        {t.title}
+      </h2>
+      <p class="animate-on-scroll delay-1 text-blue-100 max-w-xl mx-auto leading-relaxed text-sm sm:text-base">
+        {t.subtitle}
+      </p>
     </div>
+
+    {/*- Three action cards */}
+    <div class="animate-on-scroll delay-2 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+
+      {/*- Card 1: Volunteer */}
+      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-lg flex flex-col gap-4 border border-gray-100">
+        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-800 flex items-center justify-center">
+          <span class="material-symbols-outlined text-3xl">volunteer_activism</span>
+        </div>
+        <h3 class="font-['Hanken_Grotesk'] text-xl font-bold text-blue-900">
+          {t.actions[0].title}
+        </h3>
+        <p class="text-gray-600 leading-relaxed text-sm flex-1">
+          {t.actions[0].description}
+        </p>
+        <a
+          href={`/${local}/contact`}
+          class="inline-flex items-center justify-center gap-2 bg-blue-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-900 transition-colors text-sm shadow-sm"
+        >
+          <span>{t.actions[0].cta}</span>
+          <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+      </div>
+
+      {/*- Card 2: Donate */}
+      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-lg flex flex-col gap-4 border border-gray-100">
+        <div class="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center">
+          <span class="material-symbols-outlined text-3xl">favorite</span>
+        </div>
+        <h3 class="font-['Hanken_Grotesk'] text-xl font-bold text-red-600">
+          Support Our Cause
+        </h3>
+        <p class="text-gray-600 leading-relaxed text-sm flex-1">
+          Your donation funds critical human rights legal aid, humanitarian missions, and education worldwide.
+        </p>
+        <a
+          href={`/${local}/contact`}
+          class="inline-flex items-center justify-center gap-2 bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors text-sm shadow-sm"
+        >
+          <span>Donate Now</span>
+          <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+      </div>
+
+      {/*- Card 3: Partner */}
+      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-lg flex flex-col gap-4 border border-gray-100">
+        <div class="w-12 h-12 rounded-xl bg-green-50 text-green-700 flex items-center justify-center">
+          <span class="material-symbols-outlined text-3xl">handshake</span>
+        </div>
+        <h3 class="font-['Hanken_Grotesk'] text-xl font-bold text-green-700">
+          Become a Partner
+        </h3>
+        <p class="text-gray-600 leading-relaxed text-sm flex-1">
+          Partner with us to amplify impact, organize symposiums, and build human rights awareness across communities.
+        </p>
+        <a
+          href={`/${local}/contact`}
+          class="inline-flex items-center justify-center gap-2 bg-green-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-800 transition-colors text-sm shadow-sm"
+        >
+          <span>Contact Us</span>
+          <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  {/*- Multicolor bar divider at bottom of section */}
+  <div class="colored-bar absolute bottom-0 left-0 right-0">
+    <span></span><span></span><span></span><span></span><span></span>
   </div>
 </section>

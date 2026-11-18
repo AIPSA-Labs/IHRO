@@ -1,32 +1,52 @@
 ---
+//- Leadership team section with white background and multicolor accents
 import { translations } from "../../locals/about/leadership";
 
-type Locale = 'en' | 'hi' | 'fr';
-const { local = 'en' } = Astro.params ?? {};
-const t = translations[local as Locale] || translations['en'];
+type Locale = "en" | "hi" | "fr";
+const { local = "en" } = Astro.params ?? {};
+const t = translations[local as Locale] || translations["en"];
+
+const BORDER_ACCENTS = [
+  "border-t-4 border-t-blue-800",
+  "border-t-4 border-t-red-600",
+  "border-t-4 border-t-green-700",
+  "border-t-4 border-t-yellow-500",
+  "border-t-4 border-t-purple-700",
+  "border-t-4 border-t-blue-800",
+];
 ---
 
-<section class="bg-background text-foreground py-24 px-4 sm:px-6 md:px-10 relative overflow-hidden">
-  <!-- Background Decoration -->
-  <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2"></div>
+<section class="bg-white py-24 px-4 md:px-8 border-b border-gray-100 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto">
 
-  <div class="max-w-7xl mx-auto relative z-10">
+    {/*- Section header */}
     <div class="text-center mb-16">
-      <h2 class="animate-on-scroll text-3xl md:text-5xl font-extrabold mb-4">{t.title}</h2>
-      <div class="animate-on-scroll scroll-scale w-24 h-1 bg-gradient-to-r from-primary via-accent to-primary mx-auto rounded-full"></div>
+      <h2 class="animate-on-scroll font-['Hanken_Grotesk'] text-4xl font-bold text-blue-900 mb-4">
+        {t.title}
+      </h2>
+      <div class="w-16 h-1 bg-blue-800 mx-auto rounded-full"></div>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {t.leaders.map((leader, index) => (
-        <div class={`animate-on-scroll delay-${(index % 6) + 1} group glass-card rounded-3xl p-6 flex flex-col items-center text-center hover-lift`}>
-          <div class="relative mb-4">
-            <img src={leader.image} alt={leader.name} class="w-32 h-32 rounded-2xl object-cover" />
-            <div class="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    {/*- Team Grid */}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {t.leaders.map((leader, index) => {
+        const borderClass = BORDER_ACCENTS[index % BORDER_ACCENTS.length];
+
+        return (
+          <div class={`bg-white border border-gray-200 rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-lg transition-all flex flex-col items-center text-center ${borderClass}`}>
+            <div class="w-24 h-24 rounded-full bg-blue-50 border-2 border-blue-100 flex items-center justify-center text-blue-800 mb-6 overflow-hidden">
+              <span class="material-symbols-outlined text-5xl">person</span>
+            </div>
+            <h3 class="font-['Hanken_Grotesk'] text-xl font-bold text-gray-900 mb-1">
+              {leader.name}
+            </h3>
+            <p class="font-['Inter'] text-sm font-medium text-blue-800">
+              {leader.position}
+            </p>
           </div>
-          <h3 class="text-xl font-bold">{leader.name}</h3>
-          <p class="text-sm text-muted-foreground mt-1">{leader.position}</p>
-        </div>
-      ))}
+        );
+      })}
     </div>
+
   </div>
 </section>

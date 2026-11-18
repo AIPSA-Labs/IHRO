@@ -1,21 +1,63 @@
 ---
+//- Terms of Service page with white theme, clean typography, and hero header
 import { translations } from "../../locals/legal/terms";
 import Layout from "../../layouts/Layout.astro";
+import { supportedLocales } from "../../locals/languages";
 
-type Locale = 'en' | 'hi' | 'fr';
-const { local = 'en' } = Astro.params ?? {};
-const t = translations[local as Locale] || translations['en'];
+type Locale = "en" | "hi" | "fr";
+const { local = "en" } = Astro.params ?? {};
+const codes = supportedLocales.map((l) => l.code);
+
+if (!codes.includes(local)) {
+  return Astro.redirect("/404");
+}
+
+const t = translations[local as Locale] || translations["en"];
 ---
-<Layout>
-<section class="bg-background text-foreground py-20 px-4 md:px-10 max-w-6xl mx-auto">
-  <h1 class="text-4xl md:text-5xl font-extrabold mb-8 text-center">{t.title}</h1>
-  <p class="text-lg text-foreground/70 mb-12 text-center">{t.intro}</p>
 
-  {t.sections.map((section) => (
-    <div class="mb-8">
-      <h2 class="text-2xl font-semibold mb-2">{section.heading}</h2>
-      <p class="text-foreground/80 whitespace-pre-line">{section.content}</p>
+<Layout>
+  {/*- Hero section */}
+  <section class="bg-blue-900 text-white pt-24 pb-16 px-4 md:px-8 relative overflow-hidden">
+    <div class="max-w-4xl mx-auto text-center relative z-10">
+
+      {/*- Breadcrumb */}
+      <nav class="flex justify-center items-center gap-2 text-xs uppercase tracking-wider text-blue-200 mb-6 font-medium">
+        <a href={`/${local}/`} class="hover:text-white transition-colors">Home</a>
+        <span class="text-blue-400">/</span>
+        <span class="text-white">Terms of Service</span>
+      </nav>
+
+      {/*- Title */}
+      <h1 class="font-['Hanken_Grotesk'] text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+        {t.title}
+      </h1>
+
+      {/*- Intro */}
+      <p class="font-['Inter'] text-lg text-blue-100 max-w-2xl mx-auto leading-relaxed">
+        {t.intro}
+      </p>
+
     </div>
-  ))}
-</section>
+
+    {/*- Multicolor bar divider at hero bottom */}
+    <div class="colored-bar absolute bottom-0 left-0 right-0">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </section>
+
+  {/*- Main Content */}
+  <section class="bg-white py-16 px-4 md:px-8">
+    <div class="max-w-4xl mx-auto space-y-8">
+      {t.sections.map((section) => (
+        <div class="bg-white border border-gray-200 rounded-xl sm:rounded-2xl p-5 sm:p-8 shadow-sm">
+          <h2 class="font-['Hanken_Grotesk'] text-xl sm:text-2xl font-bold text-blue-900 mb-4 pb-2 border-b border-gray-100">
+            {section.heading}
+          </h2>
+          <p class="font-['Inter'] text-gray-600 leading-relaxed text-base whitespace-pre-line">
+            {section.content}
+          </p>
+        </div>
+      ))}
+    </div>
+  </section>
 </Layout>

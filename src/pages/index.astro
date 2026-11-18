@@ -1,8 +1,7 @@
 ---
-import { defaultLocale } from "../locals/languages.js";
+import { defaultLocale, supportedLocales } from "../locals/languages.js";
 
-const local = Astro.cookies.get("locale");
-if (!local) {
-  return Astro.redirect(`/${defaultLocale}`);
-}
+const cookieLocale = Astro.cookies.get("locale")?.value;
+const validLocale = supportedLocales.find((l) => l.code === cookieLocale)?.code || defaultLocale;
+return Astro.redirect(`/${validLocale}`);
 ---

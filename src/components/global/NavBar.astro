@@ -1,29 +1,170 @@
 ---
+//- Navigation bar component with white theme, multicolor accent bar, and localized links
 import { supportedLocales } from "../../locals/languages";
+
+type Locale = "en" | "hi" | "fr";
+const { local = "en" } = Astro.params ?? {};
+const currentPath = Astro.url.pathname;
+const isHome = currentPath === `/${local}/` || currentPath === `/${local}`;
+const isAbout = currentPath.startsWith(`/${local}/about`);
+const isFaq = currentPath.startsWith(`/${local}/faq`);
+const isContact = currentPath.startsWith(`/${local}/contact`);
 ---
 
-<header class="fixed top-0 w-full z-50 bg-white shadow-sm">
-<nav class="flex justify-between items-center px-4 md:px-6 py-4 w-full">
+<header class="fixed top-0 w-full z-50 bg-white shadow-sm border-b border-gray-100">
+  <nav class="flex justify-between items-center px-4 md:px-8 lg:px-10 py-3 max-w-screen-2xl mx-auto">
 
-  <a href="/" class="flex items-center gap-3 cursor-pointer">
-    <img src="/favicon.svg" alt="IHRO Logo" class="h-10 w-10 object-contain" />
-    <span class="font-['Hanken_Grotesk'] text-[20px] md:text-[24px] text-on-surface font-bold tracking-tight">IHRO</span>
-    <span class="hidden md:inline text-on-surface font-['Inter'] text-sm font-medium">— International Human Rights Organization</span>
-  </a>
+    {/*- Logo */}
+    <a href={`/${local}/`} class="flex items-center gap-3 cursor-pointer">
+      <img src="/favicon.svg" alt="IHRO Logo" class="h-9 w-9 object-contain" />
+      <span class="font-['Hanken_Grotesk'] text-2xl font-bold text-blue-900 tracking-tight">IHRO</span>
+      <span class="hidden lg:inline text-gray-500 font-['Inter'] text-sm font-medium ml-1">
+        — International Human Rights Organization
+      </span>
+    </a>
 
-  <!-- Menu Button (all screen sizes) -->
-  <button class="p-2 text-on-surface cursor-pointer" onclick="toggleDrawer()">
-    <span class="material-symbols-outlined">menu</span>
-  </button>
+    {/*- Desktop nav links */}
+    <ul class="hidden md:flex items-center gap-6">
+      <li>
+        <a
+          href={`/${local}/`}
+          class={`font-medium font-['Inter'] text-sm transition-colors duration-200 ${isHome ? "text-blue-800 font-semibold" : "text-gray-600 hover:text-blue-800"}`}
+        >
+          Home
+        </a>
+      </li>
+      <li>
+        <a
+          href={`/${local}/about`}
+          class={`font-medium font-['Inter'] text-sm transition-colors duration-200 ${isAbout ? "text-blue-800 font-semibold" : "text-gray-600 hover:text-blue-800"}`}
+        >
+          About
+        </a>
+      </li>
+      <li>
+        <a
+          href={`/${local}/#programs`}
+          class="text-gray-600 hover:text-blue-800 font-medium font-['Inter'] text-sm transition-colors duration-200"
+        >
+          Programs
+        </a>
+      </li>
+      <li>
+        <a
+          href={`/${local}/#presence`}
+          class="text-gray-600 hover:text-blue-800 font-medium font-['Inter'] text-sm transition-colors duration-200"
+        >
+          Presence
+        </a>
+      </li>
+      <li>
+        <a
+          href={`/${local}/faq`}
+          class={`font-medium font-['Inter'] text-sm transition-colors duration-200 ${isFaq ? "text-blue-800 font-semibold" : "text-gray-600 hover:text-blue-800"}`}
+        >
+          FAQ
+        </a>
+      </li>
+      <li>
+        <a
+          href={`/${local}/contact`}
+          class={`font-medium font-['Inter'] text-sm transition-colors duration-200 ${isContact ? "text-blue-800 font-semibold" : "text-gray-600 hover:text-blue-800"}`}
+        >
+          Contact
+        </a>
+      </li>
+    </ul>
 
-</nav>
+    {/*- Right side actions: Language selector & Drawer toggle */}
+    <div class="flex items-center gap-3">
+
+      {/*- Language selector dropdown */}
+      <div class="relative hidden sm:block" id="langDropdownWrapper">
+        <button
+          id="langToggleBtn"
+          onclick="toggleNavLang()"
+          class="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-gray-200 text-gray-700 hover:border-blue-700 hover:text-blue-800 font-medium font-['Inter'] text-sm transition-colors duration-200 cursor-pointer"
+        >
+          <span class="material-symbols-outlined text-base leading-none">language</span>
+          <span id="currentLangLabel" class="uppercase">{local}</span>
+          <span class="material-symbols-outlined text-base leading-none transition-transform duration-200" id="navLangArrow">expand_more</span>
+        </button>
+        <div id="navLangOptions" class="hidden absolute right-0 mt-2 bg-white border border-gray-100 rounded-xl shadow-lg py-2 min-w-32 z-50">
+          {supportedLocales.map((locale) => (
+            <a
+              href={`/${locale.code}/`}
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-800 font-['Inter'] font-medium transition-colors duration-150"
+            >
+              {locale.label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/*- Action CTA button on desktop */}
+      <a
+        href={`/${local}/contact`}
+        class="hidden lg:inline-flex items-center bg-blue-800 text-white text-xs uppercase tracking-wider font-semibold px-4 py-2 rounded-lg hover:bg-blue-900 transition-colors shadow-sm"
+      >
+        Get Involved
+      </a>
+
+      {/*- Hamburger menu button (mobile only) */}
+      <button
+        class="md:hidden p-2 text-gray-700 hover:text-blue-800 cursor-pointer transition-colors duration-200"
+        onclick="toggleDrawer()"
+        aria-label="Open menu"
+      >
+        <span class="material-symbols-outlined text-2xl">menu</span>
+      </button>
+
+    </div>
+
+  </nav>
+
+  {/*- 5-color accent strip */}
+  <div class="colored-bar h-1 w-full">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
 </header>
 
 <script>
+  //- Toggle navigation language dropdown
+  // @ts-ignore
+  window.toggleNavLang = function() {
+    const options = document.getElementById('navLangOptions');
+    const arrow = document.getElementById('navLangArrow');
+    if (options) {
+      options.classList.toggle('hidden');
+    }
+    if (arrow) {
+      arrow.classList.toggle('rotate-180');
+    }
+  };
+
+  //- Close nav language dropdown when clicking outside
+  document.addEventListener('click', function(event) {
+    const wrapper = document.getElementById('langDropdownWrapper');
+    const target = event.target as Node;
+    if (wrapper && !wrapper.contains(target)) {
+      const options = document.getElementById('navLangOptions');
+      const arrow = document.getElementById('navLangArrow');
+      if (options) {
+        options.classList.add('hidden');
+      }
+      if (arrow) {
+        arrow.classList.remove('rotate-180');
+      }
+    }
+  });
+
+  //- Toggle side drawer navigation
   // @ts-ignore
   window.toggleDrawer = function() {
     const drawer = document.getElementById('drawer');
-    drawer?.classList.toggle('-translate-y-full');
-    drawer?.classList.toggle('translate-y-0');
+    if (drawer) {
+      drawer.classList.toggle('-translate-y-full');
+      drawer.classList.toggle('translate-y-0');
+    }
   };
 </script>

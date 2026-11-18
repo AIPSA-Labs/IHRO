@@ -1,39 +1,41 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #fffef5;
-  --color-foreground: #1a1a1a;
+  --color-background: #FFFFFF;
+  --color-foreground: #0F1419;
 
-  --color-primary: #FFC107;
-  --color-primary-foreground: #1a1a1a;
+  --color-primary: #1B3F7A;
+  --color-primary-foreground: #FFFFFF;
 
-  --color-secondary: #FFA000;
-  --color-secondary-foreground: #1a1a1a;
+  --color-secondary: #E63329;
+  --color-secondary-foreground: #FFFFFF;
 
-  --color-muted: #fef9e7;
-  --color-muted-foreground: #5d5d5d;
+  --color-muted: #F8F9FA;
+  --color-muted-foreground: #6B7280;
 
-  --color-border: #e6d88a;
+  --color-border: #E5E7EB;
 
-  --color-surface: #fffef5;
-  --color-accent: #FF8F00;
-  --color-accent-foreground: #1a1a1a;
+  --color-surface: #FFFFFF;
+  --color-accent: #F5A623;
+  --color-accent-foreground: #0F1419;
 
-  --color-success: #2e7d32;
-  --color-error: #ba1a1a;
+  --color-success: #2D7A4F;
+  --color-error: #E63329;
 
-  --color-outline: #b8a640;
-  --color-on-surface: #1a1a1a;
-  --color-on-surface-variant: #5d5d5d;
-  --color-surface-container: #fef6d0;
-  --color-surface-container-low: #fef9e7;
-  --color-surface-container-high: #fdf0b8;
-  --color-surface-container-highest: #fceaa0;
-  --color-surface-dim: #f5e88a;
+  --color-outline: #D1D5DB;
+  --color-on-surface: #0F1419;
+  --color-on-surface-variant: #6B7280;
+  --color-surface-container: #F3F4F6;
+  --color-surface-container-low: #F9FAFB;
+  --color-surface-container-high: #E5E7EB;
+  --color-surface-container-highest: #D1D5DB;
+  --color-surface-dim: #E5E7EB;
 
-  --color-justice-navy: #1a1a1a;
-  --color-action-blue: #FFA000;
-  --color-honor-gold: #FFC107;
+  --color-justice-navy: #1B3F7A;
+  --color-action-blue: #E63329;
+  --color-honor-gold: #F5A623;
+  --color-ihro-green: #2D7A4F;
+  --color-ihro-purple: #6B4FA0;
 }
 
 html {
@@ -54,15 +56,15 @@ body {
 }
 
 .liquid-glass {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  box-shadow: 0 8px 32px rgba(15, 20, 25, 0.06);
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #FFC107 0%, #FF8F00 100%);
+  background: linear-gradient(135deg, #1B3F7A 0%, #6B4FA0 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -111,18 +113,7 @@ body {
   50% { transform: translateY(-10px); }
 }
 
-/* Scroll Animations - CSS Only */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/*- Scroll Animations - CSS Only */
 @keyframes fadeInLeft {
   from {
     opacity: 0;
@@ -176,10 +167,57 @@ body {
   animation-name: scaleIn;
 }
 
-/* Stagger delays */
+/*- Stagger delays */
 .delay-1 { animation-delay: 0.1s !important; }
 .delay-2 { animation-delay: 0.15s !important; }
 .delay-3 { animation-delay: 0.2s !important; }
 .delay-4 { animation-delay: 0.25s !important; }
 .delay-5 { animation-delay: 0.3s !important; }
 .delay-6 { animation-delay: 0.35s !important; }
+
+/*- Primary filled button */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: opacity 0.2s;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+/*- Outlined button */
+.btn-outline {
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  padding: 10px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s;
+  display: inline-block;
+}
+
+.btn-outline:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+/*- Multicolor accent bar divider */
+.colored-bar {
+  display: flex;
+  height: 4px;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.colored-bar span:nth-child(1) { background: #1B3F7A; flex: 1; }
+.colored-bar span:nth-child(2) { background: #E63329; flex: 1; }
+.colored-bar span:nth-child(3) { background: #F5A623; flex: 1; }
+.colored-bar span:nth-child(4) { background: #2D7A4F; flex: 1; }
+.colored-bar span:nth-child(5) { background: #6B4FA0; flex: 1; }

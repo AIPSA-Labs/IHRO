@@ -2,11 +2,14 @@
 import Footer from "../components/global/Footer.astro";
 import NavBar from "../components/global/NavBar.astro";
 import SideBar from "../components/global/SideBar.astro";
+import Toast from "../components/global/Toast.astro";
 import '../styles/global.css'
+
+const { local = "en" } = Astro.params ?? {};
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang={local} class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,10 +22,11 @@ import '../styles/global.css'
 		<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 		<title>IHRO - International Human Rights Organization</title>
 	</head>
-	<body class="bg-surface text-on-surface overflow-x-hidden">
+	<body class="bg-white text-on-surface overflow-x-hidden">
 		<NavBar/>
 		<SideBar/>
-		<main class="mt-16">
+		<Toast/>
+		<main class="pt-16">
 			<slot />
 		</main>
 		<Footer/>

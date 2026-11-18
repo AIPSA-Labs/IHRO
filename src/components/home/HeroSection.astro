@@ -1,5 +1,5 @@
-
 ---
+//- Split hero layout: deep blue content panel on the left, full hero image on the right
 import { translations } from "../../locals/home/hero";
 import heroImg from "../../assets/hero.png";
 
@@ -8,38 +8,77 @@ const { local = "en" } = Astro.params ?? {};
 const t = translations[local as Locale] || translations["en"];
 ---
 
-<section class="relative min-h-[85vh] flex items-center overflow-hidden pt-20">
+<section class="relative min-h-screen flex flex-col md:flex-row overflow-hidden">
 
-  <!-- Background Image -->
-  <div class="absolute inset-0 z-0">
-    <img src={heroImg.src} alt="IHRO Hero" class="w-full h-full object-cover" />
-    <div class="absolute inset-0 bg-gradient-to-r from-justice-navy/90 via-justice-navy/40 to-transparent"></div>
-  </div>
+  {/*- Left panel: deep blue background with content */}
+  <div class="relative z-10 flex flex-col justify-center w-full md:w-1/2 bg-blue-900 px-5 sm:px-8 md:px-16 py-14 sm:py-20 md:py-24">
 
-  <!-- Content -->
-  <div class="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-6 py-20">
-    <div class="max-w-xl">
-      <h1 class="font-['Hanken_Grotesk'] text-[36px] md:text-[52px] leading-[60px] tracking-[-0.02em] font-bold text-white mb-6">
+    {/*- Decorative subtle background circles */}
+    <div class="absolute top-10 left-10 w-32 h-32 rounded-full bg-blue-800 opacity-40 pointer-events-none"></div>
+    <div class="absolute bottom-16 right-8 w-20 h-20 rounded-full bg-blue-700 opacity-30 pointer-events-none"></div>
+
+    {/*- Inner content */}
+    <div class="relative max-w-xl">
+
+      {/*- Headline */}
+      <h1 class="font-['Hanken_Grotesk'] text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-6 tracking-tight">
         {t.title}
       </h1>
-      <p class="font-['Inter'] text-[18px] leading-[28px] text-white/80 mb-10">
+
+      {/*- Subtitle */}
+      <p class="font-['Inter'] text-lg text-white opacity-80 leading-relaxed mb-10">
         {t.subtitle}
       </p>
-      <div class="flex flex-wrap gap-4">
+
+      {/*- CTA Buttons */}
+      <div class="flex flex-wrap gap-4 mb-12">
         <a
-          href="/campaigns"
-          class="bg-action-blue text-on-primary font-['Inter'] text-sm font-semibold px-8 py-4 rounded-lg hover:bg-secondary transition-all shadow-lg active:scale-95"
+          href={`/${local}/contact`}
+          class="bg-yellow-500 text-gray-900 font-semibold text-sm px-8 py-4 rounded-lg hover:bg-yellow-400 transition-colors shadow-lg active:scale-95"
         >
           {t.cta}
         </a>
         <a
-          href="#mission"
-          class="bg-white/10 backdrop-blur-md border border-white/20 text-white font-['Inter'] text-sm font-semibold px-8 py-4 rounded-lg hover:bg-white/20 transition-all active:scale-95"
+          href={`/${local}/#mission`}
+          class="border-2 border-white text-white font-semibold text-sm px-8 py-4 rounded-lg hover:bg-white hover:text-blue-900 transition-colors active:scale-95"
         >
           Our Mission
         </a>
       </div>
+
+      {/*- Stats row */}
+      <div class="flex items-center justify-between sm:justify-start gap-3 sm:gap-6 pt-6 border-t border-blue-800">
+        <div class="text-center">
+          <p class="text-white font-bold text-xl sm:text-2xl font-['Hanken_Grotesk']">50+</p>
+          <p class="text-white opacity-70 text-xs uppercase tracking-wider font-medium">Countries</p>
+        </div>
+        <div class="w-px h-10 bg-white opacity-30"></div>
+        <div class="text-center">
+          <p class="text-white font-bold text-xl sm:text-2xl font-['Hanken_Grotesk']">10K+</p>
+          <p class="text-white opacity-70 text-xs uppercase tracking-wider font-medium">Cases</p>
+        </div>
+        <div class="w-px h-10 bg-white opacity-30"></div>
+        <div class="text-center">
+          <p class="text-white font-bold text-xl sm:text-2xl font-['Hanken_Grotesk']">Est. 2024</p>
+          <p class="text-white opacity-70 text-xs uppercase tracking-wider font-medium">Global NGO</p>
+        </div>
+      </div>
+
     </div>
+  </div>
+
+  {/*- Right panel: hero image, crisp and full height */}
+  <div class="relative w-full md:w-1/2 min-h-80 md:min-h-full">
+    <img
+      src={heroImg.src}
+      alt="IHRO Hero"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+  </div>
+
+  {/*- Multicolor bar divider at the very bottom of the hero */}
+  <div class="colored-bar absolute bottom-0 left-0 right-0 z-20">
+    <span></span><span></span><span></span><span></span><span></span>
   </div>
 
 </section>

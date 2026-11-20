@@ -33,6 +33,14 @@ export const CONFIG = {
   PILLARS_PER_ROW: 3,
   DEFAULT_MAP_ASPECT_RATIO: 1,
 
+  //- Vision 2047 layout and icon display constants
+  VISION_2047: {
+    ICON_SIZE_LG: 24,
+    ICON_SIZE_MD: 20,
+    ICON_SIZE_SM: 16,
+    TARGET_YEAR: 2047,
+  },
+
   //- Organization Official Contact & Social URLs
   SOCIAL_URLS: {
     LINKEDIN: "https://www.linkedin.com/company/ihro-world",

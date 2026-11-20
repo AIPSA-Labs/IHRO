@@ -1,0 +1,120 @@
+---
+//- Vision 2047: Vikasit Bharat section celebrating national development milestones
+import { translations } from "../../locals/home/vision";
+import { CONFIG } from "../../constants/config";
+import { School, Briefcase, Users, ShieldCheck, ArrowRight } from "@lucide/astro";
+
+type Locale = "en" | "hi" | "fr";
+const { local = "en" } = Astro.params ?? {};
+const t = translations[local as Locale] || translations["en"];
+
+//- Four foundational goals of Vision 2047 with corresponding Lucide icons
+const iconMap = {
+  school: School,
+  briefcase: Briefcase,
+  users: Users,
+  shield: ShieldCheck,
+};
+---
+
+<section id="vision-2047" class="border-y border-gray-200 bg-gray-50 py-20 text-gray-900 lg:py-28 relative overflow-hidden">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+    {/*- Header with Vikasit Bharat 2047 Logo */}
+    <div class="mx-auto max-w-3xl text-center">
+      <div class="mb-6 flex justify-center animate-on-scroll">
+        <div class="flex h-32 w-32 items-center justify-center rounded-full border border-gray-200 bg-white p-3 shadow-sm sm:h-40 sm:w-40 md:h-44 md:w-44">
+          <img
+            src={t.logoUrl}
+            alt={t.logoAlt}
+            class="h-full w-full rounded-full object-contain"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <p class="animate-on-scroll delay-1 mb-3 text-xs font-semibold tracking-widest text-blue-900 uppercase">
+        {t.tag}
+      </p>
+
+      <h2 class="animate-on-scroll delay-2 font-['Hanken_Grotesk'] text-3xl font-bold text-blue-900 sm:text-4xl lg:text-5xl">
+        {t.title}
+      </h2>
+
+      <p class="animate-on-scroll delay-3 mt-4 font-['Inter'] text-base leading-relaxed text-gray-600 sm:text-lg">
+        {t.subtitle}
+      </p>
+    </div>
+
+    {/*- 4 Vision Targets Grid */}
+    <div class="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {t.goals.map((goal, index) => {
+        const IconComponent = iconMap[goal.icon as keyof typeof iconMap] || School;
+        const delayClass = `delay-${(index % 4) + 1}`;
+        return (
+          <div class={`animate-on-scroll ${delayClass} flex flex-col justify-between rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition duration-300 hover:border-blue-900 hover:shadow-md sm:p-7`}>
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                  {goal.category}
+                </span>
+                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-800">
+                  <IconComponent class="h-5 w-5 shrink-0" />
+                </div>
+              </div>
+
+              <div class="mt-4">
+                <div class="font-['Hanken_Grotesk'] text-3xl font-bold text-blue-900 sm:text-4xl">
+                  {goal.stat}
+                </div>
+                <h3 class="mt-1 font-['Hanken_Grotesk'] text-lg font-bold text-gray-900">
+                  {goal.title}
+                </h3>
+              </div>
+
+              <p class="mt-3 font-['Inter'] text-sm leading-relaxed text-gray-600">
+                {goal.desc}
+              </p>
+            </div>
+
+            <div class="mt-6 border-t border-gray-100 pt-4">
+              <span class="inline-flex items-center text-xs font-semibold text-blue-800 uppercase tracking-wider">
+                {t.cardBadge}
+              </span>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    {/*- Bottom Strategic Alignment Banner */}
+    <div class="animate-on-scroll delay-2 mt-12 rounded-2xl border border-gray-200 bg-white p-8 shadow-sm sm:p-10 lg:flex lg:items-center lg:justify-between lg:p-12">
+      <div class="max-w-3xl">
+        <h3 class="font-['Hanken_Grotesk'] text-xl font-bold text-blue-900 sm:text-2xl">
+          {t.bannerTitle}
+        </h3>
+        <p class="mt-3 font-['Inter'] text-sm leading-relaxed text-gray-600 sm:text-base">
+          {t.bannerDesc}
+        </p>
+      </div>
+
+      <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center lg:mt-0 lg:shrink-0">
+        <a
+          href={`/${local}/contact`}
+          class="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-blue-900 px-8 text-sm font-semibold tracking-wide whitespace-nowrap text-white transition hover:bg-blue-800"
+        >
+          <span>{t.bannerPrimaryBtn}</span>
+          <ArrowRight class="h-4 w-4 shrink-0" />
+        </a>
+
+        <a
+          href={`/${local}/contact`}
+          class="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-blue-900 bg-transparent px-8 text-sm font-semibold tracking-wide whitespace-nowrap text-blue-900 transition hover:bg-blue-900 hover:text-white"
+        >
+          <span>{t.bannerSecondaryBtn}</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>

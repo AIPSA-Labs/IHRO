@@ -176,6 +176,24 @@ export interface AppStrings {
     ctaPrimary: string;
     ctaSecondary: string;
   };
+  vision2047: {
+    tag: string;
+    title: string;
+    subtitle: string;
+    logoUrl: string;
+    logoAlt: string;
+    cardBadge: string;
+    cards: Array<{
+      category: string;
+      stat: string;
+      title: string;
+      desc: string;
+    }>;
+    bannerTitle: string;
+    bannerDesc: string;
+    bannerPrimaryBtn: string;
+    bannerSecondaryBtn: string;
+  };
   footer: {
     brandDesc: string;
     quickLinksTitle: string;
@@ -194,6 +212,7 @@ export interface AppStrings {
       instagram: string;
       youtube: string;
       twitter: string;
+      vision2047: string;
     };
   };
   api: {
@@ -499,6 +518,47 @@ export const STRINGS: Record<LocaleCode, AppStrings> = {
       ctaPrimary: "Join the Movement",
       ctaSecondary: "Explore Our Work",
     },
+    vision2047: {
+      tag: "National Mission · Roadmap to 2047",
+      title: "Vision 2047: Vikasit Bharat",
+      subtitle:
+        "A nationwide mission celebrating 100 years of Indian independence by advancing human rights, expanding foundational education, empowering women, and securing justice across India.",
+      logoUrl:
+        "https://storage.allindiateachersfederation.com/uploads/2026/11/vikasit-bharat-mission-2047-logo.jpg",
+      logoAlt: "Vikasit Bharat Mission 2047 - Celebrating 100 Years of Independence",
+      cardBadge: "National Mission",
+      cards: [
+        {
+          category: "Early Childhood Education",
+          stat: "10,000",
+          title: "Pre-Schools Nationwide",
+          desc: "Setting up 10,000 joyful, high-quality preschools across urban and rural communities to give young children a strong start in life and learning.",
+        },
+        {
+          category: "Career & Empowerment",
+          stat: "1 Lakh",
+          title: "New Career Opportunities",
+          desc: "Creating one lakh rewarding opportunities for qualified women educators, school leaders, and early childhood care professionals.",
+        },
+        {
+          category: "Community & Solidarity",
+          stat: "1 Lakh+",
+          title: "Human Rights & Educator Network",
+          desc: "Uniting over one lakh dedicated teachers, rights defenders, and community advocates into an active nationwide solidarity network.",
+        },
+        {
+          category: "Institutional Protection",
+          stat: "36 States & UTs",
+          title: "Statewide Legal Aid Cells",
+          desc: "Establishing active legal aid cells across every state and union territory to safeguard human rights, protect educators, and resolve grievances.",
+        },
+      ],
+      bannerTitle: "Building the Foundation for a Developed India",
+      bannerDesc:
+        "In alignment with the national vision of Vikasit Bharat 2047, IHRO bridges grassroots rights protection with institutional support — ensuring every citizen is protected, every child is nurtured, and every community thrives in equality.",
+      bannerPrimaryBtn: "Get Involved",
+      bannerSecondaryBtn: "Contact Legal Aid",
+    },
     footer: {
       brandDesc: "The International Human Rights Organization (IHRO) is an independent non-governmental body defending the Universal Declaration of Human Rights.",
       quickLinksTitle: "QUICK LINKS",
@@ -517,6 +577,7 @@ export const STRINGS: Record<LocaleCode, AppStrings> = {
         instagram: "Instagram",
         youtube: "YouTube",
         twitter: "X (Twitter)",
+        vision2047: "Vision 2047: Vikasit Bharat",
       },
     },
     api: {
@@ -820,6 +881,47 @@ export const STRINGS: Record<LocaleCode, AppStrings> = {
       ctaPrimary: "आंदोलन से जुड़ें",
       ctaSecondary: "हमारा कार्य देखें",
     },
+    vision2047: {
+      tag: "राष्ट्रीय मिशन · 2047 का रोडमैप",
+      title: "विजन 2047: विकसित भारत",
+      subtitle:
+        "भारतीय स्वतंत्रता के 100 वर्ष पूरे होने के उपलक्ष्य में मानवाधिकारों को बढ़ावा देने, बुनियादी शिक्षा का विस्तार करने, महिलाओं को सशक्त बनाने और पूरे भारत में न्याय सुनिश्चित करने का एक राष्ट्रव्यापी मिशन।",
+      logoUrl:
+        "https://storage.allindiateachersfederation.com/uploads/2026/11/vikasit-bharat-mission-2047-logo.jpg",
+      logoAlt: "विकसित भारत मिशन 2047 - स्वतंत्रता के 100 वर्ष का उत्सव",
+      cardBadge: "राष्ट्रीय मिशन",
+      cards: [
+        {
+          category: "प्रारंभिक बाल्यावस्था शिक्षा",
+          stat: "10,000",
+          title: "देशभर में प्री-स्कूल",
+          desc: "छोटे बच्चों को जीवन और शिक्षा में एक मजबूत शुरुआत देने के लिए शहरी और ग्रामीण क्षेत्रों में 10,000 आनंदमय और गुणवत्तापूर्ण प्री-स्कूल स्थापित करना।",
+        },
+        {
+          category: "कैरियर और सशक्तिकरण",
+          stat: "1 लाख",
+          title: "कैरियर के नए अवसर",
+          desc: "योग्य महिला शिक्षकों, विद्यालय प्रमुखों और प्रारंभिक बाल्यावस्था देखभाल विशेषज्ञों के लिए एक लाख उपयोगी रोजगार के अवसर सृजित करना।",
+        },
+        {
+          category: "समुदाय और एकजुटता",
+          stat: "1 लाख+",
+          title: "मानवाधिकार और शिक्षक नेटवर्क",
+          desc: "एक लाख से अधिक समर्पित शिक्षकों, मानवाधिकार रक्षकों और सामाजिक कार्यकर्ताओं को एक सक्रिय राष्ट्रव्यापी समर्थन नेटवर्क में एकजुट करना।",
+        },
+        {
+          category: "संस्थागत सुरक्षा",
+          stat: "36 राज्य और केंद्र शासित प्रदेश",
+          title: "राज्यव्यापी कानूनी सहायता प्रकोष्ठ",
+          desc: "मानवाधिकारों की सुरक्षा, शिक्षकों के अधिकारों की रक्षा और शिकायतों के समाधान के लिए प्रत्येक राज्य और केंद्र शासित प्रदेश में सक्रिय कानूनी प्रकोष्ठ स्थापित करना।",
+        },
+      ],
+      bannerTitle: "विकसित भारत की मजबूत नींव का निर्माण",
+      bannerDesc:
+        "विकसित भारत 2047 के राष्ट्रीय विजन के अनुरूप, IHRO जमीनी स्तर पर अधिकारों की रक्षा को संस्थागत सहयोग से जोड़ता है — ताकि हर नागरिक सुरक्षित रहे, हर बच्चे को बुनियादी शिक्षा मिले और हर समुदाय उन्नति करे।",
+      bannerPrimaryBtn: "हमसे जुड़ें",
+      bannerSecondaryBtn: "कानूनी प्रकोष्ठ से संपर्क करें",
+    },
     footer: {
       brandDesc: "अंतर्राष्ट्रीय मानवाधिकार संगठन (IHRO) एक स्वतंत्र गैर-सरकारी संस्था है जो मानवाधिकारों की सार्वभौम घोषणा की रक्षा करती है।",
       quickLinksTitle: "त्वरित लिंक",
@@ -838,6 +940,7 @@ export const STRINGS: Record<LocaleCode, AppStrings> = {
         instagram: "Instagram",
         youtube: "YouTube",
         twitter: "X (Twitter)",
+        vision2047: "विजन 2047: विकसित भारत",
       },
     },
     api: {
@@ -1141,6 +1244,47 @@ export const STRINGS: Record<LocaleCode, AppStrings> = {
       ctaPrimary: "Rejoindre le Mouvement",
       ctaSecondary: "Découvrir Notre Travail",
     },
+    vision2047: {
+      tag: "Mission Nationale · Cap sur 2047",
+      title: "Vision 2047: Vikasit Bharat",
+      subtitle:
+        "Une mission nationale célébrant les 100 ans de l'indépendance de l'Inde en faisant progresser les droits humains, l'éducation fondamentale, l'autonomisation des femmes et la justice.",
+      logoUrl:
+        "https://storage.allindiateachersfederation.com/uploads/2026/11/vikasit-bharat-mission-2047-logo.jpg",
+      logoAlt: "Mission Vikasit Bharat 2047 - Célébration des 100 ans d'indépendance",
+      cardBadge: "Mission Nationale",
+      cards: [
+        {
+          category: "Éducation de la Petite Enfance",
+          stat: "10 000",
+          title: "Écoles Maternelles Nationales",
+          desc: "Création de 10 000 écoles maternelles de haute qualité dans les zones urbaines et rurales pour offrir un bon départ aux enfants.",
+        },
+        {
+          category: "Carrière & Autonomisation",
+          stat: "100 000",
+          title: "Nouvelles Opportunités de Carrière",
+          desc: "Création de 100 000 opportunités valorisantes pour les éducatrices qualifiées, directrices d'écoles et professionnelles de la petite enfance.",
+        },
+        {
+          category: "Communauté & Solidarité",
+          stat: "100 000+",
+          title: "Réseau des Défenseurs et Éducateurs",
+          desc: "Fédération de plus de 100 000 enseignants dévoués, défenseurs des droits humains et acteurs sociaux dans un réseau national solidaire.",
+        },
+        {
+          category: "Protection Institutionnelle",
+          stat: "36 États & Territoires",
+          title: "Cellules Juridiques d'État",
+          desc: "Mise en place de cellules d'aide juridique dans tous les États et territoires de l'Union pour protéger les droits fondamentaux et résoudre les litiges.",
+        },
+      ],
+      bannerTitle: "Bâtir les Fondations d'une Inde Développée",
+      bannerDesc:
+        "En accord avec la vision nationale de Vikasit Bharat 2047, l'IHRO allie la protection des droits sur le terrain à un soutien institutionnel — garantissant la protection de chaque citoyen, l'éducation de chaque enfant et l'épanouissement de chaque communauté.",
+      bannerPrimaryBtn: "Participer",
+      bannerSecondaryBtn: "Contacter la Cellule Juridique",
+    },
     footer: {
       brandDesc: "L'Organisation Internationale des Droits de l'Homme (IHRO) est une organisation indépendante qui défend la Déclaration Universelle des Droits de l'Homme.",
       quickLinksTitle: "LIENS RAPIDES",
@@ -1159,6 +1303,7 @@ export const STRINGS: Record<LocaleCode, AppStrings> = {
         instagram: "Instagram",
         youtube: "YouTube",
         twitter: "X (Twitter)",
+        vision2047: "Vision 2047: Vikasit Bharat",
       },
     },
     api: {
